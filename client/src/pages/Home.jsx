@@ -55,7 +55,7 @@ export default function Home() {
     const fetchProducts = async () => {
       try {
         const { data } = await api.get('/products');
-        setFeaturedProducts(data.slice(0, 6));
+        setFeaturedProducts(data.slice(0, 12));
       } catch (err) {
         console.error('Failed to fetch products', err);
       } finally {
@@ -328,8 +328,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* FEATURED COLLECTION GRID */}
-      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 32px)' }}>
+      {/* FEATURED COLLECTION GRID (4 Columns Across, Covering Full Width) */}
+      <section style={{ maxWidth: '1680px', margin: '0 auto', padding: 'clamp(60px, 7vw, 100px) clamp(20px, 3.5vw, 48px)' }}>
         <div
           style={{
             display: 'flex',
@@ -353,38 +353,32 @@ export default function Home() {
           >
             Signature <em style={{ fontStyle: 'italic' }}>Atelier</em> Sets
           </h2>
-          <p style={{ fontSize: '15px', color: 'var(--ash)', maxWidth: '520px' }}>
+          <p style={{ fontSize: '15px', color: 'var(--ash)', maxWidth: '560px' }}>
             Sold exclusively as complete two-piece tracksuit sets. Every piece is tailored to harmonize silhouette, drape, and tactile comfort.
           </p>
         </div>
 
-        {/* 3-Column 3D Grid with fluid columns */}
+        {/* 4-Column 3D Grid with Full Space Utilization */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: '60px', color: 'var(--ash)' }}>
             Curating Atelier Sets...
           </div>
         ) : (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-              gap: 'clamp(20px, 3vw, 36px)',
-            }}
-          >
+          <div className="atelier-product-grid">
             {featuredProducts.map((product) => (
               <ProductCard3D key={product._id} product={product} />
             ))}
           </div>
         )}
 
-        <div style={{ textAlign: 'center', marginTop: '48px' }}>
+        <div style={{ textAlign: 'center', marginTop: '54px' }}>
           <Button3D
             variant="outline"
             size="md"
             onClick={() => navigate('/shop')}
             icon={ArrowUpRight}
           >
-            View All 10 Sets
+            Explore All 12 Atelier Sets
           </Button3D>
         </div>
       </section>

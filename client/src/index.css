@@ -249,3 +249,33 @@ a {
   overflow: hidden;
   transition: max-height 0.5s var(--ease-luxury);
 }
+
+/* 4-Column Luxury Atelier Product Grid */
+.atelier-product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 1280px) {
+  .atelier-product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .atelier-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  .atelier-product-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+

@@ -18,6 +18,7 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [openAccordion, setOpenAccordion] = useState('details');
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [activeViewMode, setActiveViewMode] = useState('model'); // 'model' | 'flat'
 
   // Review submission state
   const [reviewRating, setReviewRating] = useState(5);
@@ -130,9 +131,9 @@ export default function ProductDetail() {
             <div
               style={{
                 width: '100%',
-                height: 'clamp(340px, 48vh, 560px)',
+                height: 'clamp(380px, 56vh, 620px)',
                 borderRadius: '24px',
-                background: 'var(--cloud)',
+                background: '#F7F6F3',
                 border: '1px solid var(--hairline-sky)',
                 display: 'flex',
                 alignItems: 'center',
@@ -142,20 +143,10 @@ export default function ProductDetail() {
                 boxShadow: 'var(--card-3d-shadow)',
               }}
             >
-              {/* Radial Sky-Blue and Champagne Ambient Glow */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'var(--sky-ambient-glow)',
-                  opacity: 0.7,
-                }}
-              />
-
               {/* Badges */}
               <div style={{ position: 'absolute', top: 24, left: 24, zIndex: 10, display: 'flex', gap: 8 }}>
                 {product.isNewArrival && (
-                  <span style={{ background: 'rgba(255, 255, 255, 0.9)', padding: '6px 14px', borderRadius: '999px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600 }}>
+                  <span style={{ background: 'rgba(255, 255, 255, 0.92)', padding: '6px 14px', borderRadius: '999px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600 }}>
                     New Release
                   </span>
                 )}
@@ -166,39 +157,153 @@ export default function ProductDetail() {
                 )}
               </div>
 
-              {/* Interactive Vector Fashion Rendering of Complete 2-Piece Set */}
-              <div style={{ position: 'relative', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <svg
-                  width="260"
-                  height="340"
-                  viewBox="0 0 100 130"
-                  fill="none"
-                  style={{ filter: 'drop-shadow(0 24px 35px rgba(26,26,26,0.18))' }}
+              {/* View Mode Toggle: Model vs Article Flat-Lay */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 24,
+                  right: 24,
+                  zIndex: 20,
+                  display: 'flex',
+                  gap: 4,
+                  background: 'rgba(255, 255, 255, 0.85)',
+                  backdropFilter: 'blur(12px)',
+                  padding: '4px',
+                  borderRadius: '999px',
+                  border: '1px solid var(--hairline)',
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setActiveViewMode('model')}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: '999px',
+                    border: 'none',
+                    background: activeViewMode === 'model' ? 'var(--graphite)' : 'transparent',
+                    color: activeViewMode === 'model' ? '#FFFFFF' : 'var(--graphite)',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
                 >
-                  {/* Top / Hoodie */}
-                  <path
-                    d="M32 18 C38 12, 62 12, 68 18 L86 36 C89 39, 87 45, 83 47 L76 50 L75 72 C75 74, 73 76, 71 76 L29 76 C27 76, 25 74, 25 72 L24 50 L17 47 C13 45, 11 39, 14 36 Z"
-                    fill={primaryHex}
-                    stroke="#1A1A1A"
-                    strokeWidth="1.2"
-                  />
-                  <path d="M40 18 C46 24, 54 24, 60 18 C56 28, 44 28, 40 18 Z" fill="rgba(255,255,255,0.3)" />
-                  <line x1="46" y1="26" x2="46" y2="44" stroke="var(--champagne)" strokeWidth="1.5" strokeLinecap="round" />
-                  <line x1="54" y1="26" x2="54" y2="44" stroke="var(--champagne)" strokeWidth="1.5" strokeLinecap="round" />
-                  {/* Bottom / Joggers */}
-                  <path
-                    d="M28 80 L72 80 C74 80, 75 81, 75 83 L71 124 C71 126, 69 128, 66 128 L56 128 C54 128, 53 126, 53 124 L51 96 L49 96 L47 124 C47 126, 46 128, 44 128 L34 128 C31 128, 29 126, 29 124 L25 83 C25 81, 26 80, 28 80 Z"
-                    fill={primaryHex}
-                    stroke="#1A1A1A"
-                    strokeWidth="1.2"
-                  />
-                  <rect x="34" y="125" width="10" height="3" rx="1.5" fill="rgba(26,26,26,0.2)" />
-                  <rect x="56" y="125" width="10" height="3" rx="1.5" fill="rgba(26,26,26,0.2)" />
-                </svg>
+                  On Model
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveViewMode('flat')}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: '999px',
+                    border: 'none',
+                    background: activeViewMode === 'flat' ? 'var(--graphite)' : 'transparent',
+                    color: activeViewMode === 'flat' ? '#FFFFFF' : 'var(--graphite)',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  Garment Flat-Lay
+                </button>
+              </div>
 
-                <p style={{ marginTop: '24px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--ash)' }}>
-                  Selected: {selectedColor} • 2-Piece Complete Set
-                </p>
+              {/* Image Rendering: Model or Flat-Lay */}
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={`${selectedColor}-${activeViewMode}`}
+                  src={
+                    activeViewMode === 'model'
+                      ? (activeColorObj?.modelImage || product.images?.[0] || '/images/hero/hero-1.jpg')
+                      : (activeColorObj?.articleImage || product.images?.[1] || activeColorObj?.modelImage || '/images/hero/hero-1.jpg')
+                  }
+                  alt={`${product.title} - ${selectedColor}`}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35 }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: activeViewMode === 'model' ? 'cover' : 'contain',
+                    objectPosition: 'center 15%',
+                    padding: activeViewMode === 'flat' ? '32px' : 0,
+                  }}
+                />
+              </AnimatePresence>
+            </div>
+
+            {/* Thumbnail Preview Selector Below Main View */}
+            <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
+              <div
+                onClick={() => setActiveViewMode('model')}
+                style={{
+                  flex: 1,
+                  height: '90px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  border: activeViewMode === 'model' ? '2px solid var(--champagne)' : '1px solid var(--hairline)',
+                  position: 'relative',
+                  background: '#F5F5F3',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                <img
+                  src={activeColorObj?.modelImage || product.images?.[0]}
+                  alt="Model View"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
+                />
+                <span
+                  style={{
+                    position: 'absolute',
+                    bottom: 4,
+                    left: 6,
+                    fontSize: '9px',
+                    background: 'rgba(0,0,0,0.6)',
+                    color: '#FFF',
+                    padding: '2px 6px',
+                    borderRadius: '4px',
+                  }}
+                >
+                  Editorial View
+                </span>
+              </div>
+
+              <div
+                onClick={() => setActiveViewMode('flat')}
+                style={{
+                  flex: 1,
+                  height: '90px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  border: activeViewMode === 'flat' ? '2px solid var(--champagne)' : '1px solid var(--hairline)',
+                  position: 'relative',
+                  background: '#F8F7F4',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                <img
+                  src={activeColorObj?.articleImage || product.images?.[1] || activeColorObj?.modelImage}
+                  alt="Flat-lay View"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '6px' }}
+                />
+                <span
+                  style={{
+                    position: 'absolute',
+                    bottom: 4,
+                    left: 6,
+                    fontSize: '9px',
+                    background: 'rgba(0,0,0,0.6)',
+                    color: '#FFF',
+                    padding: '2px 6px',
+                    borderRadius: '4px',
+                  }}
+                >
+                  Garment View
+                </span>
               </div>
             </div>
           </div>

@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 const colorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   hex: { type: String, required: true },
-  active: { type: Boolean, default: true }
+  active: { type: Boolean, default: true },
+  modelImage: { type: String, default: '' },
+  articleImage: { type: String, default: '' }
 }, { _id: false });
 
 const sizeSchema = new mongoose.Schema({
