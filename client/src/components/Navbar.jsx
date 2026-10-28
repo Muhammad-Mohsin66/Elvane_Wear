@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Heart, User, Menu, X, LogOut, Shield } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
@@ -13,6 +13,7 @@ export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuthStore();
   const { getItemCount, toggleCart } = useCartStore();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -25,6 +26,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
+    { name: 'Home', path: '/' },
     { name: 'Collection', path: '/shop' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
@@ -81,28 +83,151 @@ export default function Navbar() {
           boxShadow: scrolled ? '0 4px 30px rgba(26, 26, 26, 0.06)' : 'none',
         }}
       >
-        {/* Left Desktop Links */}
-        <div style={{ display: 'flex', gap: 'clamp(16px, 2.5vw, 32px)', alignItems: 'center', flex: 1 }}>
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map(link => (
+        {/* Left: Brand Logo */}
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+          <Link
+            to="/"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              textDecoration: 'none',
+            }}
+          >
+            <img
+              src="/logo.jpg"
+              alt="Elvane Wear Logo"
+              style={{
+                height: '38px',
+                width: 'auto',
+                borderRadius: '4px',
+                objectFit: 'contain',
+                mixBlendMode: 'multiply',
+              }}
+            />
+            <h1
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 'clamp(18px, 2.5vw, 24px)',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--graphite)',
+                margin: 0,
+                lineHeight: 1.2,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Elvane <span style={{ fontWeight: 400, fontStyle: 'italic', color: 'var(--champagne)' }}>Wear</span>
+            </h1>
+          </Link>
+        </div>
+
+        {/* Center: Desktop Navigation Links */}
+        <div
+          className="hidden md:flex items-center justify-center gap-8"
+          style={{
+            flex: 2,
+            textAlign: 'center',
+          }}
+        >
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
               <Link
                 key={link.path}
                 to={link.path}
                 className="link-underline"
                 style={{
                   fontSize: 12,
-                  letterSpacing: '0.14em',
+                  letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  fontWeight: 500,
-                  color: 'var(--ash)',
+                  fontWeight: isActive ? 600 : 500,
+                  color: isActive ? 'var(--graphite)' : 'var(--ash)',
+                  transition: 'color 0.2s ease',
+                  position: 'relative',
+                  padding: '4px 0',
                 }}
               >
                 {link.name}
               </Link>
-            ))}
-          </div>
+            );
+          })}
+        </div>
 
-          {/* Mobile hamburger on the left */}
+        {/* Right: Actions & Mobile Hamburger */}
+        <div
+          style={{
+            display: 'flex',
+            gap: 'clamp(12px, 2vw, 20px)',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            flex: 1,
+          }}
+        >
+          {isAuthenticated && (
+            <Link to="/wishlist" style={{ color: 'var(--ash)', display: 'flex' }} className="hidden sm:flex" title="Wishlist">
+              <Heart size={20} strokeWidth={1.25} />
+            </Link>
+          )}
+
+          <button
+            onClick={toggleCart}
+            style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--graphite)', display: 'flex' }}
+            title="Shopping Bag"
+          >
+            <ShoppingBag size={20} strokeWidth={1.25} />
+            {getItemCount() > 0 && (
+              <span
+                style={{
+                  position: 'absolute',
+                  top: -6,
+                  right: -8,
+                  background: 'var(--champagne)',
+                  color: 'var(--snow)',
+                  borderRadius: '50%',
+                  width: 16,
+                  height: 16,
+                  fontSize: 10,
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {getItemCount()}
+              </span>
+            )}
+          </button>
+
+          {isAuthenticated ? (
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <Link
+                to={user?.role === 'superadmin' ? '/super-admin' : user?.role === 'admin' ? '/admin' : '/account'}
+                style={{ color: 'var(--ash)', display: 'flex' }}
+                title="Account"
+              >
+                <User size={20} strokeWidth={1.25} />
+              </Link>
+              <button
+                onClick={() => {
+                  logout();
+                  navigate('/');
+                }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ash)', display: 'flex' }}
+                className="hidden sm:flex"
+                title="Sign Out"
+              >
+                <LogOut size={18} strokeWidth={1.25} />
+              </button>
+            </div>
+          ) : (
+            <Link to="/login" style={{ color: 'var(--ash)', display: 'flex' }} title="Sign In">
+              <User size={20} strokeWidth={1.25} />
+            </Link>
+          )}
+
+          {/* Mobile hamburger toggle button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             style={{
@@ -117,83 +242,6 @@ export default function Navbar() {
           >
             {mobileOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
           </button>
-        </div>
-
-        {/* Center Logo */}
-        <Link to="/" style={{ textAlign: 'center', flex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', textDecoration: 'none' }}>
-          <img
-            src="/logo.jpg"
-            alt="Elvane Wear Logo"
-            style={{
-              height: '38px',
-              width: 'auto',
-              borderRadius: '4px',
-              objectFit: 'contain',
-              mixBlendMode: 'multiply',
-            }}
-          />
-          <h1 style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: 'clamp(18px, 4.2vw, 25px)',
-            fontWeight: 600,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: 'var(--graphite)',
-            margin: 0,
-            lineHeight: 1.2,
-            whiteSpace: 'nowrap',
-          }}>
-            Elvane <span style={{ fontWeight: 400, fontStyle: 'italic', color: 'var(--champagne)' }}>Wear</span>
-          </h1>
-        </Link>
-
-        {/* Right Action Icons */}
-        <div style={{ display: 'flex', gap: 'clamp(10px, 2vw, 18px)', alignItems: 'center', justifyContent: 'flex-end', flex: 1 }}>
-          {isAuthenticated && (
-            <Link to="/wishlist" style={{ color: 'var(--ash)' }} className="hidden sm:flex" title="Wishlist">
-              <Heart size={20} strokeWidth={1.25} />
-            </Link>
-          )}
-
-          <button
-            onClick={toggleCart}
-            style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--graphite)', display: 'flex' }}
-            title="Shopping Bag"
-          >
-            <ShoppingBag size={20} strokeWidth={1.25} />
-            {getItemCount() > 0 && (
-              <span style={{
-                position: 'absolute', top: -6, right: -8,
-                background: 'var(--champagne)', color: 'var(--snow)',
-                borderRadius: '50%', width: 16, height: 16,
-                fontSize: 10, fontWeight: 600,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                {getItemCount()}
-              </span>
-            )}
-          </button>
-
-          {isAuthenticated ? (
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <Link to={user?.role === 'superadmin' ? '/super-admin' : user?.role === 'admin' ? '/admin' : '/account'}
-                style={{ color: 'var(--ash)', display: 'flex' }} title="Account">
-                <User size={20} strokeWidth={1.25} />
-              </Link>
-              <button
-                onClick={() => { logout(); navigate('/'); }}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ash)', display: 'flex' }}
-                className="hidden sm:flex"
-                title="Sign Out"
-              >
-                <LogOut size={18} strokeWidth={1.25} />
-              </button>
-            </div>
-          ) : (
-            <Link to="/login" style={{ color: 'var(--ash)', display: 'flex' }} title="Sign In">
-              <User size={20} strokeWidth={1.25} />
-            </Link>
-          )}
         </div>
       </motion.nav>
 
