@@ -113,9 +113,9 @@ export default function ProductDetail() {
 
   return (
     <div style={{ background: 'var(--snow)', minHeight: '100vh', paddingTop: '100px', paddingBottom: '120px' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(16px, 4vw, 32px)' }}>
         {/* Breadcrumbs */}
-        <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: 'var(--ash)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: 'var(--ash)', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '32px', flexWrap: 'wrap' }}>
           <span onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>Home</span>
           <span>/</span>
           <span onClick={() => navigate('/shop')} style={{ cursor: 'pointer' }}>Collection</span>
@@ -124,13 +124,13 @@ export default function ProductDetail() {
         </div>
 
         {/* 2-Column Product Detail Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '64px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(28px, 4vw, 64px)', alignItems: 'start' }}>
           {/* Left Column: Interactive 3D Product Canvas & Showcase */}
-          <div style={{ position: 'sticky', top: '100px' }}>
+          <div>
             <div
               style={{
                 width: '100%',
-                height: '560px',
+                height: 'clamp(340px, 48vh, 560px)',
                 borderRadius: '24px',
                 background: 'var(--cloud)',
                 border: '1px solid var(--hairline-sky)',

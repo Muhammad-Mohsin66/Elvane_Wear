@@ -283,14 +283,14 @@ export default function Home() {
       </section>
 
       {/* FEATURED COLLECTION GRID */}
-      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '100px 32px' }}>
+      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 32px)' }}>
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            marginBottom: '64px',
+            marginBottom: '48px',
           }}
         >
           <span className="eyebrow" style={{ marginBottom: '12px' }}>
@@ -298,7 +298,7 @@ export default function Home() {
           </span>
           <h2
             style={{
-              fontSize: 'clamp(32px, 4.5vw, 56px)',
+              fontSize: 'clamp(30px, 4.5vw, 56px)',
               fontWeight: 500,
               fontFamily: "'Cormorant Garamond', serif",
               color: 'var(--graphite)',
@@ -312,7 +312,7 @@ export default function Home() {
           </p>
         </div>
 
-        {/* 3-Column 3D Grid */}
+        {/* 3-Column 3D Grid with fluid columns */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: '60px', color: 'var(--ash)' }}>
             Curating Atelier Sets...
@@ -321,8 +321,8 @@ export default function Home() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '36px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: 'clamp(20px, 3vw, 36px)',
             }}
           >
             {featuredProducts.map((product) => (
@@ -331,7 +331,7 @@ export default function Home() {
           </div>
         )}
 
-        <div style={{ textAlign: 'center', marginTop: '64px' }}>
+        <div style={{ textAlign: 'center', marginTop: '48px' }}>
           <Button3D
             variant="outline"
             size="md"
@@ -349,7 +349,7 @@ export default function Home() {
           background: 'var(--cloud)',
           borderTop: '1px solid var(--hairline)',
           borderBottom: '1px solid var(--hairline)',
-          padding: '120px 32px',
+          padding: 'clamp(60px, 8vw, 120px) clamp(16px, 4vw, 32px)',
         }}
       >
         <div
@@ -357,8 +357,8 @@ export default function Home() {
             maxWidth: '1280px',
             margin: '0 auto',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-            gap: '64px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+            gap: 'clamp(32px, 5vw, 64px)',
             alignItems: 'center',
           }}
         >
@@ -368,7 +368,7 @@ export default function Home() {
               background: 'var(--snow)',
               borderRadius: '24px',
               border: '1px solid var(--hairline)',
-              padding: '48px',
+              padding: 'clamp(24px, 5vw, 48px)',
               boxShadow: 'var(--card-3d-shadow)',
               position: 'relative',
               overflow: 'hidden',

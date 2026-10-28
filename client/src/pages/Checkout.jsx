@@ -109,7 +109,7 @@ export default function Checkout() {
 
   return (
     <div style={{ background: 'var(--snow)', minHeight: '100vh', paddingTop: '100px', paddingBottom: '120px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 32px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(16px, 4vw, 32px)' }}>
         {/* Header */}
         <div style={{ marginBottom: '40px' }}>
           <span className="eyebrow" style={{ color: 'var(--champagne)' }}>
@@ -171,7 +171,7 @@ export default function Checkout() {
 
         {/* 2-Column Checkout Layout */}
         <form onSubmit={handleSubmitOrder}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '48px', alignItems: 'start' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(24px, 4vw, 48px)', alignItems: 'start' }}>
             {/* Left Column: Shipping & Payment Method */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               {/* Shipping Address */}

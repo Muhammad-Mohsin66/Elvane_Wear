@@ -62,7 +62,7 @@ export default function Shop() {
 
   return (
     <div style={{ background: 'var(--snow)', minHeight: '100vh', paddingTop: '100px', paddingBottom: '100px' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(16px, 4vw, 32px)' }}>
         {/* Editorial Header */}
         <div style={{ textAlign: 'center', marginBottom: '48px', paddingTop: '32px' }}>
           <span className="eyebrow" style={{ color: 'var(--champagne)' }}>
@@ -225,8 +225,8 @@ export default function Shop() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '36px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: 'clamp(20px, 3vw, 36px)',
             }}
           >
             {products.map((product) => (

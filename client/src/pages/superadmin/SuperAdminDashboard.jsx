@@ -102,9 +102,9 @@ export default function SuperAdminDashboard() {
   ];
 
   return (
-    <div style={{ background: 'var(--snow)', minHeight: '100vh', padding: '40px 48px' }}>
+    <div style={{ background: 'var(--snow)', minHeight: '100vh', padding: 'clamp(24px, 4vw, 40px) clamp(16px, 4vw, 48px)' }}>
       {/* Top Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '40px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '20px', marginBottom: '40px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span
@@ -128,7 +128,7 @@ export default function SuperAdminDashboard() {
             </span>
           </div>
 
-          <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '42px', color: 'var(--graphite)', marginTop: '8px' }}>
+          <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(28px, 4.5vw, 42px)', color: 'var(--graphite)', marginTop: '8px' }}>
             Executive Dashboard & Audit Log
           </h1>
           <p style={{ fontSize: '13px', color: 'var(--ash)', marginTop: '4px' }}>
@@ -137,7 +137,7 @@ export default function SuperAdminDashboard() {
         </div>
 
         {/* Top actions */}
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <Button3D variant="outline" size="sm" onClick={() => navigate('/admin')}>
             Enter Admin Panel
           </Button3D>
@@ -186,10 +186,10 @@ export default function SuperAdminDashboard() {
       </div>
 
       {/* CHARTS SECTION */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '32px', marginBottom: '48px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(20px, 3vw, 32px)', marginBottom: '40px' }}>
         {/* Main Revenue Over Time */}
-        <div style={{ background: 'var(--snow)', borderRadius: '20px', border: '1px solid var(--hairline)', padding: '32px', boxShadow: '0 4px 18px rgba(26,26,26,0.03)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <div style={{ background: 'var(--snow)', borderRadius: '20px', border: '1px solid var(--hairline)', padding: 'clamp(20px, 3.5vw, 32px)', boxShadow: '0 4px 18px rgba(26,26,26,0.03)' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
             <div>
               <span className="eyebrow" style={{ fontSize: '10px' }}>Financial Metric</span>
               <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '24px' }}>Revenue Trajectory</h3>
@@ -238,7 +238,7 @@ export default function SuperAdminDashboard() {
         </div>
 
         {/* Payment Split Pie Chart */}
-        <div style={{ background: 'var(--snow)', borderRadius: '20px', border: '1px solid var(--hairline)', padding: '32px', boxShadow: '0 4px 18px rgba(26,26,26,0.03)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div style={{ background: 'var(--snow)', borderRadius: '20px', border: '1px solid var(--hairline)', padding: 'clamp(20px, 3.5vw, 32px)', boxShadow: '0 4px 18px rgba(26,26,26,0.03)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '380px' }}>
           <div>
             <span className="eyebrow" style={{ fontSize: '10px' }}>Payment Channels</span>
             <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '24px', marginTop: '4px' }}>
@@ -268,7 +268,7 @@ export default function SuperAdminDashboard() {
       </div>
 
       {/* 2-COLUMN SECTION: AUDIT LOG PACKETS & ADMIN CREDENTIALS */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '32px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(20px, 3vw, 32px)' }}>
         {/* Left: Real-Time Admin Activity Audit Logs ("Change Packets") */}
         <div style={{ background: 'var(--snow)', borderRadius: '20px', border: '1px solid var(--hairline)', padding: '32px', boxShadow: '0 4px 18px rgba(26,26,26,0.03)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>

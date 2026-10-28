@@ -95,12 +95,12 @@ export default function AdminOrders() {
   return (
     <div>
       {/* Title */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', marginBottom: '28px' }}>
         <div>
           <span className="eyebrow" style={{ color: 'var(--champagne)' }}>
             Fulfillment Management
           </span>
-          <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '36px', color: 'var(--graphite)', marginTop: '4px' }}>
+          <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(28px, 4vw, 36px)', color: 'var(--graphite)', marginTop: '4px' }}>
             Atelier Orders
           </h1>
           <p style={{ fontSize: '13px', color: 'var(--ash)', marginTop: '4px' }}>
@@ -109,20 +109,20 @@ export default function AdminOrders() {
         </div>
 
         {/* Search */}
-        <div style={{ background: 'var(--cloud)', borderRadius: '999px', border: '1px solid var(--hairline)', padding: '6px 16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ background: 'var(--cloud)', borderRadius: '999px', border: '1px solid var(--hairline)', padding: '6px 16px', display: 'flex', alignItems: 'center', gap: '8px', maxWidth: '100%' }}>
           <Search size={14} color="var(--ash)" />
           <input
             type="text"
             placeholder="Search order ref, name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ border: 'none', background: 'transparent', fontSize: '13px', width: '220px', outline: 'none' }}
+            style={{ border: 'none', background: 'transparent', fontSize: '13px', width: '200px', outline: 'none' }}
           />
         </div>
       </div>
 
-      {/* Filter Tabs */}
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '28px' }}>
+      {/* Filter Tabs (Horizontal scroll on mobile) */}
+      <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '28px' }}>
         {[
           { key: 'active', label: 'Ongoing / Active Orders' },
           { key: 'completed', label: 'Dispatched & Completed' },
