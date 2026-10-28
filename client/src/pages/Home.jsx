@@ -14,12 +14,12 @@ const HERO_SLIDES = [
   },
   {
     image: '/images/hero/hero-2.jpg',
-    badge: 'Architectural Slate & Glacier • 02',
-    edition: 'Brutalist Tailoring • Double-Faced Cotton',
+    badge: 'Architectural Charcoal & Slate • 02',
+    edition: 'Tailored Zip Hoodie Set • Double-Faced Cotton',
   },
   {
     image: '/images/hero/hero-3.jpg',
-    badge: 'Sandstone Travertine Merino • 03',
+    badge: 'Sandstone Camel Merino • 03',
     edition: 'Quiet Luxury Drape • 100% Merino Wool',
   },
 ];
@@ -30,6 +30,7 @@ export default function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSuccess, setNewsletterSuccess] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [announcement, setAnnouncement] = useState(null);
   const navigate = useNavigate();
 
   // Parallax for Hero text
@@ -44,6 +45,10 @@ export default function Home() {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 6000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    api.get('/announcements/active').then(res => setAnnouncement(res.data)).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -67,63 +72,54 @@ export default function Home() {
     setNewsletterEmail('');
   };
 
+  const navOffset = announcement?.isActive ? 104 : 72;
+
   return (
     <div style={{ background: 'var(--snow)', overflowX: 'hidden' }}>
-      {/* LUXURY EDITORIAL HERO SHOWCASE WITH VIVID VISIBLE BACKGROUND IMAGE */}
+      {/* LUXURY EDITORIAL HERO SHOWCASE WITH MALE MODEL BACKGROUND IMAGES (BELOW NAVBAR) */}
       <section
         ref={heroRef}
         style={{
-          minHeight: '100vh',
+          minHeight: `calc(100vh - ${navOffset}px)`,
+          marginTop: `${navOffset}px`,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'flex-end',
           position: 'relative',
-          padding: '120px 24px 44px',
+          padding: '40px 24px 36px',
           overflow: 'hidden',
           background: '#0D0D0D',
         }}
       >
-        {/* Full-bleed Crystal-Clear Animated Background Carousel */}
+        {/* Full-bleed Crystal-Clear Animated Background Carousel (Confined below navbar) */}
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
           <AnimatePresence mode="sync">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, scale: 1.05 }}
+              initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
               style={{
                 position: 'absolute',
                 inset: 0,
                 backgroundImage: `url(${HERO_SLIDES[currentSlide].image})`,
                 backgroundSize: 'cover',
-                backgroundPosition: 'center 20%',
+                backgroundPosition: 'center 12%',
               }}
             />
           </AnimatePresence>
 
-          {/* Minimalist Gradients: Top for Navbar legibility, Bottom for typography legibility */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '140px',
-              background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, transparent 100%)',
-              pointerEvents: 'none',
-            }}
-          />
-
+          {/* Bottom Gradient Scrim strictly for text contrast without obscuring the male model */}
           <div
             style={{
               position: 'absolute',
               bottom: 0,
               left: 0,
               right: 0,
-              height: '65%',
-              background: 'linear-gradient(0deg, rgba(10, 10, 10, 0.88) 0%, rgba(10, 10, 10, 0.55) 45%, rgba(10, 10, 10, 0.12) 75%, transparent 100%)',
+              height: '56%',
+              background: 'linear-gradient(0deg, rgba(10, 10, 10, 0.94) 0%, rgba(10, 10, 10, 0.6) 48%, rgba(10, 10, 10, 0.08) 80%, transparent 100%)',
               pointerEvents: 'none',
             }}
           />

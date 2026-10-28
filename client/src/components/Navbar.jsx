@@ -75,12 +75,12 @@ export default function Navbar() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: `1px solid ${scrolled ? 'var(--hairline)' : 'var(--hairline-sky)'}`,
+          borderBottom: scrolled ? '1px solid var(--hairline)' : '1px solid rgba(26, 26, 26, 0.08)',
           transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
-          background: scrolled ? 'rgba(250, 250, 250, 0.92)' : 'var(--glacier-glass)',
+          background: scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.94)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
-          boxShadow: scrolled ? '0 4px 30px rgba(26, 26, 26, 0.06)' : 'none',
+          boxShadow: scrolled ? '0 4px 30px rgba(26, 26, 26, 0.06)' : '0 2px 10px rgba(26, 26, 26, 0.02)',
         }}
       >
         {/* Left: Brand Logo */}
