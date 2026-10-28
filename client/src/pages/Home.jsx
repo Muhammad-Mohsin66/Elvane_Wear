@@ -1,42 +1,50 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
-import { ArrowRight, Sparkles, CheckCircle, ArrowUpRight } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, Sparkles, CheckCircle, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import ProductCard3D from '../components/ProductCard3D';
 import Button3D from '../components/Button3D';
 import api, { formatPKR } from '../utils/api';
+
+const HERO_SLIDES = [
+  {
+    image: '/images/hero/hero-1.jpg',
+    badge: 'Atelier Cashmere Edition • 01',
+    edition: 'Pure Mongolian Cashmere • 380 GSM',
+  },
+  {
+    image: '/images/hero/hero-2.jpg',
+    badge: 'Architectural Slate & Glacier • 02',
+    edition: 'Brutalist Tailoring • Double-Faced Cotton',
+  },
+  {
+    image: '/images/hero/hero-3.jpg',
+    badge: 'Sandstone Travertine Merino • 03',
+    edition: 'Quiet Luxury Drape • 100% Merino Wool',
+  },
+];
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSuccess, setNewsletterSuccess] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
 
-  // Parallax for Hero
+  // Parallax for Hero text
   const heroRef = useRef(null);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 600], [0, 150]);
-  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0.2]);
+  const heroOpacity = useTransform(scrollY, [0, 450], [1, 0.2]);
 
-  // Mouse tilt for hero floating frames
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 150 };
-  const smoothMouseX = useSpring(mouseX, springConfig);
-  const smoothMouseY = useSpring(mouseY, springConfig);
-
-  const leftFrameRotateX = useTransform(smoothMouseY, [-300, 300], [6, -6]);
-  const leftFrameRotateY = useTransform(smoothMouseX, [-300, 300], [-8, 8]);
-  const rightFrameRotateX = useTransform(smoothMouseY, [-300, 300], [-6, 6]);
-  const rightFrameRotateY = useTransform(smoothMouseX, [-300, 300], [8, -8]);
-
-  const handleHeroMouseMove = (e) => {
-    if (!heroRef.current) return;
-    const rect = heroRef.current.getBoundingClientRect();
-    mouseX.set(e.clientX - rect.left - rect.width / 2);
-    mouseY.set(e.clientY - rect.top - rect.height / 2);
-  };
+  // Automated background slider
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -61,149 +69,83 @@ export default function Home() {
 
   return (
     <div style={{ background: 'var(--snow)', overflowX: 'hidden' }}>
-      {/* 3D HERO SHOWCASE (100vh) */}
+      {/* LUXURY EDITORIAL HERO SHOWCASE WITH VIVID VISIBLE BACKGROUND IMAGE */}
       <section
         ref={heroRef}
-        onMouseMove={handleHeroMouseMove}
         style={{
           minHeight: '100vh',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'flex-end',
           position: 'relative',
-          padding: '120px 24px 60px',
-          perspective: '1200px',
-          background: 'radial-gradient(ellipse at 50% 20%, rgba(184, 220, 240, 0.35) 0%, rgba(250, 250, 250, 0.8) 60%, var(--snow) 100%)',
+          padding: '120px 24px 44px',
+          overflow: 'hidden',
+          background: '#0D0D0D',
         }}
       >
-        {/* Subtle Ambient Sky-Blue & Champagne Halo */}
-        <div
-          style={{
-            position: 'absolute',
-            width: '650px',
-            height: '650px',
-            borderRadius: '50%',
-            background: 'var(--sky-ambient-glow)',
-            filter: 'blur(80px)',
-            pointerEvents: 'none',
-            top: '15%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1,
-          }}
-        />
+        {/* Full-bleed Crystal-Clear Animated Background Carousel */}
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: `url(${HERO_SLIDES[currentSlide].image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 20%',
+              }}
+            />
+          </AnimatePresence>
 
-        {/* Left Asymmetric Floating 3D Tracksuit Frame */}
-        <motion.div
-          style={{
-            position: 'absolute',
-            left: '4%',
-            top: '24%',
-            width: '260px',
-            height: '350px',
-            background: 'rgba(255, 255, 255, 0.7)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid var(--hairline-sky)',
-            borderRadius: '20px',
-            boxShadow: 'var(--card-3d-shadow)',
-            padding: '20px',
-            display: 'none',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            rotateX: leftFrameRotateX,
-            rotateY: leftFrameRotateY,
-            transformStyle: 'preserve-3d',
-            zIndex: 10,
-          }}
-          className="lg-frame-left"
-        >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span className="eyebrow" style={{ fontSize: '9px' }}>Atelier Cashmere</span>
-            <span style={{ fontSize: '11px', color: 'var(--champagne)', fontWeight: 600 }}>01 / 10</span>
-          </div>
-          {/* Mini Tracksuit Graphic */}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '180px' }}>
-            <svg width="120" height="150" viewBox="0 0 100 130" fill="none">
-              <path d="M32 18 C38 12, 62 12, 68 18 L86 36 C89 39, 87 45, 83 47 L76 50 L75 72 L25 72 L24 50 L17 47 Z" fill="#F5F0E8" stroke="#1A1A1A" strokeWidth="1" />
-              <line x1="46" y1="26" x2="46" y2="44" stroke="#D4A76A" strokeWidth="1.2" />
-              <line x1="54" y1="26" x2="54" y2="44" stroke="#D4A76A" strokeWidth="1.2" />
-              <path d="M28 80 L72 80 L71 124 L56 124 L51 96 L47 124 L34 124 Z" fill="#F5F0E8" stroke="#1A1A1A" strokeWidth="1" />
-            </svg>
-          </div>
-          <div>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '16px', fontWeight: 600, color: 'var(--graphite)' }}>
-              Cashmere 380 GSM
-            </p>
-            <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Complete tailored silhouette</p>
-          </div>
-        </motion.div>
+          {/* Minimalist Gradients: Top for Navbar legibility, Bottom for typography legibility */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '140px',
+              background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, transparent 100%)',
+              pointerEvents: 'none',
+            }}
+          />
 
-        {/* Right Asymmetric Floating 3D Tracksuit Frame */}
-        <motion.div
-          style={{
-            position: 'absolute',
-            right: '4%',
-            bottom: '18%',
-            width: '270px',
-            height: '360px',
-            background: 'rgba(255, 255, 255, 0.7)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid var(--hairline-accent)',
-            borderRadius: '20px',
-            boxShadow: 'var(--card-3d-shadow)',
-            padding: '20px',
-            display: 'none',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            rotateX: rightFrameRotateX,
-            rotateY: rightFrameRotateY,
-            transformStyle: 'preserve-3d',
-            zIndex: 10,
-          }}
-          className="lg-frame-right"
-        >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span className="eyebrow" style={{ fontSize: '9px' }}>Glacier Merino</span>
-            <span style={{ fontSize: '11px', color: 'var(--champagne)', fontWeight: 600 }}>02 / 10</span>
-          </div>
-          {/* Mini Tracksuit Graphic */}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '180px' }}>
-            <svg width="120" height="150" viewBox="0 0 100 130" fill="none">
-              <path d="M32 18 C38 12, 62 12, 68 18 L86 36 C89 39, 87 45, 83 47 L76 50 L75 72 L25 72 L24 50 L17 47 Z" fill="#B8DCF0" stroke="#1A1A1A" strokeWidth="1" />
-              <line x1="46" y1="26" x2="46" y2="44" stroke="#D4A76A" strokeWidth="1.2" />
-              <line x1="54" y1="26" x2="54" y2="44" stroke="#D4A76A" strokeWidth="1.2" />
-              <path d="M28 80 L72 80 L71 124 L56 124 L51 96 L47 124 L34 124 Z" fill="#B8DCF0" stroke="#1A1A1A" strokeWidth="1" />
-            </svg>
-          </div>
-          <div>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '16px', fontWeight: 600, color: 'var(--graphite)' }}>
-              100% Merino Wool
-            </p>
-            <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Natural climate regulation</p>
-          </div>
-        </motion.div>
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '65%',
+              background: 'linear-gradient(0deg, rgba(10, 10, 10, 0.88) 0%, rgba(10, 10, 10, 0.55) 45%, rgba(10, 10, 10, 0.12) 75%, transparent 100%)',
+              pointerEvents: 'none',
+            }}
+          />
+        </div>
 
-        <style>{`
-          @media (min-width: 1024px) {
-            .lg-frame-left, .lg-frame-right { display: flex !important; }
-          }
-        `}</style>
-
-        {/* Center Editorial Typography & Magnetic CTA */}
+        {/* Center Editorial Typography & Buttons at Full Bottom */}
         <motion.div
           style={{
             y: heroY,
             opacity: heroOpacity,
             textAlign: 'center',
-            maxWidth: '820px',
+            maxWidth: '860px',
             zIndex: 20,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginBottom: '10px',
           }}
         >
+          {/* Collection Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             style={{
@@ -212,55 +154,67 @@ export default function Home() {
               gap: '8px',
               padding: '6px 18px',
               borderRadius: '999px',
-              background: 'rgba(255, 255, 255, 0.75)',
-              border: '1px solid var(--hairline-sky)',
-              marginBottom: '28px',
-              backdropFilter: 'blur(10px)',
+              background: 'rgba(0, 0, 0, 0.4)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+              marginBottom: '14px',
+              backdropFilter: 'blur(12px)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
             }}
           >
-            <Sparkles size={13} color="var(--champagne)" />
-            <span className="eyebrow" style={{ fontSize: '10px' }}>
-              The New Collection • 10 Signature Sets
+            <Sparkles size={13} color="#E5C189" />
+            <span style={{ fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FFFFFF', fontWeight: 600 }}>
+              {HERO_SLIDES[currentSlide].badge}
             </span>
           </motion.div>
 
+          {/* Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 'clamp(46px, 7.5vw, 96px)',
+              fontSize: 'clamp(44px, 6.8vw, 86px)',
               fontWeight: 400,
-              lineHeight: 1.05,
+              lineHeight: 1.04,
               letterSpacing: '-0.02em',
-              color: 'var(--graphite)',
-              marginBottom: '24px',
+              color: '#FFFFFF',
+              marginBottom: '12px',
+              textShadow: '0 2px 25px rgba(0, 0, 0, 0.7)',
             }}
           >
-            Luxury in <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--champagne)' }}>motion</em>.
+            Luxury in <em style={{ fontStyle: 'italic', fontWeight: 400, color: '#E5C189' }}>motion</em>.
           </motion.h1>
 
+          {/* Subtitle wording */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              fontSize: 'clamp(15px, 2vw, 18px)',
-              lineHeight: 1.7,
-              color: 'var(--ash)',
-              maxWidth: '560px',
-              marginBottom: '40px',
+              fontSize: 'clamp(14px, 1.6vw, 17px)',
+              lineHeight: 1.6,
+              color: 'rgba(255, 255, 255, 0.9)',
+              maxWidth: '600px',
+              marginBottom: '26px',
+              textShadow: '0 2px 14px rgba(0, 0, 0, 0.7)',
             }}
           >
             Engineered for movement. Designed for stillness. Complete, minimalist tracksuit sets crafted from pure cashmere, merino, and double-faced organic cotton.
           </motion.p>
 
+          {/* Buttons lowered & positioned at bottom */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}
+            transition={{ duration: 0.8, delay: 0.35 }}
+            style={{
+              display: 'flex',
+              gap: '16px',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              marginBottom: '28px',
+            }}
           >
             <Button3D
               size="lg"
@@ -271,14 +225,110 @@ export default function Home() {
               Explore Collection
             </Button3D>
 
-            <Button3D
-              size="lg"
-              variant="outline"
+            <button
               onClick={() => navigate('/about')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '14px 28px',
+                borderRadius: '999px',
+                background: 'rgba(255, 255, 255, 0.12)',
+                border: '1px solid rgba(255, 255, 255, 0.4)',
+                color: '#FFFFFF',
+                fontSize: '13px',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+                cursor: 'pointer',
+                backdropFilter: 'blur(14px)',
+                WebkitBackdropFilter: 'blur(14px)',
+                transition: 'all 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)';
+                e.currentTarget.style.borderColor = '#FFFFFF';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+              }}
             >
               The Atelier Story
-            </Button3D>
+            </button>
           </motion.div>
+
+          {/* Background Slideshow Controls & Progress Indicator */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '14px',
+            }}
+          >
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
+              aria-label="Previous slide"
+              style={{
+                background: 'rgba(255, 255, 255, 0.18)',
+                border: '1px solid rgba(255, 255, 255, 0.35)',
+                borderRadius: '50%',
+                width: '34px',
+                height: '34px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                color: '#FFFFFF',
+                backdropFilter: 'blur(12px)',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <ChevronLeft size={16} />
+            </button>
+
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              {HERO_SLIDES.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                  style={{
+                    height: '4px',
+                    width: currentSlide === idx ? '32px' : '10px',
+                    borderRadius: '999px',
+                    background: currentSlide === idx ? '#E5C189' : 'rgba(255, 255, 255, 0.4)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
+                    padding: 0,
+                  }}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length)}
+              aria-label="Next slide"
+              style={{
+                background: 'rgba(255, 255, 255, 0.18)',
+                border: '1px solid rgba(255, 255, 255, 0.35)',
+                borderRadius: '50%',
+                width: '34px',
+                height: '34px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                color: '#FFFFFF',
+                backdropFilter: 'blur(12px)',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
         </motion.div>
       </section>
 
