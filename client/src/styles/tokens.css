@@ -1,0 +1,36 @@
+:root {
+  /* Base White Canvas (Dominant 85-90%) */
+  --snow: #FAFAFA;
+  --cloud: #F5F3F0;
+  --silk: #EDE9E3;
+
+  /* Typography & Ink */
+  --graphite: #1A1A1A;
+  --charcoal: #2D2D2D;
+  --ash: #6E6E6E;
+  --mist: #B5B0A8;
+
+  /* Luxury Accents */
+  --glacier-sky: #B8DCF0;
+  --glacier-glass: rgba(216, 236, 248, 0.55);
+  --blush: #E8C4B8;
+  --champagne: #D4A76A;
+
+  /* Gradients */
+  --accent-gradient: linear-gradient(135deg, #B8DCF0 0%, #E8C4B8 50%, #D4A76A 100%);
+  --cta-gradient: linear-gradient(135deg, #E8C4B8, #D4A76A);
+  --sky-ambient-glow: radial-gradient(circle at 50% 50%, rgba(184, 220, 240, 0.38), rgba(212, 167, 106, 0.12), transparent 70%);
+  --card-3d-shadow: 0 28px 65px -15px rgba(26, 26, 26, 0.10), 0 12px 30px -10px rgba(184, 220, 240, 0.35);
+
+  /* Borders */
+  --hairline: rgba(26, 26, 26, 0.08);
+  --hairline-sky: rgba(184, 220, 240, 0.55);
+  --hairline-accent: rgba(212, 167, 106, 0.4);
+
+  /* Status */
+  --danger: #A34040;
+  --success: #5A8A6A;
+
+  /* Easing */
+  --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+}
