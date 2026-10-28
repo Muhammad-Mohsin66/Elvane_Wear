@@ -54,6 +54,6 @@ export const useCartStore = create(
       openCart: () => set({ isCartOpen: true }),
       closeCart: () => set({ isCartOpen: false }),
     }),
-    { name: 'tommy-cart' }
+    { name: 'elvane-cart' }
   )
 );

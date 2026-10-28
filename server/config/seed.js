@@ -237,7 +237,7 @@ const seedDB = async () => {
     // Create Super Admin
     const superAdmin = await User.create({
       name: 'Super Admin',
-      email: process.env.SUPERADMIN_EMAIL || 'superadmin@tommytracksuits.com',
+      email: process.env.SUPERADMIN_EMAIL || 'superadmin@elvanewear.com',
       password: process.env.SUPERADMIN_PASSWORD || 'SuperAdmin@123',
       role: 'superadmin',
       isEmailVerified: true,
@@ -247,7 +247,7 @@ const seedDB = async () => {
     // Create Admin
     const admin = await User.create({
       name: 'Admin',
-      email: process.env.ADMIN_EMAIL || 'admin@tommytracksuits.com',
+      email: process.env.ADMIN_EMAIL || 'admin@elvanewear.com',
       password: process.env.ADMIN_PASSWORD || 'Admin@123',
       role: 'admin',
       isEmailVerified: true,
@@ -268,7 +268,7 @@ const seedDB = async () => {
 
     console.log('\n🎉 Database seeded successfully!\n');
     console.log('╔══════════════════════════════════════════════════╗');
-    console.log('║          TOMMY TRACKSUITS — CREDENTIALS          ║');
+    console.log('║           ELVANE WEAR — CREDENTIALS              ║');
     console.log('╠══════════════════════════════════════════════════╣');
     console.log(`║  Super Admin: ${superAdmin.email}`);
     console.log(`║  Password:    ${process.env.SUPERADMIN_PASSWORD || 'SuperAdmin@123'}`);

@@ -106,7 +106,8 @@ export default function SuperAdminDashboard() {
       {/* Top Header */}
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '20px', marginBottom: '40px' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <img src="/logo.jpg" alt="Elvane Wear" style={{ height: '32px', width: 'auto', objectFit: 'contain', borderRadius: '4px' }} />
             <span
               style={{
                 display: 'inline-flex',
@@ -124,7 +125,7 @@ export default function SuperAdminDashboard() {
               }}
             >
               <Shield size={12} />
-              <span>Super Admin Authority</span>
+              <span>Elvane Wear — Super Admin Authority</span>
             </span>
           </div>
 
@@ -364,7 +365,7 @@ export default function SuperAdminDashboard() {
           <div style={{ padding: '14px 18px', background: 'var(--cloud)', borderRadius: '12px', marginBottom: '24px', fontSize: '13px' }}>
             <p className="eyebrow" style={{ fontSize: '10px', marginBottom: '4px' }}>Target Account</p>
             <p style={{ fontWeight: 600, color: 'var(--graphite)' }}>{adminUser?.name || 'Admin'}</p>
-            <p style={{ fontSize: '12px', color: 'var(--ash)' }}>{adminUser?.email || 'admin@tommytracksuits.com'}</p>
+            <p style={{ fontSize: '12px', color: 'var(--ash)' }}>{adminUser?.email || 'admin@elvanewear.com'}</p>
           </div>
 
           {passwordSuccess && (

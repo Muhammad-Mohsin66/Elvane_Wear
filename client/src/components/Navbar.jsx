@@ -120,19 +120,30 @@ export default function Navbar() {
         </div>
 
         {/* Center Logo */}
-        <Link to="/" style={{ textAlign: 'center', flex: 2, display: 'flex', justifyContent: 'center' }}>
+        <Link to="/" style={{ textAlign: 'center', flex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', textDecoration: 'none' }}>
+          <img
+            src="/logo.jpg"
+            alt="Elvane Wear Logo"
+            style={{
+              height: '38px',
+              width: 'auto',
+              borderRadius: '4px',
+              objectFit: 'contain',
+              mixBlendMode: 'multiply',
+            }}
+          />
           <h1 style={{
             fontFamily: "'Cormorant Garamond', serif",
-            fontSize: 'clamp(17px, 4.2vw, 24px)',
-            fontWeight: 500,
-            letterSpacing: '0.12em',
+            fontSize: 'clamp(18px, 4.2vw, 25px)',
+            fontWeight: 600,
+            letterSpacing: '0.14em',
             textTransform: 'uppercase',
             color: 'var(--graphite)',
             margin: 0,
             lineHeight: 1.2,
             whiteSpace: 'nowrap',
           }}>
-            Tommy Tracksuits
+            Elvane <span style={{ fontWeight: 400, fontStyle: 'italic', color: 'var(--champagne)' }}>Wear</span>
           </h1>
         </Link>
 

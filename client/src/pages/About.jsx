@@ -28,7 +28,7 @@ export default function About() {
             Designed for <em style={{ fontStyle: 'italic' }}>stillness</em>.
           </h1>
           <p style={{ fontSize: '18px', color: 'var(--ash)', maxWidth: '640px', margin: '0 auto', lineHeight: 1.7 }}>
-            Tommy Tracksuits was born from an uncompromising rebellion against the disposable nature of mass athletic wear.
+            Elvane Wear was born from an uncompromising rebellion against the disposable nature of mass athletic wear.
           </p>
         </div>
 
@@ -39,7 +39,7 @@ export default function About() {
               The Single Complete Set Rule
             </h3>
             <p>
-              In high fashion tailoring, no master tailor would ever recommend pairing an exquisite suit jacket with an alien pair of trousers. We hold the tracksuit to the identical standard of sartorial integrity. Every Tommy Tracksuit is strictly designed and sold as a harmonious 1-piece tracksuit set.
+              In high fashion tailoring, no master tailor would ever recommend pairing an exquisite suit jacket with an alien pair of trousers. We hold the tracksuit to the identical standard of sartorial integrity. Every Elvane Wear tracksuit is strictly designed and sold as a harmonious 1-piece tracksuit set.
             </p>
             <p style={{ marginTop: '16px' }}>
               From initial fabric spinning to precision dyeing in single-batch dye lots, the jacket and trousers live as one entity—balanced in GSM weight, tensile stretch, and monochrome tone.

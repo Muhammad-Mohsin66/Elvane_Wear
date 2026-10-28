@@ -1,8 +1,8 @@
-# TOMMY TRACKSUITS — LUXURY 3D E-COMMERCE PLATFORM (MERN)
+# ELVANE WEAR — LUXURY 3D E-COMMERCE PLATFORM (MERN)
 
 > *"Engineered for movement. Designed for stillness."*
 
-A full-stack, production-grade luxury e-commerce web platform for **"Tommy Tracksuits"**, crafted with high-fashion white-canvas aesthetics, Glacier Sky-Blue frosted glass, Champagne Gold accents, and tactile 3D perspective physics.
+A full-stack, production-grade luxury e-commerce web platform for **"Elvane Wear"**, crafted with high-fashion white-canvas aesthetics, Glacier Sky-Blue frosted glass, Champagne Gold accents, and tactile 3D perspective physics.
 
 ---
 
@@ -10,8 +10,8 @@ A full-stack, production-grade luxury e-commerce web platform for **"Tommy Track
 
 | Portal | Role | Email | Password |
 | :--- | :--- | :--- | :--- |
-| **Super Admin Dashboard** (`/super-admin`) | `superadmin` | `superadmin@tommytracksuits.com` | `SuperAdmin@123` |
-| **Admin Panel** (`/admin`) | `admin` | `admin@tommytracksuits.com` | `Admin@123` |
+| **Super Admin Dashboard** (`/super-admin`) | `superadmin` | `superadmin@elvanewear.com` | `SuperAdmin@123` |
+| **Admin Panel** (`/admin`) | `admin` | `admin@elvanewear.com` | `Admin@123` |
 | **Storefront Customer** | `customer` | Sign up via `/register` (OTP logged to console) | Self-selected |
 
 ---

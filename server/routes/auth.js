@@ -27,9 +27,9 @@ router.post('/register', async (req, res) => {
     
     await sendEmail({
       to: email,
-      subject: 'Tommy Tracksuits — Verify Your Email',
+      subject: 'Elvane Wear — Verify Your Email',
       html: `<div style="font-family:sans-serif;padding:40px;background:#FAFAFA;">
-        <h2 style="color:#1A1A1A;">Welcome to Tommy Tracksuits</h2>
+        <h2 style="color:#1A1A1A;">Welcome to Elvane Wear</h2>
         <p style="color:#2D2D2D;">Your verification code is:</p>
         <h1 style="color:#D4A76A;letter-spacing:8px;font-size:36px;">${otp}</h1>
         <p style="color:#6E6E6E;">This code expires in 10 minutes.</p>
@@ -85,7 +85,7 @@ router.post('/resend-otp', protect, async (req, res) => {
     console.log(`\n🔑 RESENT OTP for ${user.email}: ${otp}\n`);
     await sendEmail({
       to: user.email,
-      subject: 'Tommy Tracksuits — New Verification Code',
+      subject: 'Elvane Wear — New Verification Code',
       html: `<div style="font-family:sans-serif;padding:40px;background:#FAFAFA;">
         <h2 style="color:#1A1A1A;">New Verification Code</h2>
         <h1 style="color:#D4A76A;letter-spacing:8px;font-size:36px;">${otp}</h1>

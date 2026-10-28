@@ -92,6 +92,6 @@ export const useAuthStore = create(
         }
       },
     }),
-    { name: 'tommy-auth' }
+    { name: 'elvane-auth' }
   )
 );

@@ -121,18 +121,32 @@ export default function Footer() {
         >
           {/* Brand Col */}
           <div style={{ gridColumn: 'span 2' }}>
-            <h2
-              style={{
-                fontSize: '24px',
-                fontFamily: "'Cormorant Garamond', serif",
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: 'var(--graphite)',
-                marginBottom: '12px',
-              }}
-            >
-              Tommy Tracksuits
-            </h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <img
+                src="/logo.jpg"
+                alt="Elvane Wear Logo"
+                style={{
+                  height: '46px',
+                  width: 'auto',
+                  borderRadius: '6px',
+                  objectFit: 'contain',
+                  mixBlendMode: 'multiply',
+                }}
+              />
+              <h2
+                style={{
+                  fontSize: '26px',
+                  fontFamily: "'Cormorant Garamond', serif",
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: 'var(--graphite)',
+                  margin: 0,
+                  fontWeight: 600,
+                }}
+              >
+                Elvane <span style={{ fontWeight: 400, fontStyle: 'italic', color: 'var(--champagne)' }}>Wear</span>
+              </h2>
+            </div>
             <p
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -266,7 +280,7 @@ export default function Footer() {
             color: 'var(--ash)',
           }}
         >
-          <p>© {new Date().getFullYear()} Tommy Tracksuits. Crafted for high-fashion excellence.</p>
+          <p>© {new Date().getFullYear()} Elvane Wear. Crafted for high-fashion excellence.</p>
           <div style={{ display: 'flex', gap: '24px' }}>
             <span>Cash on Delivery</span>
             <span>•</span>

@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const stored = localStorage.getItem('tommy-auth');
+  const stored = localStorage.getItem('elvane-auth') || localStorage.getItem('tommy-auth');
   if (stored) {
     try {
       const { state } = JSON.parse(stored);
@@ -20,6 +20,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
+      localStorage.removeItem('elvane-auth');
       localStorage.removeItem('tommy-auth');
     }
     return Promise.reject(error);

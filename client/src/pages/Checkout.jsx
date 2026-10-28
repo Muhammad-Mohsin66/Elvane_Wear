@@ -341,7 +341,7 @@ export default function Checkout() {
                         Official JazzCash Account Details:
                       </p>
                       <div style={{ fontSize: '13px', color: 'var(--charcoal)', lineHeight: 1.6 }}>
-                        <p><strong>Account Title:</strong> Tommy Tracksuits Atelier</p>
+                        <p><strong>Account Title:</strong> Elvane Wear Atelier</p>
                         <p><strong>Mobile Account:</strong> 0300-1234567</p>
                         <p><strong>Payable Amount:</strong> <span style={{ color: 'var(--graphite)', fontWeight: 600 }}>{formatPKR(subtotal)}</span></p>
                       </div>
@@ -456,7 +456,7 @@ export default function Checkout() {
               </div>
 
               <p style={{ fontSize: '11px', color: 'var(--mist)', textAlign: 'center', marginTop: '16px' }}>
-                By placing this order, you agree to the Tommy Tracksuits atelier terms & exchange policy.
+                By placing this order, you agree to the Elvane Wear atelier terms & exchange policy.
               </p>
             </div>
           </div>

@@ -13,7 +13,7 @@ const sendEmail = async ({ to, subject, html }) => {
     });
 
     await transporter.sendMail({
-      from: `"Tommy Tracksuits" <${process.env.FROM_EMAIL || 'noreply@tommytracksuits.com'}>`,
+      from: `"Elvane Wear" <${process.env.FROM_EMAIL || 'noreply@elvanewear.com'}>`,
       to,
       subject,
       html,

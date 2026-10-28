@@ -47,7 +47,7 @@ export default function Contact() {
                 <div>
                   <p className="eyebrow" style={{ marginBottom: '4px' }}>Location</p>
                   <p style={{ fontSize: '14px', color: 'var(--charcoal)', lineHeight: 1.6 }}>
-                    Tommy Tracksuits Atelier Suite<br />
+                    Elvane Wear Atelier Suite<br />
                     Gulberg III, Lahore, Pakistan
                   </p>
                 </div>
@@ -66,7 +66,7 @@ export default function Contact() {
                 <Mail size={20} color="var(--champagne)" style={{ flexShrink: 0, marginTop: '4px' }} />
                 <div>
                   <p className="eyebrow" style={{ marginBottom: '4px' }}>Electronic Correspondence</p>
-                  <p style={{ fontSize: '14px', color: 'var(--charcoal)' }}>concierge@tommytracksuits.com</p>
+                  <p style={{ fontSize: '14px', color: 'var(--charcoal)' }}>concierge@elvanewear.com</p>
                 </div>
               </div>
             </div>

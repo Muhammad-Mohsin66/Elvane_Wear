@@ -23,16 +23,28 @@ export default function AdminLayout() {
         {/* Header */}
         <div style={{ padding: '0 24px 24px', borderBottom: '1px solid var(--hairline)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <span className="eyebrow" style={{ color: 'var(--champagne)', fontSize: '10px' }}>
-              Atelier Management
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <img
+                src="/logo.jpg"
+                alt="Elvane Wear"
+                style={{
+                  height: '32px',
+                  width: 'auto',
+                  borderRadius: '4px',
+                  mixBlendMode: 'multiply',
+                }}
+              />
+              <span className="eyebrow" style={{ color: 'var(--champagne)', fontSize: '10px' }}>
+                Elvane Wear Atelier
+              </span>
+            </div>
             <h2
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: '22px',
                 fontWeight: 600,
                 color: 'var(--graphite)',
-                marginTop: '4px',
+                marginTop: '2px',
               }}
             >
               Admin Portal

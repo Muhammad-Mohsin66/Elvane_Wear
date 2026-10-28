@@ -146,7 +146,7 @@ export default function Login() {
         </form>
 
         <div style={{ marginTop: '32px', textAlign: 'center', fontSize: '13px', color: 'var(--ash)' }}>
-          <span>New to Tommy Tracksuits? </span>
+          <span>New to Elvane Wear? </span>
           <Link to={`/register?redirect=${encodeURIComponent(redirect)}`} style={{ color: 'var(--graphite)', fontWeight: 600 }}>
             Create an Account
           </Link>
@@ -162,7 +162,7 @@ export default function Login() {
             textAlign: 'center',
           }}
         >
-          Protected by Tommy Atelier Security Protocols
+          Protected by Elvane Wear Atelier Security Protocols
         </div>
       </motion.div>
     </div>

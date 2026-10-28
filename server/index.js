@@ -57,7 +57,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`\n🏛️  Tommy Tracksuits Server running on port ${PORT}`);
+  console.log(`\n🏛️  Elvane Wear Server running on port ${PORT}`);
   console.log(`📡 API: http://localhost:${PORT}/api`);
   console.log(`🌐 Client: ${process.env.CLIENT_URL || 'http://localhost:5173'}\n`);
 });

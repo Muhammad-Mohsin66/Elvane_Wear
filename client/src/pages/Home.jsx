@@ -400,7 +400,7 @@ export default function Home() {
               "Where comfort meets <em style={{ fontStyle: 'italic' }}>couture</em>."
             </h3>
             <p style={{ fontSize: '15px', color: 'var(--ash)', lineHeight: 1.8 }}>
-              We rejected the premise of fast athleisure. Tommy Tracksuits was founded on a singular conviction: that a tracksuit can possess the same tailoring prestige, architectural rigor, and fabric pedigree as bespoke Savile Row tailoring.
+              We rejected the premise of fast athleisure. Elvane Wear was founded on a singular conviction: that a tracksuit can possess the same tailoring prestige, architectural rigor, and fabric pedigree as bespoke Savile Row tailoring.
             </p>
             <div style={{ marginTop: '32px', display: 'flex', gap: '24px' }}>
               <div>
@@ -436,7 +436,7 @@ export default function Home() {
               No separates. Only harmonious, intentional <em style={{ fontStyle: 'italic' }}>monochrome sets</em>.
             </h2>
             <p style={{ fontSize: '16px', color: 'var(--ash)', lineHeight: 1.8 }}>
-              When you purchase a Tommy Tracksuit, you receive a meticulously proportioned top and trouser, dyed in identical dye lots to guarantee chromatic perfection. Designed with concealed zips, French seams, and ribbed hems.
+              When you purchase an Elvane Wear tracksuit, you receive a meticulously proportioned top and trouser, dyed in identical dye lots to guarantee chromatic perfection. Designed with concealed zips, French seams, and ribbed hems.
             </p>
             <div style={{ marginTop: '16px' }}>
               <Button3D variant="dark" onClick={() => navigate('/shop')}>
