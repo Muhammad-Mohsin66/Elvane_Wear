@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+// In production on Vercel, VITE_API_URL points to the Render backend (e.g. https://elvane-wear-backend.onrender.com)
+// In local dev, defaults to '/api' which Vite proxies to http://127.0.0.1:5001
+const rawBase = import.meta.env.VITE_API_URL;
+const baseURL = rawBase ? `${rawBase.replace(/\/$/, '')}/api` : '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL,
   headers: { 'Content-Type': 'application/json' },
 });
 
