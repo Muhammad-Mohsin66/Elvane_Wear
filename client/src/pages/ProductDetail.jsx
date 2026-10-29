@@ -128,25 +128,21 @@ export default function ProductDetail() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(28px, 4vw, 64px)', alignItems: 'start' }}>
           {/* Left Column: Interactive 3D Product Canvas & Showcase */}
           <div>
+            {/* Badges & View Mode Toggle — Above the image on mobile */}
             <div
               style={{
-                width: '100%',
-                height: 'clamp(380px, 56vh, 620px)',
-                borderRadius: '24px',
-                background: '#F7F6F3',
-                border: '1px solid var(--hairline-sky)',
                 display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
-                overflow: 'hidden',
-                boxShadow: 'var(--card-3d-shadow)',
+                gap: '8px',
+                marginBottom: '12px',
               }}
             >
               {/* Badges */}
-              <div style={{ position: 'absolute', top: 24, left: 24, zIndex: 10, display: 'flex', gap: 8 }}>
+              <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
                 {product.isNewArrival && (
-                  <span style={{ background: 'rgba(255, 255, 255, 0.92)', padding: '6px 14px', borderRadius: '999px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600 }}>
+                  <span style={{ background: 'rgba(247, 246, 243, 1)', padding: '6px 14px', borderRadius: '999px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600, border: '1px solid var(--hairline)' }}>
                     New Release
                   </span>
                 )}
@@ -160,17 +156,13 @@ export default function ProductDetail() {
               {/* View Mode Toggle: Model vs Article Flat-Lay */}
               <div
                 style={{
-                  position: 'absolute',
-                  top: 24,
-                  right: 24,
-                  zIndex: 20,
                   display: 'flex',
                   gap: 4,
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(12px)',
+                  background: 'rgba(247, 246, 243, 1)',
                   padding: '4px',
                   borderRadius: '999px',
                   border: '1px solid var(--hairline)',
+                  flexShrink: 0,
                 }}
               >
                 <button
@@ -208,7 +200,23 @@ export default function ProductDetail() {
                   Garment Flat-Lay
                 </button>
               </div>
+            </div>
 
+            <div
+              style={{
+                width: '100%',
+                height: 'clamp(380px, 56vh, 620px)',
+                borderRadius: '24px',
+                background: '#F7F6F3',
+                border: '1px solid var(--hairline-sky)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+                boxShadow: 'var(--card-3d-shadow)',
+              }}
+            >
               {/* Image Rendering: Model or Flat-Lay */}
               <AnimatePresence mode="wait">
                 <motion.img

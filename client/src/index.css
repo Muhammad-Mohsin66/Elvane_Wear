@@ -303,3 +303,20 @@ a {
   }
 }
 
+
+/* Footer — Mobile Responsive Fixes */
+@media (max-width: 640px) {
+  .footer-brand-col {
+    grid-column: span 1 !important;
+  }
+  .footer-links-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .footer-brand-col {
+    grid-column: span 2;
+  }
+}

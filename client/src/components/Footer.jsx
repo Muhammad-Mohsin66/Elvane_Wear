@@ -13,7 +13,7 @@ export default function Footer() {
         marginTop: '80px',
       }}
     >
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(16px, 4vw, 32px)' }}>
         {/* Value Props Bar */}
         <div
           style={{
@@ -112,6 +112,7 @@ export default function Footer() {
 
         {/* Links Columns */}
         <div
+          className="footer-links-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -120,7 +121,7 @@ export default function Footer() {
           }}
         >
           {/* Brand Col */}
-          <div style={{ gridColumn: 'span 2' }}>
+          <div className="footer-brand-col">
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <img
                 src="/logo.jpg"
@@ -281,7 +282,7 @@ export default function Footer() {
           }}
         >
           <p>© {new Date().getFullYear()} Elvane Wear. Crafted for high-fashion excellence.</p>
-          <div style={{ display: 'flex', gap: '24px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 24px' }}>
             <span>Cash on Delivery (Nationwide)</span>
             <span>•</span>
             <span>Inspection Before Payment</span>
