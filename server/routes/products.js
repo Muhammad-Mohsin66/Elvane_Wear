@@ -3,6 +3,7 @@ import Product from '../models/Product.js';
 import { protect, authorize } from '../middleware/auth.js';
 import { upload } from '../middleware/upload.js';
 import { createAuditLog } from '../utils/auditLog.js';
+import { uploadFileToCloudinary } from '../config/cloudinary.js';
 
 const router = express.Router();
 
@@ -78,12 +79,18 @@ router.get('/admin/all', protect, authorize('admin', 'superadmin'), async (req, 
 });
 
 // Admin: Upload single image for color variant
-router.post('/upload-image', protect, authorize('admin', 'superadmin'), upload.single('image'), (req, res) => {
+router.post('/upload-image', protect, authorize('admin', 'superadmin'), upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: 'No image file uploaded' });
     }
-    const url = `/uploads/${req.file.filename}`;
+    let url = `/uploads/${req.file.filename}`;
+    try {
+      const cloudUrl = await uploadFileToCloudinary(req.file.path, 'elvena_wear/products');
+      if (cloudUrl) url = cloudUrl;
+    } catch (err) {
+      console.warn('Cloudinary upload fallback to local storage:', err.message);
+    }
     res.json({ url });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -94,7 +101,17 @@ router.post('/upload-image', protect, authorize('admin', 'superadmin'), upload.s
 router.post('/', protect, authorize('admin', 'superadmin'), upload.array('images', 6), async (req, res) => {
   try {
     const { title, slug, description, price, category, fabric, care, colors, sizes, inventoryCount, isFeatured, isNewArrival, isBestseller } = req.body;
-    const images = req.files ? req.files.map(f => `/uploads/${f.filename}`) : [];
+    let images = [];
+    if (req.files && req.files.length > 0) {
+      for (const f of req.files) {
+        try {
+          const cloudUrl = await uploadFileToCloudinary(f.path, 'elvena_wear/products');
+          images.push(cloudUrl || `/uploads/${f.filename}`);
+        } catch {
+          images.push(`/uploads/${f.filename}`);
+        }
+      }
+    }
     
     const parsedColors = JSON.parse(colors || '[]').map(c => ({
       name: c.name,
@@ -166,7 +183,16 @@ router.put('/:id', protect, authorize('admin', 'superadmin'), upload.array('imag
     if (isNewArrival !== undefined) product.isNewArrival = isNewArrival === 'true' || isNewArrival === true;
     if (isBestseller !== undefined) product.isBestseller = isBestseller === 'true' || isBestseller === true;
     if (req.files && req.files.length > 0) {
-      product.images = [...product.images, ...req.files.map(f => `/uploads/${f.filename}`)];
+      const uploadedCloudImages = [];
+      for (const f of req.files) {
+        try {
+          const cloudUrl = await uploadFileToCloudinary(f.path, 'elvena_wear/products');
+          uploadedCloudImages.push(cloudUrl || `/uploads/${f.filename}`);
+        } catch {
+          uploadedCloudImages.push(`/uploads/${f.filename}`);
+        }
+      }
+      product.images = [...product.images, ...uploadedCloudImages];
     }
 
     await product.save();
