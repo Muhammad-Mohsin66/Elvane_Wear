@@ -6,10 +6,83 @@ import { useAuthStore } from '../store/authStore';
 import { useCartStore } from '../store/cartStore';
 import { formatPKR } from '../utils/api';
 
+// Luxury Tracksuit Vector Silhouette Fallback
+function TracksuitSilhouette({ hex, title }) {
+  const color = hex || '#B8DCF0';
+  const cleanId = (color || 'def').replace(/[^a-zA-Z0-9]/g, '');
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'radial-gradient(circle at 50% 45%, rgba(229, 193, 137, 0.12) 0%, #F5F3EE 80%)',
+        padding: '20px',
+        zIndex: 2,
+      }}
+    >
+      <svg
+        viewBox="0 0 200 250"
+        style={{
+          width: '78%',
+          height: '78%',
+          filter: 'drop-shadow(0 14px 24px rgba(26,26,26,0.12))',
+          transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+      >
+        <defs>
+          <linearGradient id={`grad-${cleanId}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={color} stopOpacity="1" />
+            <stop offset="100%" stopColor={color} stopOpacity="0.88" />
+          </linearGradient>
+        </defs>
+
+        {/* Top: Hoodie with Raglan Sleeves */}
+        <path
+          d="M 70 36 C 80 30, 120 30, 130 36 L 175 62 C 184 68, 180 82, 168 87 L 154 92 L 154 130 C 154 135, 150 138, 145 138 L 55 138 C 50 138, 46 135, 46 130 L 46 92 L 32 87 C 20 82, 16 68, 25 62 Z"
+          fill={`url(#grad-${cleanId})`}
+          stroke="rgba(26, 26, 26, 0.22)"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+
+        {/* Hood Collar */}
+        <path
+          d="M 76 38 C 90 48, 110 48, 124 38"
+          fill="none"
+          stroke="rgba(26, 26, 26, 0.18)"
+          strokeWidth="1.8"
+        />
+
+        {/* Golden Drawstrings */}
+        <line x1="94" y1="44" x2="94" y2="78" stroke="#D4A76A" strokeWidth="2.4" strokeLinecap="round" />
+        <line x1="106" y1="44" x2="106" y2="78" stroke="#D4A76A" strokeWidth="2.4" strokeLinecap="round" />
+
+        {/* Bottom: Tracksuit Trousers */}
+        <path
+          d="M 50 144 L 150 144 C 152 144, 153 146, 152 148 L 142 232 C 141 236, 137 239, 132 239 L 112 239 C 108 239, 105 236, 105 232 L 105 178 C 105 176, 95 176, 95 178 L 95 232 C 95 236, 92 239, 88 239 L 68 239 C 63 239, 59 236, 58 232 L 48 148 C 47 146, 48 144, 50 144 Z"
+          fill={`url(#grad-${cleanId})`}
+          stroke="rgba(26, 26, 26, 0.22)"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+
+        {/* Ankle Cuffs Details */}
+        <rect x="62" y="228" width="22" height="5" rx="2.5" fill="rgba(26, 26, 26, 0.2)" />
+        <rect x="116" y="228" width="22" height="5" rx="2.5" fill="rgba(26, 26, 26, 0.2)" />
+      </svg>
+    </div>
+  );
+}
+
 export default function ProductCard3D({ product }) {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+  const [hoveredColorIndex, setHoveredColorIndex] = useState(null);
+  const [imageError, setImageError] = useState(false);
   const navigate = useNavigate();
 
   const { user, isAuthenticated, toggleWishlist } = useAuthStore();
@@ -19,10 +92,33 @@ export default function ProductCard3D({ product }) {
     (id) => (typeof id === 'string' ? id : id?._id) === product._id
   );
 
+  // Available active colors
+  const availableColors = (product.colors && product.colors.length > 0)
+    ? product.colors.filter((c) => c.active !== false)
+    : [
+        { name: 'Sky Blue', hex: '#B8DCF0', active: true },
+        { name: 'Ivory White', hex: '#FFFFF0', active: true },
+        { name: 'Obsidian Black', hex: '#1A1A2E', active: true },
+      ];
+
   // Active color based on hover / selection
-  const activeColor = product.colors?.[selectedColorIndex] || product.colors?.[0] || {};
-  const modelImageSrc = activeColor.modelImage || product.images?.[0] || '/images/hero/hero-1.jpg';
-  const articleImageSrc = activeColor.articleImage || product.images?.[1] || modelImageSrc;
+  const currentActiveIndex = hoveredColorIndex !== null ? hoveredColorIndex : selectedColorIndex;
+  const activeColor = availableColors[currentActiveIndex] || availableColors[0] || {};
+
+  // Primary model photo and secondary flat-lay photo for the active color
+  const modelImageSrc =
+    activeColor.modelImage ||
+    activeColor.imageUrl ||
+    activeColor.articleImage ||
+    product.images?.[0] ||
+    '';
+
+  const articleImageSrc =
+    activeColor.articleImage ||
+    activeColor.imageUrl ||
+    activeColor.modelImage ||
+    product.images?.[1] ||
+    modelImageSrc;
 
   // Motion values for 3D tilt
   const x = useMotionValue(0.5);
@@ -232,43 +328,52 @@ export default function ProductCard3D({ product }) {
           />
 
           {/* 1. Default View: Male Model Wearing Tracksuit */}
-          <img
-            src={modelImageSrc}
-            alt={`${product.title} on model`}
-            loading="lazy"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center 15%',
-              opacity: isHovered ? 0 : 1,
-              transform: isHovered ? 'scale(1.04)' : 'scale(1)',
-              transition: 'opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
-              zIndex: 2,
-            }}
-          />
+          {modelImageSrc && !imageError ? (
+            <>
+              <img
+                key={`model-${activeColor.name}-${modelImageSrc}`}
+                src={modelImageSrc}
+                alt={`${product.title} - ${activeColor.name}`}
+                loading="lazy"
+                onError={() => setImageError(true)}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center 15%',
+                  opacity: (isHovered && hoveredColorIndex === null) ? 0 : 1,
+                  transform: (isHovered && hoveredColorIndex === null) ? 'scale(1.04)' : 'scale(1)',
+                  transition: 'opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s ease',
+                  zIndex: 2,
+                }}
+              />
 
-          {/* 2. Hover View: Pure Article Without Face (Flat-lay / Studio Garment) */}
-          <img
-            src={articleImageSrc}
-            alt={`${product.title} garment flat-lay`}
-            loading="lazy"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              padding: '16px',
-              background: '#F9F8F5',
-              opacity: isHovered ? 1 : 0,
-              transform: isHovered ? 'scale(1)' : 'scale(0.96)',
-              transition: 'opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
-              zIndex: 3,
-            }}
-          />
+              {/* 2. Hover View: Pure Article Without Face (Flat-lay / Studio Garment) */}
+              <img
+                key={`flat-${activeColor.name}-${articleImageSrc}`}
+                src={articleImageSrc}
+                alt={`${product.title} garment flat-lay - ${activeColor.name}`}
+                loading="lazy"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  padding: '16px',
+                  background: '#F9F8F5',
+                  opacity: (isHovered && hoveredColorIndex === null) ? 1 : 0,
+                  transform: (isHovered && hoveredColorIndex === null) ? 'scale(1)' : 'scale(0.96)',
+                  transition: 'opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s ease',
+                  zIndex: 3,
+                }}
+              />
+            </>
+          ) : (
+            <TracksuitSilhouette hex={activeColor.hex} title={product.title} />
+          )}
 
           {/* Visual indicator tag when hovering: "Garment View" */}
           <div
@@ -363,50 +468,55 @@ export default function ProductCard3D({ product }) {
               {product.category}
             </span>
 
-            {/* Interactive Color Swatch Variety Dots */}
+            {/* Interactive Color Swatch Variety Dots (Enlarged to 20px with instant hover preview) */}
             <div
               style={{
                 display: 'flex',
-                gap: '6px',
+                gap: '8px',
                 alignItems: 'center',
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              {product.colors
-                ?.filter((c) => c.active)
-                .map((color, i) => {
-                  const isSelected = selectedColorIndex === i;
-                  return (
-                    <button
-                      key={i}
-                      type="button"
-                      title={`${color.name} (Hover to display color)`}
-                      onMouseEnter={(e) => {
-                        e.stopPropagation();
-                        setSelectedColorIndex(i);
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedColorIndex(i);
-                      }}
-                      style={{
-                        width: isSelected ? 14 : 12,
-                        height: isSelected ? 14 : 12,
-                        borderRadius: '50%',
-                        backgroundColor: color.hex,
-                        border: '1px solid rgba(26, 26, 26, 0.2)',
-                        padding: 0,
-                        cursor: 'pointer',
-                        boxShadow: isSelected
-                          ? '0 0 0 2px #FFFFFF, 0 0 0 3.5px var(--champagne)'
-                          : 'none',
-                        transform: isSelected ? 'scale(1.15)' : 'scale(1)',
-                        transition: 'all 0.2s cubic-bezier(0.22, 1, 0.36, 1)',
-                        outline: 'none',
-                      }}
-                    />
-                  );
-                })}
+              {availableColors.map((color, i) => {
+                const isSelected = selectedColorIndex === i;
+                const isHoveredSwatch = hoveredColorIndex === i;
+                const isHighlighted = isHoveredSwatch || (hoveredColorIndex === null && isSelected);
+                return (
+                  <button
+                    key={color.name || i}
+                    type="button"
+                    title={`${color.name} (Hover to preview ${color.name})`}
+                    onMouseEnter={(e) => {
+                      e.stopPropagation();
+                      setHoveredColorIndex(i);
+                    }}
+                    onMouseLeave={(e) => {
+                      e.stopPropagation();
+                      setHoveredColorIndex(null);
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedColorIndex(i);
+                    }}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: '50%',
+                      backgroundColor: color.hex,
+                      border: '1.5px solid rgba(26, 26, 26, 0.18)',
+                      padding: 0,
+                      cursor: 'pointer',
+                      boxShadow: isHighlighted
+                        ? '0 0 0 2px #FFFFFF, 0 0 0 4px var(--champagne)'
+                        : '0 1px 3px rgba(0, 0, 0, 0.1)',
+                      transform: isHighlighted ? 'scale(1.2)' : 'scale(1)',
+                      transition: 'all 0.2s cubic-bezier(0.22, 1, 0.36, 1)',
+                      outline: 'none',
+                      position: 'relative',
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
 
@@ -429,9 +539,31 @@ export default function ProductCard3D({ product }) {
             {product.title}
           </h3>
 
-          {/* Active Color Name Sub-label */}
-          <div style={{ fontSize: '11px', color: 'var(--mist)', marginBottom: '6px' }}>
-            {activeColor.name || 'Signature Color'}
+          {/* Active Color Name Sub-label with Dynamic Color Indicator */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '11px',
+              color: 'var(--ash)',
+              marginBottom: '6px',
+            }}
+          >
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                backgroundColor: activeColor.hex || '#EDE8DF',
+                border: '1px solid rgba(26, 26, 26, 0.2)',
+                display: 'inline-block',
+                transition: 'background-color 0.2s ease',
+              }}
+            />
+            <span style={{ color: 'var(--graphite)', fontWeight: 500 }}>
+              {activeColor.name || 'Signature Set'}
+            </span>
           </div>
 
           {/* Price & Set Specification */}

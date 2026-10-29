@@ -77,23 +77,45 @@ router.get('/admin/all', protect, authorize('admin', 'superadmin'), async (req, 
   }
 });
 
+// Admin: Upload single image for color variant
+router.post('/upload-image', protect, authorize('admin', 'superadmin'), upload.single('image'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No image file uploaded' });
+    }
+    const url = `/uploads/${req.file.filename}`;
+    res.json({ url });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Admin: Create product
 router.post('/', protect, authorize('admin', 'superadmin'), upload.array('images', 6), async (req, res) => {
   try {
     const { title, slug, description, price, category, fabric, care, colors, sizes, inventoryCount, isFeatured, isNewArrival, isBestseller } = req.body;
     const images = req.files ? req.files.map(f => `/uploads/${f.filename}`) : [];
     
+    const parsedColors = JSON.parse(colors || '[]').map(c => ({
+      name: c.name,
+      hex: c.hex,
+      active: c.active !== false,
+      modelImage: c.modelImage || c.imageUrl || '',
+      articleImage: c.articleImage || c.imageUrl || c.modelImage || '',
+      imageUrl: c.imageUrl || c.modelImage || c.articleImage || '',
+    }));
+
     const product = await Product.create({
       title, slug, description,
       price: Number(price),
       category, fabric, care,
       images,
-      colors: JSON.parse(colors || '[]'),
+      colors: parsedColors,
       sizes: JSON.parse(sizes || '[]'),
       inventoryCount: Number(inventoryCount) || 0,
-      isFeatured: isFeatured === 'true',
-      isNewArrival: isNewArrival === 'true',
-      isBestseller: isBestseller === 'true',
+      isFeatured: isFeatured === 'true' || isFeatured === true,
+      isNewArrival: isNewArrival === 'true' || isNewArrival === true,
+      isBestseller: isBestseller === 'true' || isBestseller === true,
     });
 
     await createAuditLog({
@@ -127,8 +149,18 @@ router.put('/:id', protect, authorize('admin', 'superadmin'), upload.array('imag
     if (category) product.category = category;
     if (fabric !== undefined) product.fabric = fabric;
     if (care !== undefined) product.care = care;
-    if (colors) product.colors = JSON.parse(colors);
     if (sizes) product.sizes = JSON.parse(sizes);
+    if (colors) {
+      const parsed = JSON.parse(colors);
+      product.colors = parsed.map(c => ({
+        name: c.name,
+        hex: c.hex,
+        active: c.active !== false,
+        modelImage: c.modelImage || c.imageUrl || '',
+        articleImage: c.articleImage || c.imageUrl || c.modelImage || '',
+        imageUrl: c.imageUrl || c.modelImage || c.articleImage || '',
+      }));
+    }
     if (inventoryCount !== undefined) product.inventoryCount = Number(inventoryCount);
     if (isFeatured !== undefined) product.isFeatured = isFeatured === 'true' || isFeatured === true;
     if (isNewArrival !== undefined) product.isNewArrival = isNewArrival === 'true' || isNewArrival === true;
