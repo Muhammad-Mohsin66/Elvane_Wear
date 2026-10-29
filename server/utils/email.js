@@ -1,6 +1,16 @@
 import nodemailer from 'nodemailer';
 
 const sendEmail = async ({ to, subject, html }) => {
+  const isSmtpValid = process.env.SMTP_USER &&
+    !process.env.SMTP_USER.includes('your_email') &&
+    process.env.SMTP_PASS &&
+    !process.env.SMTP_PASS.includes('your_app_password');
+
+  if (!isSmtpValid) {
+    console.log(`⚠️ SMTP not configured with real credentials. Skipping email send for ${to}.`);
+    return false;
+  }
+
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'smtp.gmail.com',
@@ -10,6 +20,9 @@ const sendEmail = async ({ to, subject, html }) => {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      connectionTimeout: 5000,
+      greetingTimeout: 5000,
+      socketTimeout: 5000,
     });
 
     await transporter.sendMail({
@@ -21,7 +34,7 @@ const sendEmail = async ({ to, subject, html }) => {
     console.log(`📧 Email sent to ${to}`);
     return true;
   } catch (error) {
-    console.log(`⚠️ Email sending failed (SMTP not configured). OTP logged to console instead.`);
+    console.log(`⚠️ Email sending failed: ${error.message}`);
     return false;
   }
 };
