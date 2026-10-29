@@ -504,9 +504,15 @@ export default function ProductDetail() {
                 <Truck size={14} color="var(--champagne)" />
                 <span>100% Cash on Delivery (COD) Nationwide</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <RotateCcw size={14} color="var(--ash)" />
-                <span>Complimentary 7-Day Size Exchange Service</span>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                onClick={() => navigate('/returns')}
+                title="Click to view full Return & Exchange Policy"
+              >
+                <RotateCcw size={14} color="var(--champagne)" />
+                <span style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}>
+                  Complimentary 7-Day Size Exchange Service
+                </span>
               </div>
             </div>
 
@@ -577,6 +583,55 @@ export default function ProductDetail() {
                   <div style={{ paddingBottom: '18px', fontSize: '13px', color: 'var(--ash)', lineHeight: 1.7 }}>
                     <p><strong>Fabric Composition:</strong> {product.fabric || '100% Luxury Fiber Blend'}</p>
                     <p style={{ marginTop: '6px' }}><strong>Care Instructions:</strong> {product.care || 'Hand wash cold or gentle cycle. Lay flat to dry.'}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Accordion 3: Return & Exchange Policy */}
+              <div style={{ borderBottom: '1px solid var(--hairline)' }}>
+                <button
+                  onClick={() => setOpenAccordion(openAccordion === 'returns' ? '' : 'returns')}
+                  style={{
+                    width: '100%',
+                    padding: '18px 0',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    color: 'var(--graphite)',
+                  }}
+                >
+                  <span>Complimentary 7-Day Returns & Exchanges</span>
+                  <ChevronDown
+                    size={16}
+                    style={{
+                      transform: openAccordion === 'returns' ? 'rotate(180deg)' : 'rotate(0)',
+                      transition: 'transform 0.3s ease',
+                    }}
+                  />
+                </button>
+                {openAccordion === 'returns' && (
+                  <div style={{ paddingBottom: '18px', fontSize: '13px', color: 'var(--ash)', lineHeight: 1.7 }}>
+                    <p>
+                      Enjoy peace of mind with our 7-day exchange window. If your tracksuit set requires another size or colorway, we coordinate a seamless doorstep pickup across Pakistan. Items must be unworn with original tags attached.
+                    </p>
+                    <p style={{ marginTop: '10px' }}>
+                      <span
+                        onClick={() => navigate('/returns')}
+                        style={{
+                          color: 'var(--champagne)',
+                          textDecoration: 'underline',
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                        }}
+                      >
+                        Read full Return & Exchange Guidelines →
+                      </span>
+                    </p>
                   </div>
                 )}
               </div>

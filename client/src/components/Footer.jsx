@@ -122,30 +122,19 @@ export default function Footer() {
         >
           {/* Brand Col */}
           <div className="footer-brand-col">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+            <div style={{ marginBottom: '16px' }}>
               <img
-                src="/logo.jpg"
-                alt="Elvane Wear Logo"
+                src="/logo.png"
+                alt="Elvane Wear"
                 style={{
                   height: '46px',
                   width: 'auto',
-                  borderRadius: '6px',
                   objectFit: 'contain',
-                  mixBlendMode: 'multiply',
+                  display: 'block',
                 }}
               />
-              <h2
-                style={{
-                  fontSize: '26px',
-                  fontFamily: "'Cormorant Garamond', serif",
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  color: 'var(--graphite)',
-                  margin: 0,
-                  fontWeight: 600,
-                }}
-              >
-                Elvane <span style={{ fontWeight: 400, fontStyle: 'italic', color: 'var(--champagne)' }}>Wear</span>
+              <h2 style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: 0 }}>
+                Elvane Wear
               </h2>
             </div>
             <p
@@ -175,7 +164,16 @@ export default function Footer() {
 
           {/* Navigation Links */}
           <div>
-            <h4 className="eyebrow" style={{ marginBottom: '16px', color: 'var(--graphite)' }}>
+            <h4
+              className="eyebrow"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--graphite)',
+                fontWeight: 700,
+                fontSize: '12px',
+                letterSpacing: '0.18em',
+              }}
+            >
               Collection
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -204,7 +202,16 @@ export default function Footer() {
 
           {/* Client Concierge */}
           <div>
-            <h4 className="eyebrow" style={{ marginBottom: '16px', color: 'var(--graphite)' }}>
+            <h4
+              className="eyebrow"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--graphite)',
+                fontWeight: 700,
+                fontSize: '12px',
+                letterSpacing: '0.18em',
+              }}
+            >
               Concierge
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -216,6 +223,11 @@ export default function Footer() {
               <li>
                 <Link to="/contact" className="link-underline" style={{ fontSize: '13px', color: 'var(--ash)' }}>
                   Customer Care & Inquiries
+                </Link>
+              </li>
+              <li>
+                <Link to="/returns" className="link-underline" style={{ fontSize: '13px', color: 'var(--ash)' }}>
+                  Returns & Exchanges
                 </Link>
               </li>
               <li>
@@ -233,7 +245,16 @@ export default function Footer() {
 
           {/* Portals */}
           <div>
-            <h4 className="eyebrow" style={{ marginBottom: '16px', color: 'var(--graphite)' }}>
+            <h4
+              className="eyebrow"
+              style={{
+                marginBottom: '16px',
+                color: 'var(--graphite)',
+                fontWeight: 700,
+                fontSize: '12px',
+                letterSpacing: '0.18em',
+              }}
+            >
               Governance
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>

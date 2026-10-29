@@ -107,7 +107,7 @@ export default function SuperAdminDashboard() {
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '20px', marginBottom: '40px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <img src="/logo.jpg" alt="Elvane Wear" style={{ height: '32px', width: 'auto', objectFit: 'contain', borderRadius: '4px' }} />
+            <img src="/logo.png" alt="Elvane Wear" style={{ height: '32px', width: 'auto', objectFit: 'contain', borderRadius: '4px' }} />
             <span
               style={{
                 display: 'inline-flex',

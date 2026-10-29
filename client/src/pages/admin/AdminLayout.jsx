@@ -25,13 +25,11 @@ export default function AdminLayout() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
               <img
-                src="/logo.jpg"
+                src="/logo-icon.png"
                 alt="Elvane Wear"
                 style={{
                   height: '32px',
                   width: 'auto',
-                  borderRadius: '4px',
-                  mixBlendMode: 'multiply',
                 }}
               />
               <span className="eyebrow" style={{ color: 'var(--champagne)', fontSize: '10px' }}>

@@ -90,35 +90,20 @@ export default function Navbar() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
               textDecoration: 'none',
             }}
           >
             <img
-              src="/logo.jpg"
-              alt="Elvane Wear Logo"
+              src="/logo.png"
+              alt="Elvane Wear"
               style={{
-                height: '38px',
+                height: 'clamp(28px, 3.5vw, 36px)',
                 width: 'auto',
-                borderRadius: '4px',
                 objectFit: 'contain',
-                mixBlendMode: 'multiply',
               }}
             />
-            <h1
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 'clamp(18px, 2.5vw, 24px)',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'var(--graphite)',
-                margin: 0,
-                lineHeight: 1.2,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Elvane <span style={{ fontWeight: 400, fontStyle: 'italic', color: 'var(--champagne)' }}>Wear</span>
+            <h1 style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: 0 }}>
+              Elvane Wear
             </h1>
           </Link>
         </div>
