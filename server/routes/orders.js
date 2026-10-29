@@ -10,7 +10,7 @@ const router = express.Router();
 // Create order (customer, must be verified)
 router.post('/', protect, requireVerifiedEmail, upload.single('jazzCashScreenshot'), async (req, res) => {
   try {
-    const { items, shippingAddress, paymentMethod, jazzCashTransactionId } = req.body;
+    const { items, shippingAddress } = req.body;
     const parsedItems = JSON.parse(items);
     
     if (!parsedItems || parsedItems.length === 0) {
@@ -44,10 +44,8 @@ router.post('/', protect, requireVerifiedEmail, upload.single('jazzCashScreensho
       user: req.user._id,
       items: orderItems,
       shippingAddress: parsedAddress,
-      paymentMethod,
-      paymentStatus: paymentMethod === 'JazzCash' ? 'Pending Verification' : 'Pending',
-      jazzCashScreenshot: req.file ? `/uploads/${req.file.filename}` : undefined,
-      jazzCashTransactionId,
+      paymentMethod: 'COD',
+      paymentStatus: 'Pending',
       subtotal,
       total: subtotal,
     });

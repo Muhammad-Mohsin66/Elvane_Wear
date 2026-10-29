@@ -83,8 +83,8 @@ export default function Footer() {
               <Clock size={18} color="var(--champagne)" />
             </div>
             <div>
-              <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>Cash on Delivery & JazzCash</p>
-              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Seamless verification</p>
+              <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>Cash on Delivery (COD)</p>
+              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Pay upon doorstep arrival</p>
             </div>
           </div>
 
@@ -282,9 +282,9 @@ export default function Footer() {
         >
           <p>© {new Date().getFullYear()} Elvane Wear. Crafted for high-fashion excellence.</p>
           <div style={{ display: 'flex', gap: '24px' }}>
-            <span>Cash on Delivery</span>
+            <span>Cash on Delivery (Nationwide)</span>
             <span>•</span>
-            <span>JazzCash Verified</span>
+            <span>Inspection Before Payment</span>
             <span>•</span>
             <span>100% Authentic Set Guarantee</span>
           </div>

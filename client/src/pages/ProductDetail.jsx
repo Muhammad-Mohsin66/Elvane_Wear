@@ -494,7 +494,7 @@ export default function ProductDetail() {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Truck size={14} color="var(--champagne)" />
-                <span>Cash on Delivery (COD) & JazzCash Verified Payment</span>
+                <span>100% Cash on Delivery (COD) Nationwide</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <RotateCcw size={14} color="var(--ash)" />

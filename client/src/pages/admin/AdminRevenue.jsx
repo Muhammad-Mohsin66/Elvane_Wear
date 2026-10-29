@@ -66,10 +66,10 @@ export default function AdminRevenue() {
         </div>
 
         <div style={{ background: 'var(--snow)', padding: '24px', borderRadius: '16px', border: '1px solid var(--hairline)', boxShadow: '0 4px 16px rgba(26,26,26,0.03)' }}>
-          <span className="eyebrow" style={{ fontSize: '10px' }}>Payment Split</span>
+          <span className="eyebrow" style={{ fontSize: '10px' }}>Payment Mode</span>
           <div style={{ marginTop: '10px', fontSize: '13px' }}>
-            <p>COD: <strong>{stats?.codOrders || 0}</strong></p>
-            <p style={{ marginTop: '2px' }}>JazzCash: <strong>{stats?.jazzCashOrders || 0}</strong></p>
+            <p>Cash on Delivery: <strong>{stats?.codOrders || 0}</strong></p>
+            <p style={{ marginTop: '2px', color: 'var(--ash)', fontSize: '11px' }}>100% Cash on Delivery</p>
           </div>
         </div>
       </div>

@@ -104,7 +104,7 @@ export default function AdminOrders() {
             Atelier Orders
           </h1>
           <p style={{ fontSize: '13px', color: 'var(--ash)', marginTop: '4px' }}>
-            Manage client orders, review JazzCash payment receipts, and adjust bill discounts.
+            Manage client orders, dispatch COD parcels nationwide, and manage customer fulfillment.
           </p>
         </div>
 

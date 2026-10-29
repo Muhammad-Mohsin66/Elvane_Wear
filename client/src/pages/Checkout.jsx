@@ -20,11 +20,8 @@ export default function Checkout() {
   const [state, setState] = useState(user?.address?.state || '');
   const [zip, setZip] = useState(user?.address?.zip || '');
 
-  // Payment State
-  const [paymentMethod, setPaymentMethod] = useState('COD'); // 'COD' | 'JazzCash'
-  const [jazzCashTxnId, setJazzCashTxnId] = useState('');
-  const [screenshotFile, setScreenshotFile] = useState(null);
-  const [screenshotPreview, setScreenshotPreview] = useState(null);
+  // Payment Method: Strictly Cash on Delivery (COD)
+  const paymentMethod = 'COD';
 
   // Active Store Announcement Promo
   const [announcement, setAnnouncement] = useState(null);
@@ -39,24 +36,11 @@ export default function Checkout() {
     api.get('/announcements/active').then((res) => setAnnouncement(res.data)).catch(() => {});
   }, [items, navigate]);
 
-  const handleScreenshotChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setScreenshotFile(file);
-      setScreenshotPreview(URL.createObjectURL(file));
-    }
-  };
-
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
     setErrorMsg('');
-
-    if (paymentMethod === 'JazzCash' && !screenshotFile) {
-      setErrorMsg('Please upload your JazzCash payment screenshot to complete order verification.');
-      return;
-    }
-
     setSubmitting(true);
+
     try {
       const formData = new FormData();
       formData.append(
@@ -84,13 +68,7 @@ export default function Checkout() {
         })
       );
 
-      formData.append('paymentMethod', paymentMethod);
-      if (jazzCashTxnId) {
-        formData.append('jazzCashTransactionId', jazzCashTxnId);
-      }
-      if (screenshotFile) {
-        formData.append('jazzCashScreenshot', screenshotFile);
-      }
+      formData.append('paymentMethod', 'COD');
 
       const { data } = await api.post('/orders', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -247,7 +225,7 @@ export default function Checkout() {
                 </div>
               </div>
 
-              {/* Payment Methods */}
+              {/* Payment Methods - Strictly COD */}
               <div
                 style={{
                   background: 'var(--snow)',
@@ -257,129 +235,79 @@ export default function Checkout() {
                   boxShadow: '0 4px 20px rgba(26,26,26,0.03)',
                 }}
               >
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '24px', marginBottom: '20px' }}>
-                  2. Select Payment Method
-                </h3>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {/* COD Option */}
-                  <label
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '24px', margin: 0 }}>
+                    2. Payment Method
+                  </h3>
+                  <span
                     style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '14px',
-                      padding: '16px 20px',
-                      borderRadius: '14px',
-                      border: paymentMethod === 'COD' ? '1px solid var(--champagne)' : '1px solid var(--hairline)',
-                      background: paymentMethod === 'COD' ? 'rgba(212, 167, 106, 0.05)' : 'var(--cloud)',
-                      cursor: 'pointer',
+                      background: 'rgba(212, 167, 106, 0.12)',
+                      color: 'var(--champagne)',
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      padding: '4px 12px',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(212, 167, 106, 0.3)',
                     }}
                   >
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value="COD"
-                      checked={paymentMethod === 'COD'}
-                      onChange={() => setPaymentMethod('COD')}
-                      style={{ width: 'auto', marginTop: '4px' }}
-                    />
-                    <div>
-                      <p style={{ fontWeight: 600, fontSize: '14px', color: 'var(--graphite)' }}>
+                    100% Cash on Delivery
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '18px',
+                    padding: '24px',
+                    borderRadius: '16px',
+                    border: '1.5px solid var(--champagne)',
+                    background: 'linear-gradient(135deg, rgba(212, 167, 106, 0.06) 0%, rgba(184, 220, 240, 0.08) 100%)',
+                    position: 'relative',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      background: 'var(--snow)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: '1px solid var(--hairline-sky)',
+                      boxShadow: '0 4px 12px rgba(26,26,26,0.04)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Truck size={24} color="var(--champagne)" />
+                  </div>
+
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <p style={{ fontWeight: 600, fontSize: '16px', color: 'var(--graphite)', margin: 0 }}>
                         Cash on Delivery (COD)
                       </p>
-                      <p style={{ fontSize: '12px', color: 'var(--ash)', marginTop: '2px' }}>
-                        Pay cash upon receiving your tracksuit package anywhere in Pakistan.
-                      </p>
+                      <CheckCircle size={16} color="var(--champagne)" />
                     </div>
-                  </label>
+                    <p style={{ fontSize: '13px', color: 'var(--charcoal)', lineHeight: 1.6, margin: '6px 0 12px 0' }}>
+                      Pay in cash directly to the courier agent when your handcrafted tracksuit package arrives at your doorstep anywhere in Pakistan.
+                    </p>
 
-                  {/* JazzCash Option */}
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '14px',
-                      padding: '16px 20px',
-                      borderRadius: '14px',
-                      border: paymentMethod === 'JazzCash' ? '1px solid var(--champagne)' : '1px solid var(--hairline)',
-                      background: paymentMethod === 'JazzCash' ? 'rgba(212, 167, 106, 0.05)' : 'var(--cloud)',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value="JazzCash"
-                      checked={paymentMethod === 'JazzCash'}
-                      onChange={() => setPaymentMethod('JazzCash')}
-                      style={{ width: 'auto', marginTop: '4px' }}
-                    />
-                    <div>
-                      <p style={{ fontWeight: 600, fontSize: '14px', color: 'var(--graphite)' }}>
-                        JazzCash Manual Transfer & Screenshot
-                      </p>
-                      <p style={{ fontSize: '12px', color: 'var(--ash)', marginTop: '2px' }}>
-                        Transfer exact PKR amount and upload receipt screenshot for instant atelier verification.
-                      </p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', fontSize: '12px', color: 'var(--ash)', borderTop: '1px solid var(--hairline)', paddingTop: '12px' }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <ShieldCheck size={14} color="var(--champagne)" /> No Advance Payment Required
+                      </span>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Sparkles size={14} color="var(--champagne)" /> Parcel Handover at Doorstep
+                      </span>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Truck size={14} color="var(--champagne)" /> Express 2-4 Day Nationwide Delivery
+                      </span>
                     </div>
-                  </label>
-
-                  {/* JazzCash Instruction Box */}
-                  {paymentMethod === 'JazzCash' && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      style={{
-                        padding: '20px',
-                        background: 'rgba(184, 220, 240, 0.15)',
-                        border: '1px solid var(--hairline-sky)',
-                        borderRadius: '12px',
-                        marginTop: '8px',
-                      }}
-                    >
-                      <p className="eyebrow" style={{ color: 'var(--graphite)', marginBottom: '8px' }}>
-                        Official JazzCash Account Details:
-                      </p>
-                      <div style={{ fontSize: '13px', color: 'var(--charcoal)', lineHeight: 1.6 }}>
-                        <p><strong>Account Title:</strong> Elvane Wear Atelier</p>
-                        <p><strong>Mobile Account:</strong> 0300-1234567</p>
-                        <p><strong>Payable Amount:</strong> <span style={{ color: 'var(--graphite)', fontWeight: 600 }}>{formatPKR(subtotal)}</span></p>
-                      </div>
-
-                      <div style={{ marginTop: '16px' }}>
-                        <label className="eyebrow" style={{ display: 'block', marginBottom: '6px' }}>
-                          Upload Payment Screenshot *
-                        </label>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleScreenshotChange}
-                          style={{ background: 'var(--snow)', padding: '8px', fontSize: '12px' }}
-                        />
-                        {screenshotPreview && (
-                          <div style={{ marginTop: '10px' }}>
-                            <img
-                              src={screenshotPreview}
-                              alt="Payment Proof"
-                              style={{ width: '120px', height: '140px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--hairline)' }}
-                            />
-                          </div>
-                        )}
-                      </div>
-
-                      <div style={{ marginTop: '12px' }}>
-                        <label className="eyebrow" style={{ display: 'block', marginBottom: '6px' }}>
-                          Transaction ID (TID) (Optional)
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="e.g. 1029384756"
-                          value={jazzCashTxnId}
-                          onChange={(e) => setJazzCashTxnId(e.target.value)}
-                        />
-                      </div>
-                    </motion.div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
