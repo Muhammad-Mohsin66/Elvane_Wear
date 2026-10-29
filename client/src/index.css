@@ -289,3 +289,17 @@ a {
   }
 }
 
+/* Promo Banner — Responsive model image grid */
+@media (max-width: 1024px) {
+  .promo-model-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .promo-model-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    height: 260px !important;
+  }
+}
+

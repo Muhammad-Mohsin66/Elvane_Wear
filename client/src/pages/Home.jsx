@@ -383,109 +383,191 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BRAND STORY STRIP */}
-      <section
-        style={{
-          background: 'var(--cloud)',
-          borderTop: '1px solid var(--hairline)',
-          borderBottom: '1px solid var(--hairline)',
-          padding: 'clamp(60px, 8vw, 120px) clamp(16px, 4vw, 32px)',
-        }}
-      >
-        <div
+      {/* PROMOTIONAL BANNER — Dynamic Discount from Admin Announcement */}
+      {announcement?.isActive && announcement?.discountPercent > 0 && (
+        <section
           style={{
-            maxWidth: '1280px',
-            margin: '0 auto',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-            gap: 'clamp(32px, 5vw, 64px)',
-            alignItems: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+            background: '#0D0D0D',
           }}
         >
-          {/* Architectural Graphic */}
+          {/* Multiple Model Images Strip */}
           <div
+            className="promo-model-grid"
             style={{
-              background: 'var(--snow)',
-              borderRadius: '24px',
-              border: '1px solid var(--hairline)',
-              padding: 'clamp(24px, 5vw, 48px)',
-              boxShadow: 'var(--card-3d-shadow)',
-              position: 'relative',
-              overflow: 'hidden',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              width: '100%',
+              height: 'clamp(340px, 50vw, 560px)',
             }}
           >
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                width: '200px',
-                height: '200px',
-                background: 'var(--sky-ambient-glow)',
-                filter: 'blur(50px)',
-              }}
-            />
-            <span className="eyebrow" style={{ color: 'var(--champagne)' }}>
-              Philosophy of Reduction
-            </span>
-            <h3
-              style={{
-                fontSize: '36px',
-                fontFamily: "'Cormorant Garamond', serif",
-                marginTop: '16px',
-                marginBottom: '20px',
-                lineHeight: 1.15,
-              }}
-            >
-              "Where comfort meets <em style={{ fontStyle: 'italic' }}>couture</em>."
-            </h3>
-            <p style={{ fontSize: '15px', color: 'var(--ash)', lineHeight: 1.8 }}>
-              We rejected the premise of fast athleisure. Elvane Wear was founded on a singular conviction: that a tracksuit can possess the same tailoring prestige, architectural rigor, and fabric pedigree as bespoke Savile Row tailoring.
-            </p>
-            <div style={{ marginTop: '32px', display: 'flex', gap: '24px' }}>
-              <div>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', fontWeight: 600, color: 'var(--graphite)' }}>
-                  100%
-                </p>
-                <p style={{ fontSize: '11px', color: 'var(--ash)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  Natural Fibers
-                </p>
-              </div>
-              <div style={{ width: '1px', background: 'var(--hairline)' }} />
-              <div>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', fontWeight: 600, color: 'var(--graphite)' }}>
-                  PKR
-                </p>
-                <p style={{ fontSize: '11px', color: 'var(--ash)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  Direct Atelier Pricing
-                </p>
-              </div>
-            </div>
+            {[
+              { src: '/images/products/p1-cream-model.jpg', bg: '#E8E0D4' },
+              { src: '/images/products/p5-charcoal-model.jpg', bg: '#C5C0B8' },
+              { src: '/images/products/p6-tan-model.jpg', bg: '#D4C5A8' },
+              { src: '/images/products/p3-navy-model.jpg', bg: '#B0B8C0' },
+              { src: '/images/products/p12-obsidian-model.jpg', bg: '#A09890' },
+              { src: '/images/products/p2-black-model.jpg', bg: '#C8C0B8' },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.7, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  background: item.bg,
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('img').style.transform = 'scale(1.06)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('img').style.transform = 'scale(1)';
+                }}
+                onClick={() => navigate('/shop')}
+              >
+                <img
+                  src={item.src}
+                  alt={`Elvane Wear Collection ${idx + 1}`}
+                  loading="lazy"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center 15%',
+                    transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+                  }}
+                />
+              </motion.div>
+            ))}
           </div>
 
-          {/* Right Text Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <span className="eyebrow">The Atelier Standard</span>
-            <h2
-              style={{
-                fontSize: 'clamp(32px, 4vw, 48px)',
-                fontFamily: "'Cormorant Garamond', serif",
-                lineHeight: 1.15,
-              }}
-            >
-              No separates. Only harmonious, intentional <em style={{ fontStyle: 'italic' }}>monochrome sets</em>.
-            </h2>
-            <p style={{ fontSize: '16px', color: 'var(--ash)', lineHeight: 1.8 }}>
-              When you purchase an Elvane Wear tracksuit, you receive a meticulously proportioned top and trouser, dyed in identical dye lots to guarantee chromatic perfection. Designed with concealed zips, French seams, and ribbed hems.
-            </p>
-            <div style={{ marginTop: '16px' }}>
-              <Button3D variant="dark" onClick={() => navigate('/shop')}>
-                Explore the Atelier
+          {/* Sale Banner Overlay — Bottom */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: 'relative',
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'clamp(20px, 4vw, 48px)',
+              padding: 'clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px)',
+              background: 'linear-gradient(135deg, #FAFAFA 0%, #F5F0EA 100%)',
+            }}
+          >
+            {/* Left: Sale Title */}
+            <div style={{ textAlign: 'center', flex: '1 1 280px' }}>
+              <motion.h2
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(36px, 6vw, 72px)',
+                  fontWeight: 600,
+                  lineHeight: 0.95,
+                  color: 'var(--graphite)',
+                  letterSpacing: '-0.03em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Seasonal<br />
+                Privilege<br />
+                <span style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: 'clamp(48px, 8vw, 96px)',
+                  fontWeight: 800,
+                  background: 'var(--cta-gradient)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  letterSpacing: '-0.04em',
+                }}>
+                  SALE
+                </span>
+              </motion.h2>
+            </div>
+
+            {/* Center: CTA Button */}
+            <div style={{ flex: '0 1 auto', textAlign: 'center' }}>
+              <Button3D
+                variant="dark"
+                size="lg"
+                onClick={() => navigate('/shop')}
+                icon={ArrowRight}
+              >
+                Shop All
               </Button3D>
             </div>
-          </div>
-        </div>
-      </section>
+
+            {/* Right: Discount Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                flex: '1 1 280px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              <div
+                style={{
+                  background: 'var(--cta-gradient)',
+                  borderRadius: '20px',
+                  padding: 'clamp(24px, 3vw, 40px) clamp(32px, 4vw, 56px)',
+                  textAlign: 'center',
+                  boxShadow: '0 20px 60px -15px rgba(212, 167, 106, 0.45)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%)',
+                    pointerEvents: 'none',
+                  }}
+                />
+                <p style={{
+                  fontSize: 'clamp(11px, 1.4vw, 14px)',
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.2em',
+                  color: 'var(--graphite)',
+                  marginBottom: '4px',
+                  position: 'relative',
+                }}>
+                  Limited Time Only
+                </p>
+                <p style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: 'clamp(36px, 5.5vw, 56px)',
+                  fontWeight: 900,
+                  color: 'var(--graphite)',
+                  lineHeight: 1,
+                  letterSpacing: '-0.03em',
+                  position: 'relative',
+                }}>
+                  FLAT {announcement.discountPercent}% OFF
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+      )}
 
       {/* EDITORIAL QUOTE & NEWSLETTER */}
       <section style={{ maxWidth: '900px', margin: '0 auto', padding: '120px 32px', textAlign: 'center' }}>
