@@ -197,11 +197,21 @@ a {
   border-left-color: var(--champagne);
 }
 
-.admin-content {
-  margin-left: 260px;
-  padding: 32px 40px;
+.admin-content,
+.admin-main-viewport {
+  margin-left: 270px;
+  width: calc(100% - 270px);
   min-height: 100vh;
   background: var(--snow);
+  box-sizing: border-box;
+}
+
+@media (max-width: 1023px) {
+  .admin-content,
+  .admin-main-viewport {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
 }
 
 /* Toast */

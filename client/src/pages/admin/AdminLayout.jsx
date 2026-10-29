@@ -174,7 +174,7 @@ export default function AdminLayout() {
   );
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--snow)' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--snow)', position: 'relative', width: '100%' }}>
       {/* Mobile Top Header (Visible on Mobile & Tablet < 1024px) */}
       <div
         className="flex lg:hidden items-center justify-between px-5 py-4 border-b border-[var(--hairline)] bg-[var(--cloud)] sticky top-0 z-30"
@@ -201,7 +201,23 @@ export default function AdminLayout() {
 
       {/* Desktop Fixed Left Sidebar (Visible on Desktop >= 1024px) */}
       <aside
-        className="hidden lg:block fixed top-0 bottom-0 left-0 w-[260px] bg-[var(--cloud)] border-r border-[var(--hairline)] z-40"
+        style={{
+          width: '270px',
+          minWidth: '270px',
+          maxWidth: '270px',
+          height: '100vh',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          background: 'var(--cloud)',
+          borderRight: '1px solid var(--hairline)',
+          zIndex: 40,
+          display: 'flex',
+          flexDirection: 'column',
+          boxSizing: 'border-box',
+        }}
+        className="hidden lg:flex"
       >
         {sidebarContent}
       </aside>
@@ -240,11 +256,20 @@ export default function AdminLayout() {
         )}
       </AnimatePresence>
 
-      {/* Main Content Area */}
+      {/* Main Content Area (Offset strictly by 270px on desktop) */}
       <main
-        className="lg:ml-[260px] flex-1 p-5 sm:p-8 lg:p-10 min-h-screen bg-[var(--snow)]"
+        className="admin-main-viewport"
+        style={{
+          minHeight: '100vh',
+          boxSizing: 'border-box',
+          padding: 'clamp(28px, 4vw, 48px) clamp(24px, 4vw, 56px)',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
-        <Outlet />
+        <div style={{ width: '100%', maxWidth: '1100px', margin: 0 }}>
+          <Outlet />
+        </div>
       </main>
     </div>
   );
