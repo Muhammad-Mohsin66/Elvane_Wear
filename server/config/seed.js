@@ -253,6 +253,14 @@ const products = [
         articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333590/elvena_wear/products/6.1-flat.jpg',
         imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333591/elvena_wear/products/6.1-model.jpg',
       },
+      {
+        name: 'Rust Amber & Black',
+        hex: '#8C482A',
+        active: true,
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793335957/elvena_wear/products/6.2-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793335958/elvena_wear/products/6.2-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793335957/elvena_wear/products/6.2-model.jpg',
+      },
     ],
     sizes: [
       { name: 'S', active: true },

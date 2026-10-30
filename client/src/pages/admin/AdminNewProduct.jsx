@@ -5,16 +5,14 @@ import api from '../../utils/api';
 import Button3D from '../../components/Button3D';
 
 const MASTER_COLORS = [
-  { name: 'Cream / Ecru', hex: '#F5F0E8', defaultModel: '/images/products/p1-cream-model.jpg', defaultArticle: '/images/products/p1-cream-flat.jpg' },
-  { name: 'Obsidian Black', hex: '#1A1A2E', defaultModel: '/images/products/p1-black-model.jpg', defaultArticle: '/images/products/p1-black-flat.jpg' },
-  { name: 'Glacier Sky Blue', hex: '#B8DCF0', defaultModel: '/images/products/p11-blue-model.jpg', defaultArticle: '/images/products/p11-blue-flat.jpg' },
-  { name: 'Warm Champagne', hex: '#D4A76A', defaultModel: '/images/products/p12-champagne-model.jpg', defaultArticle: '/images/products/p12-champagne-flat.jpg' },
-  { name: 'Graphite Grey', hex: '#2D2D2D', defaultModel: '/images/products/p5-charcoal-model.jpg', defaultArticle: '/images/products/p5-charcoal-flat.jpg' },
-  { name: 'Sahara Sand', hex: '#C2B280', defaultModel: '/images/products/p6-tan-model.jpg', defaultArticle: '/images/products/p6-tan-flat.jpg' },
-  { name: 'Forest Olive', hex: '#556B2F', defaultModel: '/images/products/p7-olive-model.jpg', defaultArticle: '/images/products/p7-olive-flat.jpg' },
-  { name: 'Ivory White', hex: '#FFFFF0', defaultModel: '/images/products/p3-chalk-model.jpg', defaultArticle: '/images/products/p3-chalk-flat.jpg' },
-  { name: 'Midnight Navy', hex: '#191970', defaultModel: '/images/products/p3-navy-model.jpg', defaultArticle: '/images/products/p3-navy-flat.jpg' },
-  { name: 'Vintage Burgundy', hex: '#6B2737', defaultModel: '/images/products/p1-burgundy-model.jpg', defaultArticle: '/images/products/p1-burgundy-flat.jpg' },
+  { name: 'Forest Deep Teal', hex: '#374F4F', defaultModel: 'https://res.cloudinary.com/up56alno/image/upload/v1793333563/elvena_wear/products/1-model.jpg', defaultArticle: 'https://res.cloudinary.com/up56alno/image/upload/v1793333562/elvena_wear/products/1-flat.jpg' },
+  { name: 'Obsidian & Cream', hex: '#181818', defaultModel: 'https://res.cloudinary.com/up56alno/image/upload/v1793333568/elvena_wear/products/2-model.jpg', defaultArticle: 'https://res.cloudinary.com/up56alno/image/upload/v1793333567/elvena_wear/products/2-flat.jpg' },
+  { name: 'Terracotta Rust', hex: '#85462C', defaultModel: 'https://res.cloudinary.com/up56alno/image/upload/v1793333575/elvena_wear/products/3.1-model.jpg', defaultArticle: 'https://res.cloudinary.com/up56alno/image/upload/v1793333574/elvena_wear/products/3.1-flat.jpg' },
+  { name: 'Midnight Pitch Black', hex: '#1E1E1E', defaultModel: 'https://res.cloudinary.com/up56alno/image/upload/v1793333585/elvena_wear/products/5-model.jpg', defaultArticle: 'https://res.cloudinary.com/up56alno/image/upload/v1793333584/elvena_wear/products/5-flat.jpg' },
+  { name: 'Warm Taupe Sand', hex: '#7A7167', defaultModel: 'https://res.cloudinary.com/up56alno/image/upload/v1793333593/elvena_wear/products/7-model.jpg', defaultArticle: 'https://res.cloudinary.com/up56alno/image/upload/v1793333592/elvena_wear/products/7-flat.jpg' },
+  { name: 'Platinum Pearl White', hex: '#D3CAC1', defaultModel: 'https://res.cloudinary.com/up56alno/image/upload/v1793333594/elvena_wear/products/7.1-model.jpg', defaultArticle: 'https://res.cloudinary.com/up56alno/image/upload/v1793333594/elvena_wear/products/7.1-flat.jpg' },
+  { name: 'Champagne Almond', hex: '#C5AF98', defaultModel: 'https://res.cloudinary.com/up56alno/image/upload/v1793333601/elvena_wear/products/8.1-model.jpg', defaultArticle: 'https://res.cloudinary.com/up56alno/image/upload/v1793333600/elvena_wear/products/8.1-flat.jpg' },
+  { name: 'Washed Olive Sage', hex: '#827F5E', defaultModel: 'https://res.cloudinary.com/up56alno/image/upload/v1793333566/elvena_wear/products/1.1-model.jpg', defaultArticle: 'https://res.cloudinary.com/up56alno/image/upload/v1793333564/elvena_wear/products/1.1-flat.jpg' },
 ];
 
 const MASTER_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
@@ -34,20 +32,20 @@ export default function AdminNewProduct() {
   // Active Color Swatches toggled by Admin (with image associations)
   const [activeColors, setActiveColors] = useState([
     {
-      name: 'Cream / Ecru',
-      hex: '#F5F0E8',
+      name: 'Forest Deep Teal',
+      hex: '#374F4F',
       active: true,
-      modelImage: '/images/products/p1-cream-model.jpg',
-      articleImage: '/images/products/p1-cream-flat.jpg',
-      imageUrl: '/images/products/p1-cream-model.jpg',
+      modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333563/elvena_wear/products/1-model.jpg',
+      articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333562/elvena_wear/products/1-flat.jpg',
+      imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333563/elvena_wear/products/1-model.jpg',
     },
     {
-      name: 'Obsidian Black',
-      hex: '#1A1A2E',
+      name: 'Obsidian & Cream',
+      hex: '#181818',
       active: true,
-      modelImage: '/images/products/p1-black-model.jpg',
-      articleImage: '/images/products/p1-black-flat.jpg',
-      imageUrl: '/images/products/p1-black-model.jpg',
+      modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333568/elvena_wear/products/2-model.jpg',
+      articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333567/elvena_wear/products/2-flat.jpg',
+      imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333568/elvena_wear/products/2-model.jpg',
     },
   ]);
 

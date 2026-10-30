@@ -378,7 +378,7 @@ export default function Home() {
             onClick={() => navigate('/shop')}
             icon={ArrowUpRight}
           >
-            Explore All 12 Atelier Sets
+            Explore All Atelier Sets
           </Button3D>
         </div>
       </section>
@@ -403,12 +403,12 @@ export default function Home() {
             }}
           >
             {[
-              { src: '/images/products/p1-cream-model.jpg', bg: '#E8E0D4' },
-              { src: '/images/products/p5-charcoal-model.jpg', bg: '#C5C0B8' },
-              { src: '/images/products/p6-tan-model.jpg', bg: '#D4C5A8' },
-              { src: '/images/products/p3-navy-model.jpg', bg: '#B0B8C0' },
-              { src: '/images/products/p12-obsidian-model.jpg', bg: '#A09890' },
-              { src: '/images/products/p2-black-model.jpg', bg: '#C8C0B8' },
+              { src: 'https://res.cloudinary.com/up56alno/image/upload/v1793333563/elvena_wear/products/1-model.jpg', bg: '#E5EAE7' },
+              { src: 'https://res.cloudinary.com/up56alno/image/upload/v1793333568/elvena_wear/products/2-model.jpg', bg: '#E8E2D8' },
+              { src: 'https://res.cloudinary.com/up56alno/image/upload/v1793333575/elvena_wear/products/3.1-model.jpg', bg: '#EADFD8' },
+              { src: 'https://res.cloudinary.com/up56alno/image/upload/v1793333585/elvena_wear/products/5-model.jpg', bg: '#D8D8D8' },
+              { src: 'https://res.cloudinary.com/up56alno/image/upload/v1793333577/elvena_wear/products/3.2-model.jpg', bg: '#DFE1E0' },
+              { src: 'https://res.cloudinary.com/up56alno/image/upload/v1793333597/elvena_wear/products/7.2-model.jpg', bg: '#E2E2E0' },
             ].map((item, idx) => (
               <motion.div
                 key={idx}
