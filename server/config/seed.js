@@ -7,485 +7,356 @@ import Announcement from '../models/Announcement.js';
 dotenv.config();
 
 const products = [
+  // 1. The Heritage 3-Stripes Retro Set (2 Colors: Emerald Deep Teal, Washed Olive Sage)
   {
-    title: 'The Beckenbauer 3-Stripes Heritage Tracksuit',
-    slug: 'beckenbauer-3-stripes-heritage',
-    description: 'The pinnacle of adidas archival sportswear reimagined in high-fashion atelier luxury. Featuring iconic 3-stripes along sleeves and tapered legs, tailored ribbed collar, and double-knit structure.',
+    title: 'The Heritage 3-Stripes Retro Tracksuit',
+    slug: 'heritage-3-stripes-retro-tracksuit',
+    description: 'An archival sportswear icon engineered with luxury atelier proportions. Designed with structured raglan sleeves, contrast heritage striping along the arms and tapered jogger silhouette, and finished with antique brushed hardware.',
     price: 21500,
     category: 'Essential Set',
-    fabric: '70% Cotton, 30% Recycled Polyester Pique | 360 GSM',
-    care: 'Machine wash cold delicate. Hang to dry. Low iron.',
-    images: ['/images/products/p1-cream-model.jpg', '/images/products/p1-cream-flat.jpg'],
+    fabric: '70% Cotton Double-Knit, 30% Recycled Poly Pique | 380 GSM',
+    care: 'Machine wash cold inside out. Hang dry in shade. Low iron if needed.',
+    images: ['https://res.cloudinary.com/up56alno/image/upload/v1793333563/elvena_wear/products/1-model.jpg', 'https://res.cloudinary.com/up56alno/image/upload/v1793333562/elvena_wear/products/1-flat.jpg'],
     colors: [
       {
-        name: 'Cream Beige',
-        hex: '#EDE8DF',
+        name: 'Forest Deep Teal',
+        hex: '#374F4F',
         active: true,
-        modelImage: '/images/products/p1-cream-model.jpg',
-        articleImage: '/images/products/p1-cream-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333563/elvena_wear/products/1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333562/elvena_wear/products/1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333563/elvena_wear/products/1-model.jpg',
       },
       {
-        name: 'Matte Black',
-        hex: '#1F1F1F',
+        name: 'Washed Olive Sage',
+        hex: '#827F5E',
         active: true,
-        modelImage: '/images/products/p1-black-model.jpg',
-        articleImage: '/images/products/p1-black-flat.jpg',
-      },
-      {
-        name: 'Vintage Burgundy',
-        hex: '#6B2737',
-        active: true,
-        modelImage: '/images/products/p1-burgundy-model.jpg',
-        articleImage: '/images/products/p1-burgundy-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333566/elvena_wear/products/1.1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333564/elvena_wear/products/1.1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333566/elvena_wear/products/1.1-model.jpg',
       },
     ],
     sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true },
+      { name: 'S', active: true },
+      { name: 'M', active: true },
+      { name: 'L', active: true },
+      { name: 'XL', active: true },
     ],
     inventoryCount: 45,
     isFeatured: true,
     isNewArrival: true,
     isBestseller: true,
   },
+
+  // 2. The Minimalist Duo-Tone Studio Set (2 Colors: Obsidian Duo-Tone, Carbon Asphalt)
   {
-    title: 'The Tiro 24 Pro Performance Tracksuit',
-    slug: 'tiro-24-pro-performance',
-    description: 'Engineered for fluid movement and precision tailoring. Sleek stand collar, articulated raglan sleeves, ankle zips, and Aeroready performance blend with a matte luxury finish.',
-    price: 22000,
+    title: 'The Minimalist Duo-Tone Studio Tracksuit',
+    slug: 'minimalist-duo-tone-studio-tracksuit',
+    description: 'Contemporary two-tone tailoring featuring a structured cream top paired with tapered obsidian joggers. Minimalist tonal embroidery, concealed zipped pockets, and heavy-drape ribbing along hems.',
+    price: 22500,
     category: 'Heavyweight Set',
-    fabric: '85% Doubleknit Performance Cotton, 15% Elastane | 340 GSM',
-    care: 'Machine wash cold with like colors. Tumble dry low.',
-    images: ['/images/products/p2-black-model.jpg', '/images/products/p2-black-flat.jpg'],
+    fabric: '80% Luxury Pima Cotton, 20% Technical Poly | 400 GSM',
+    care: 'Hand wash cold or gentle cycle. Lay flat to dry.',
+    images: ['https://res.cloudinary.com/up56alno/image/upload/v1793333568/elvena_wear/products/2-model.jpg', 'https://res.cloudinary.com/up56alno/image/upload/v1793333567/elvena_wear/products/2-flat.jpg'],
     colors: [
       {
-        name: 'Matte Black',
-        hex: '#1C1C1E',
+        name: 'Obsidian & Cream Duo',
+        hex: '#181818',
         active: true,
-        modelImage: '/images/products/p2-black-model.jpg',
-        articleImage: '/images/products/p2-black-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333568/elvena_wear/products/2-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333567/elvena_wear/products/2-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333568/elvena_wear/products/2-model.jpg',
       },
       {
-        name: 'Collegiate Navy',
-        hex: '#1B263B',
+        name: 'Carbon Asphalt Duo',
+        hex: '#2B2D2F',
         active: true,
-        modelImage: '/images/products/p2-navy-model.jpg',
-        articleImage: '/images/products/p2-navy-flat.jpg',
-      },
-      {
-        name: 'Carbon Slate',
-        hex: '#3A3D40',
-        active: true,
-        modelImage: '/images/products/p2-carbon-model.jpg',
-        articleImage: '/images/products/p2-carbon-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333571/elvena_wear/products/2.1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333569/elvena_wear/products/2.1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333571/elvena_wear/products/2.1-model.jpg',
       },
     ],
     sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true }, { name: 'XXL', active: true },
-    ],
-    inventoryCount: 50,
-    isFeatured: true,
-    isBestseller: true,
-  },
-  {
-    title: 'The SST Primeblue Heritage Tracksuit',
-    slug: 'sst-primeblue-heritage',
-    description: 'Classic baseball-collar tracksuit crafted with high-density tricot interlock. Ribbed hem and cuffs, clean contrasting white 3-stripes, and sleek front zip pockets.',
-    price: 20500,
-    category: 'Essential Set',
-    fabric: '60% Recycled Polyester, 40% Cotton Tricot | 310 GSM',
-    care: 'Machine wash warm inside out. Hang dry. Do not iron print.',
-    images: ['/images/products/p3-navy-model.jpg', '/images/products/p3-navy-flat.jpg'],
-    colors: [
-      {
-        name: 'Collegiate Navy',
-        hex: '#1D2D44',
-        active: true,
-        modelImage: '/images/products/p3-navy-model.jpg',
-        articleImage: '/images/products/p3-navy-flat.jpg',
-      },
-      {
-        name: 'Emerald Green',
-        hex: '#1E3F20',
-        active: true,
-        modelImage: '/images/products/p3-green-model.jpg',
-        articleImage: '/images/products/p3-green-flat.jpg',
-      },
-      {
-        name: 'Chalk White',
-        hex: '#F0EFEA',
-        active: true,
-        modelImage: '/images/products/p3-chalk-model.jpg',
-        articleImage: '/images/products/p3-chalk-flat.jpg',
-      },
-    ],
-    sizes: [
-      { name: 'XS', active: true }, { name: 'S', active: true },
-      { name: 'M', active: true }, { name: 'L', active: true }, { name: 'XL', active: true },
+      { name: 'S', active: true },
+      { name: 'M', active: true },
+      { name: 'L', active: true },
+      { name: 'XL', active: true },
+      { name: 'XXL', active: true },
     ],
     inventoryCount: 38,
     isFeatured: true,
     isNewArrival: false,
     isBestseller: true,
   },
+
+  // 3. The Atelier Monogram 4-Season Quad Set (4 Colors: Charcoal Slate, Terracotta Rust, Stone Grey, Desert Taupe)
   {
-    title: 'The Firebird Velour Gold-Edition Tracksuit',
-    slug: 'firebird-velour-gold-edition',
-    description: 'Sumptuous heavyweight plush cotton velour elevated with champagne gold hardware and tonal embroidered crest. Unrivaled softness and radiant drape.',
-    price: 24500,
-    category: 'Velour Set',
-    fabric: '80% Premium Cotton, 20% Polyester Velour | 380 GSM',
-    care: 'Dry clean or cold wash inside out. Lay flat to dry.',
-    images: ['/images/products/p4-green-model.jpg', '/images/products/p4-green-flat.jpg'],
+    title: 'The Atelier Monogram Quad-Color Tracksuit',
+    slug: 'atelier-monogram-quad-color-tracksuit',
+    description: 'A masterpiece in chromatic variety. Crafted from our proprietary ultra-soft brushed fleece, offering high thermal regulation and sleek dropped-shoulder posture with tonal luxury aglets.',
+    price: 23800,
+    category: 'Essential Set',
+    fabric: '100% Organic Pima Cotton Brushed Fleece | 390 GSM',
+    care: 'Cold wash gentle cycle. Do not bleach. Lay flat to dry.',
+    images: ['https://res.cloudinary.com/up56alno/image/upload/v1793333573/elvena_wear/products/3-model.jpg', 'https://res.cloudinary.com/up56alno/image/upload/v1793333572/elvena_wear/products/3-flat.jpg'],
     colors: [
       {
-        name: 'Forest Emerald',
-        hex: '#1C3D2B',
+        name: 'Charcoal Slate',
+        hex: '#3C3B37',
         active: true,
-        modelImage: '/images/products/p4-green-model.jpg',
-        articleImage: '/images/products/p4-green-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333573/elvena_wear/products/3-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333572/elvena_wear/products/3-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333573/elvena_wear/products/3-model.jpg',
       },
       {
-        name: 'Sand Dune Gold',
-        hex: '#C8A26A',
+        name: 'Terracotta Rust',
+        hex: '#85462C',
         active: true,
-        modelImage: '/images/products/p4-sand-model.jpg',
-        articleImage: '/images/products/p4-sand-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333575/elvena_wear/products/3.1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333574/elvena_wear/products/3.1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333575/elvena_wear/products/3.1-model.jpg',
       },
       {
-        name: 'Midnight Noir',
-        hex: '#161616',
+        name: 'Stone Heather Grey',
+        hex: '#68696E',
         active: true,
-        modelImage: '/images/products/p4-noir-model.jpg',
-        articleImage: '/images/products/p4-noir-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333577/elvena_wear/products/3.2-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333576/elvena_wear/products/3.2-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333577/elvena_wear/products/3.2-model.jpg',
+      },
+      {
+        name: 'Desert Earth Taupe',
+        hex: '#695B4F',
+        active: true,
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333579/elvena_wear/products/3.3-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333578/elvena_wear/products/3.3-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333579/elvena_wear/products/3.3-model.jpg',
       },
     ],
     sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true },
-    ],
-    inventoryCount: 32,
-    isFeatured: true,
-    isNewArrival: true,
-    isBestseller: true,
-  },
-  {
-    title: 'The Z.N.E. French Terry Heavyweight Set',
-    slug: 'zne-french-terry-heavyweight',
-    description: 'Designed for total focus and thermal sanctuary. Thick structured hood, noise-dampening heavyweight French terry, and clean hidden seam architecture.',
-    price: 23000,
-    category: 'Heavyweight Set',
-    fabric: '100% Organic Heavy French Terry | 420 GSM',
-    care: 'Machine wash cold delicate. Tumble dry low.',
-    images: ['/images/products/p5-charcoal-model.jpg', '/images/products/p5-charcoal-flat.jpg'],
-    colors: [
-      {
-        name: 'Charcoal Heather',
-        hex: '#3E424B',
-        active: true,
-        modelImage: '/images/products/p5-charcoal-model.jpg',
-        articleImage: '/images/products/p5-charcoal-flat.jpg',
-      },
-      {
-        name: 'Pure Obsidian',
-        hex: '#1A1A24',
-        active: true,
-        modelImage: '/images/products/p5-obsidian-model.jpg',
-        articleImage: '/images/products/p5-obsidian-flat.jpg',
-      },
-      {
-        name: 'Cloud Light Grey',
-        hex: '#B0B4BA',
-        active: true,
-        modelImage: '/images/products/p5-grey-model.jpg',
-        articleImage: '/images/products/p5-grey-flat.jpg',
-      },
-    ],
-    sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true }, { name: 'XXL', active: true },
+      { name: 'XS', active: true },
+      { name: 'S', active: true },
+      { name: 'M', active: true },
+      { name: 'L', active: true },
+      { name: 'XL', active: true },
     ],
     inventoryCount: 60,
     isFeatured: true,
     isNewArrival: true,
-  },
-  {
-    title: 'The Sahara Sand Dune Velour Tracksuit',
-    slug: 'sahara-sand-dune-velour',
-    description: 'Warm desert golden hues meet velvet softness. Minimalist stand collar, custom gold puller, and matching tailored joggers with deep side pockets.',
-    price: 22500,
-    category: 'Velour Set',
-    fabric: '85% Cotton, 15% Modal Velour | 360 GSM',
-    care: 'Machine wash cold inside out. Do not bleach. Air dry.',
-    images: ['/images/products/p6-tan-model.jpg', '/images/products/p6-tan-flat.jpg'],
-    colors: [
-      {
-        name: 'Camel Tan',
-        hex: '#BFA27E',
-        active: true,
-        modelImage: '/images/products/p6-tan-model.jpg',
-        articleImage: '/images/products/p6-tan-flat.jpg',
-      },
-      {
-        name: 'Chocolate Mocha',
-        hex: '#5C3D2E',
-        active: true,
-        modelImage: '/images/products/p6-mocha-model.jpg',
-        articleImage: '/images/products/p6-mocha-flat.jpg',
-      },
-      {
-        name: 'Desert Cream',
-        hex: '#EBE1D0',
-        active: true,
-        modelImage: '/images/products/p6-cream-model.jpg',
-        articleImage: '/images/products/p6-cream-flat.jpg',
-      },
-    ],
-    sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true },
-    ],
-    inventoryCount: 40,
-    isFeatured: true,
     isBestseller: true,
   },
+
+  // 4. The Engineered Performance Two-Tone Set (2 Colors: Desert Khaki, Mineral Deep Teal)
   {
-    title: 'The Terrex All-Weather Utility Cargo Set',
-    slug: 'terrex-all-weather-cargo',
-    description: 'Rugged outdoor engineering meets luxury tailoring. Reinforced arm cargo utility pocket, articulated knee gussets, and water-repellent tech weave.',
-    price: 25000,
+    title: 'The Engineered Performance Tracksuit',
+    slug: 'engineered-performance-tracksuit',
+    description: 'Precision engineered for movement and transition. Features ergonomic darting along elbows and knees, invisible stash pockets, and breathable interior lining for active luxury lifestyles.',
+    price: 22000,
     category: 'Heavyweight Set',
-    fabric: '90% Tech Ripstop Cotton, 10% Nylon DWR | 380 GSM',
-    care: 'Machine wash cold gentle. Do not use fabric softener. Air dry.',
-    images: ['/images/products/p7-olive-model.jpg', '/images/products/p7-olive-flat.jpg'],
+    fabric: '85% Technical Cotton Blend, 15% Stretch Elastane | 360 GSM',
+    care: 'Machine wash cold delicate. Tumble dry ultra-low.',
+    images: ['https://res.cloudinary.com/up56alno/image/upload/v1793333581/elvena_wear/products/4-model.jpg', 'https://res.cloudinary.com/up56alno/image/upload/v1793333580/elvena_wear/products/4-flat.jpg'],
     colors: [
       {
-        name: 'Deep Olive',
-        hex: '#475236',
+        name: 'Desert Khaki Olive',
+        hex: '#524D39',
         active: true,
-        modelImage: '/images/products/p7-olive-model.jpg',
-        articleImage: '/images/products/p7-olive-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333581/elvena_wear/products/4-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333580/elvena_wear/products/4-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333581/elvena_wear/products/4-model.jpg',
       },
       {
-        name: 'Stealth Black',
+        name: 'Mineral Deep Teal',
+        hex: '#263737',
+        active: true,
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333583/elvena_wear/products/4.1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333582/elvena_wear/products/4.1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333583/elvena_wear/products/4.1-model.jpg',
+      },
+    ],
+    sizes: [
+      { name: 'S', active: true },
+      { name: 'M', active: true },
+      { name: 'L', active: true },
+      { name: 'XL', active: true },
+    ],
+    inventoryCount: 40,
+    isFeatured: false,
+    isNewArrival: true,
+    isBestseller: false,
+  },
+
+  // 5. The French Terry Relaxed Heavyweight Set (2 Colors: Midnight Pitch Black, Ivory Chalk Grey)
+  {
+    title: 'The French Terry Heavyweight Set',
+    slug: 'french-terry-heavyweight-set',
+    description: 'Substantial 420 GSM French Terry looped fabric that drapes with architectural presence. The relaxed boxy hoodie matches seamlessly with straight-leg relaxed trousers with concealed hems.',
+    price: 24500,
+    category: 'Heavyweight Set',
+    fabric: '100% Unbrushed Loopback French Terry Cotton | 420 GSM',
+    care: 'Cold water wash inside out. Do not tumble dry. Steam gently.',
+    images: ['https://res.cloudinary.com/up56alno/image/upload/v1793333585/elvena_wear/products/5-model.jpg', 'https://res.cloudinary.com/up56alno/image/upload/v1793333584/elvena_wear/products/5-flat.jpg'],
+    colors: [
+      {
+        name: 'Midnight Pitch Black',
         hex: '#1E1E1E',
         active: true,
-        modelImage: '/images/products/p7-black-model.jpg',
-        articleImage: '/images/products/p7-black-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333585/elvena_wear/products/5-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333584/elvena_wear/products/5-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333585/elvena_wear/products/5-model.jpg',
       },
       {
-        name: 'Coyote Tan',
-        hex: '#A38B6D',
+        name: 'Ivory Chalk Grey',
+        hex: '#CECAC7',
         active: true,
-        modelImage: '/images/products/p7-tan-model.jpg',
-        articleImage: '/images/products/p7-tan-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333587/elvena_wear/products/5.1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333586/elvena_wear/products/5.1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333587/elvena_wear/products/5.1-model.jpg',
       },
     ],
     sizes: [
-      { name: 'M', active: true }, { name: 'L', active: true },
-      { name: 'XL', active: true }, { name: 'XXL', active: true },
-    ],
-    inventoryCount: 35,
-    isFeatured: true,
-    isNewArrival: true,
-  },
-  {
-    title: 'The Club Originals Retro Tricot Set',
-    slug: 'club-originals-retro-tricot',
-    description: 'Vintage European club heritage. Polished interlock knit in deep burgundy and ink navy with retro piping along the chest and raglan shoulders.',
-    price: 19500,
-    category: 'Essential Set',
-    fabric: '70% Cotton, 30% Polyester Doubleknit | 310 GSM',
-    care: 'Machine wash warm inside out. Tumble dry delicate.',
-    images: ['/images/products/p8-burgundy-model.jpg', '/images/products/p8-burgundy-flat.jpg'],
-    colors: [
-      {
-        name: 'Vintage Burgundy',
-        hex: '#68202F',
-        active: true,
-        modelImage: '/images/products/p8-burgundy-model.jpg',
-        articleImage: '/images/products/p8-burgundy-flat.jpg',
-      },
-      {
-        name: 'Legend Ink Navy',
-        hex: '#1D283C',
-        active: true,
-        modelImage: '/images/products/p8-navy-model.jpg',
-        articleImage: '/images/products/p8-navy-flat.jpg',
-      },
-      {
-        name: 'Forest Pine',
-        hex: '#274735',
-        active: true,
-        modelImage: '/images/products/p8-pine-model.jpg',
-        articleImage: '/images/products/p8-pine-flat.jpg',
-      },
-    ],
-    sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true },
-    ],
-    inventoryCount: 48,
-    isFeatured: true,
-  },
-  {
-    title: 'The Future Icons 3-Bar Minimalist Set',
-    slug: 'future-icons-3-bar-minimalist',
-    description: 'Clean Scandinavian-inspired minimalism. Drop-shoulder silhouette, matte textured French terry, and clean tonal three-bar silicone detailing.',
-    price: 18500,
-    category: 'Essential Set',
-    fabric: '95% Pima Cotton, 5% Elastane | 340 GSM',
-    care: 'Machine wash cold inside-out. Hang to dry.',
-    images: ['/images/products/p9-grey-model.jpg', '/images/products/p9-grey-flat.jpg'],
-    colors: [
-      {
-        name: 'Steel Cloud Grey',
-        hex: '#8E939B',
-        active: true,
-        modelImage: '/images/products/p9-grey-model.jpg',
-        articleImage: '/images/products/p9-grey-flat.jpg',
-      },
-      {
-        name: 'Matte Onyx',
-        hex: '#222222',
-        active: true,
-        modelImage: '/images/products/p9-onyx-model.jpg',
-        articleImage: '/images/products/p9-onyx-flat.jpg',
-      },
-      {
-        name: 'Chalk Pearl',
-        hex: '#ECEAE4',
-        active: true,
-        modelImage: '/images/products/p9-pearl-model.jpg',
-        articleImage: '/images/products/p9-pearl-flat.jpg',
-      },
-    ],
-    sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true },
+      { name: 'S', active: true },
+      { name: 'M', active: true },
+      { name: 'L', active: true },
+      { name: 'XL', active: true },
+      { name: 'XXL', active: true },
     ],
     inventoryCount: 52,
     isFeatured: true,
     isNewArrival: false,
-  },
-  {
-    title: 'The Adicolor Heritage Double-Knit Set',
-    slug: 'adicolor-heritage-double-knit',
-    description: 'The epitome of quiet luxury knitwear. Crafted from extra-fine Italian merino and cashmere-cotton yarns with a buttery hand-feel and weighted drape.',
-    price: 26000,
-    category: 'Cashmere Set',
-    fabric: '70% Supima Cotton, 30% Cashmere | 400 GSM',
-    care: 'Dry clean recommended. Hand wash cold flat dry.',
-    images: ['/images/products/p10-mocha-model.jpg', '/images/products/p10-mocha-flat.jpg'],
-    colors: [
-      {
-        name: 'Dark Mocha Brown',
-        hex: '#4E3B31',
-        active: true,
-        modelImage: '/images/products/p10-mocha-model.jpg',
-        articleImage: '/images/products/p10-mocha-flat.jpg',
-      },
-      {
-        name: 'Cashmere Oatmeal',
-        hex: '#D9CFC4',
-        active: true,
-        modelImage: '/images/products/p10-oatmeal-model.jpg',
-        articleImage: '/images/products/p10-oatmeal-flat.jpg',
-      },
-      {
-        name: 'Deep Charcoal',
-        hex: '#2C2D30',
-        active: true,
-        modelImage: '/images/products/p10-charcoal-model.jpg',
-        articleImage: '/images/products/p10-charcoal-flat.jpg',
-      },
-    ],
-    sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true },
-    ],
-    inventoryCount: 28,
-    isFeatured: true,
     isBestseller: true,
   },
+
+  // 6. The Tailored Zip-Pocket Street Tracksuit (2 Colors: Camel Beige Contrast, Off-White Slate)
   {
-    title: 'The Primegreen Hybrid Warmup Set',
-    slug: 'primegreen-hybrid-warmup',
-    description: 'Athletic precision for modern movement. High-stretch aeroknit fabric, tapered calf ergonomics, and concealed waterproof zips.',
-    price: 19000,
+    title: 'The Tailored Zip-Pocket Street Tracksuit',
+    slug: 'tailored-zip-pocket-street-tracksuit',
+    description: 'Clean urban elegance. Designed with two-tone contrasting color-blocking, custom rubber-coated zippers, and deep trouser pockets tailored specifically for smartphones and everyday essentials.',
+    price: 19800,
     category: 'Essential Set',
-    fabric: '88% Recycled Polyester, 12% Spandex Aeroknit | 290 GSM',
-    care: 'Machine wash cold delicate. Hang to dry.',
-    images: ['/images/products/p11-blue-model.jpg', '/images/products/p11-blue-flat.jpg'],
+    fabric: '75% Pima Cotton, 25% High-Tensile Poly | 350 GSM',
+    care: 'Machine wash cold with similar colors. Hang dry.',
+    images: ['https://res.cloudinary.com/up56alno/image/upload/v1793333589/elvena_wear/products/6-model.jpg', 'https://res.cloudinary.com/up56alno/image/upload/v1793333588/elvena_wear/products/6-flat.jpg'],
     colors: [
       {
-        name: 'Royal Cobalt Blue',
-        hex: '#1E40AF',
+        name: 'Camel Beige & Black',
+        hex: '#C2AC97',
         active: true,
-        modelImage: '/images/products/p11-blue-model.jpg',
-        articleImage: '/images/products/p11-blue-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333589/elvena_wear/products/6-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333588/elvena_wear/products/6-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333589/elvena_wear/products/6-model.jpg',
       },
       {
-        name: 'Matte Obsidian',
-        hex: '#18191E',
+        name: 'Off-White & Charcoal Slate',
+        hex: '#CFCECA',
         active: true,
-        modelImage: '/images/products/p11-black-model.jpg',
-        articleImage: '/images/products/p11-black-flat.jpg',
-      },
-      {
-        name: 'Frost White',
-        hex: '#F3F4F6',
-        active: true,
-        modelImage: '/images/products/p11-white-model.jpg',
-        articleImage: '/images/products/p11-white-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333591/elvena_wear/products/6.1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333590/elvena_wear/products/6.1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333591/elvena_wear/products/6.1-model.jpg',
       },
     ],
     sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
-      { name: 'L', active: true }, { name: 'XL', active: true }, { name: 'XXL', active: true },
+      { name: 'S', active: true },
+      { name: 'M', active: true },
+      { name: 'L', active: true },
+      { name: 'XL', active: true },
     ],
-    inventoryCount: 44,
+    inventoryCount: 35,
+    isFeatured: false,
+    isNewArrival: false,
+    isBestseller: false,
+  },
+
+  // 7. The Cashmere-Touch Tri-Tone Ensemble (3 Colors: Soft Taupe, Platinum Pearl, Obsidian Shadow)
+  {
+    title: 'The Cashmere-Touch Tri-Tone Ensemble',
+    slug: 'cashmere-touch-tri-tone-ensemble',
+    description: 'Impossibly soft against the skin, engineered with micro-brushed yarns that emulate pure cashmere. Ultra-lightweight warmth, clean flat seams, and delicate minimalist branding.',
+    price: 25500,
+    category: 'Cashmere Set',
+    fabric: '70% Long-Staple Cotton, 25% Silk-Touch Modal, 5% Cashmere | 380 GSM',
+    care: 'Dry clean recommended or ultra-gentle hand wash. Lay flat.',
+    images: ['https://res.cloudinary.com/up56alno/image/upload/v1793333593/elvena_wear/products/7-model.jpg', 'https://res.cloudinary.com/up56alno/image/upload/v1793333592/elvena_wear/products/7-flat.jpg'],
+    colors: [
+      {
+        name: 'Warm Taupe Sand',
+        hex: '#7A7167',
+        active: true,
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333593/elvena_wear/products/7-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333592/elvena_wear/products/7-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333593/elvena_wear/products/7-model.jpg',
+      },
+      {
+        name: 'Platinum Pearl White',
+        hex: '#D3CAC1',
+        active: true,
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333595/elvena_wear/products/7.1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333594/elvena_wear/products/7.1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333595/elvena_wear/products/7.1-model.jpg',
+      },
+      {
+        name: 'Obsidian Shadow',
+        hex: '#262626',
+        active: true,
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333597/elvena_wear/products/7.2-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333596/elvena_wear/products/7.2-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333597/elvena_wear/products/7.2-model.jpg',
+      },
+    ],
+    sizes: [
+      { name: 'S', active: true },
+      { name: 'M', active: true },
+      { name: 'L', active: true },
+      { name: 'XL', active: true },
+    ],
+    inventoryCount: 42,
     isFeatured: true,
     isNewArrival: true,
+    isBestseller: true,
   },
+
+  // 8. The Signature Velour Gold-Edition Tracksuit (3 Colors: Mocha Espresso, Champagne Almond, Noir Gold)
   {
-    title: 'The Atelier Monogram Limited Edition Set',
-    slug: 'atelier-monogram-limited',
-    description: 'Collector edition limited to 200 bespoke sets worldwide. Subtle jacquard monogram weave, gold-plated dual-way zippers, and numbered leather atelier patch.',
-    price: 28500,
-    category: 'Limited Edition',
-    fabric: '100% Long-Staple Egyptian Cotton Jacquard | 410 GSM',
-    care: 'Dry clean only. Store on wooden hanger with dust bag.',
-    images: ['/images/products/p12-obsidian-model.jpg', '/images/products/p12-obsidian-flat.jpg'],
+    title: 'The Signature Velour Gold-Edition Tracksuit',
+    slug: 'signature-velour-gold-edition-tracksuit',
+    description: 'The definitive luxury lounge statement. Deep plush velour pile with high dimensional sheen, custom champagne-gold zip sliders, and a tailored tapered trouser with clean ankle finish.',
+    price: 26000,
+    category: 'Velour Set',
+    fabric: '80% Premium Plush Velour Cotton, 20% Technical Silk Poly | 410 GSM',
+    care: 'Dry clean or inside-out cold gentle wash. Do not iron directly on velour.',
+    images: ['https://res.cloudinary.com/up56alno/image/upload/v1793333600/elvena_wear/products/8-model.jpg', 'https://res.cloudinary.com/up56alno/image/upload/v1793333598/elvena_wear/products/8-flat.jpg'],
     colors: [
       {
-        name: 'Obsidian & Gold',
-        hex: '#18181A',
+        name: 'Mocha Espresso',
+        hex: '#473E37',
         active: true,
-        modelImage: '/images/products/p12-obsidian-model.jpg',
-        articleImage: '/images/products/p12-obsidian-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333600/elvena_wear/products/8-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333598/elvena_wear/products/8-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333600/elvena_wear/products/8-model.jpg',
       },
       {
-        name: 'Champagne Gold',
-        hex: '#C8A870',
+        name: 'Champagne Almond',
+        hex: '#C5AF98',
         active: true,
-        modelImage: '/images/products/p12-champagne-model.jpg',
-        articleImage: '/images/products/p12-champagne-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333601/elvena_wear/products/8.1-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333600/elvena_wear/products/8.1-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333601/elvena_wear/products/8.1-model.jpg',
       },
       {
-        name: 'Silver Mist',
-        hex: '#D5D8DC',
+        name: 'Noir Velvet Black',
+        hex: '#202020',
         active: true,
-        modelImage: '/images/products/p12-silver-model.jpg',
-        articleImage: '/images/products/p12-silver-flat.jpg',
+        modelImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333603/elvena_wear/products/8.2-model.jpg',
+        articleImage: 'https://res.cloudinary.com/up56alno/image/upload/v1793333602/elvena_wear/products/8.2-flat.jpg',
+        imageUrl: 'https://res.cloudinary.com/up56alno/image/upload/v1793333603/elvena_wear/products/8.2-model.jpg',
       },
     ],
     sizes: [
-      { name: 'S', active: true }, { name: 'M', active: true },
+      { name: 'S', active: true },
+      { name: 'M', active: true },
       { name: 'L', active: true },
+      { name: 'XL', active: true },
     ],
-    inventoryCount: 20,
+    inventoryCount: 30,
     isFeatured: true,
     isNewArrival: true,
     isBestseller: true,
@@ -494,50 +365,61 @@ const products = [
 
 const seedDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('🌱 Connected to MongoDB for seeding...');
+    const mongoUri = process.env.MONGO_URI;
+    if (!mongoUri) {
+      console.error('MONGO_URI is missing from environment variables.');
+      process.exit(1);
+    }
+    await mongoose.connect(mongoUri);
+    console.log('✅ Connected to MongoDB Atlas');
 
-    // Clear existing data
-    await User.deleteMany({});
+    // 1. Seed Users (Superadmin & Admin) if not existing
+    const existingSuper = await User.findOne({ email: process.env.SUPERADMIN_EMAIL || 'superadmin@elvanewear.com' });
+    if (!existingSuper) {
+      await User.create({
+        fullName: 'Executive Super Admin',
+        email: process.env.SUPERADMIN_EMAIL || 'superadmin@elvanewear.com',
+        password: process.env.SUPERADMIN_PASSWORD || 'SuperAdmin@123',
+        role: 'superadmin',
+        isEmailVerified: true,
+      });
+      console.log('👑 Super Admin seeded: superadmin@elvanewear.com');
+    }
+
+    const existingAdmin = await User.findOne({ email: process.env.ADMIN_EMAIL || 'admin@elvanewear.com' });
+    if (!existingAdmin) {
+      await User.create({
+        fullName: 'Store Operations Admin',
+        email: process.env.ADMIN_EMAIL || 'admin@elvanewear.com',
+        password: process.env.ADMIN_PASSWORD || 'Admin@123',
+        role: 'admin',
+        isEmailVerified: true,
+      });
+      console.log('🛡️  Admin seeded: admin@elvanewear.com');
+    }
+
+    // 2. Clear old demo products and insert real photoshoot products
     await Product.deleteMany({});
-    await Announcement.deleteMany({});
+    console.log('🗑️  Cleared old dummy products');
 
-    // Create Super Admin
-    const superAdmin = await User.create({
-      name: 'Super Admin',
-      email: process.env.SUPERADMIN_EMAIL || 'superadmin@elvanewear.com',
-      password: process.env.SUPERADMIN_PASSWORD || 'SuperAdmin@123',
-      role: 'superadmin',
-      isEmailVerified: true,
-    });
-    console.log(`✅ Super Admin created: ${superAdmin.email}`);
-
-    // Create Admin
-    const admin = await User.create({
-      name: 'Admin',
-      email: process.env.ADMIN_EMAIL || 'admin@elvanewear.com',
-      password: process.env.ADMIN_PASSWORD || 'Admin@123',
-      role: 'admin',
-      isEmailVerified: true,
-    });
-    console.log(`✅ Admin created: ${admin.email}`);
-
-    // Create all 12 products
     await Product.insertMany(products);
-    console.log(`✅ ${products.length} luxury tracksuit sets seeded successfully!`);
+    console.log(`✨ Successfully seeded ${products.length} luxury tracksuit sets with all photoshoot images!`);
 
-    // Create default announcement
-    await Announcement.create({
-      text: 'SEASONAL PRIVILEGE — 15% OFF APPLIED ON FINAL BILL',
-      isActive: true,
-      discountPercent: 15,
-    });
-    console.log('✅ Default announcement created');
+    // 3. Ensure default announcement
+    const annCount = await Announcement.countDocuments();
+    if (annCount === 0) {
+      await Announcement.create({
+        text: 'SEASONAL PRIVILEGE — 15% OFF APPLIED ON FINAL BILL',
+        discountPercent: 15,
+        isActive: true,
+      });
+      console.log('📢 Default announcement created');
+    }
 
-    console.log('\n🎉 Database seeded successfully with 12 complete sets!\n');
+    console.log('\n🏛️  All Atelier data seeded successfully!');
     process.exit(0);
   } catch (error) {
-    console.error('❌ Seeding failed:', error.message);
+    console.error('❌ Seeding error:', error);
     process.exit(1);
   }
 };
