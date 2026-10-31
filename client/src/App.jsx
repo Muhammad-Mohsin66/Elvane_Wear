@@ -42,7 +42,7 @@ function ScrollToTop() {
 
 function Layout({ children }) {
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/super-admin');
+  const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/super-admin') || location.pathname.startsWith('/superadmin');
 
   return (
     <>
@@ -152,6 +152,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/superadmin" element={<Navigate to="/super-admin" replace />} />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
