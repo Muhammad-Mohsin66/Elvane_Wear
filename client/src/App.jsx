@@ -22,6 +22,7 @@ import Contact from './pages/Contact';
 import ReturnsPolicy from './pages/ReturnsPolicy';
 
 // Admin Pages
+import AdminLogin from './pages/admin/AdminLogin';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminProducts from './pages/admin/AdminProducts';
@@ -125,6 +126,11 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* Dedicated Back-Office / Admin Login Portal */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/super-admin/login" element={<Navigate to="/admin/login" replace />} />
+          <Route path="/superadmin/login" element={<Navigate to="/admin/login" replace />} />
 
           {/* Protected Admin Routes */}
           <Route

@@ -27,7 +27,9 @@ export default function ProtectedRoute({ children, allowedRoles = [], requireVer
   }
 
   if (!isAuthenticated) {
-    return <Navigate to={`/login?redirect=${encodeURIComponent(location.pathname)}`} replace />;
+    const isAdminTarget = allowedRoles.some((r) => ['admin', 'superadmin'].includes(r));
+    const targetLogin = isAdminTarget ? '/admin/login' : '/login';
+    return <Navigate to={`${targetLogin}?redirect=${encodeURIComponent(location.pathname)}`} replace />;
   }
 
   if (requireVerified && !user?.isEmailVerified) {
@@ -102,7 +104,7 @@ export default function ProtectedRoute({ children, allowedRoles = [], requireVer
               icon={LogOut}
               onClick={() => {
                 logout();
-                navigate(`/login?redirect=${encodeURIComponent(location.pathname)}`);
+                navigate(`/admin/login?redirect=${encodeURIComponent(location.pathname)}`);
               }}
             >
               Sign Out & Login as Super Admin

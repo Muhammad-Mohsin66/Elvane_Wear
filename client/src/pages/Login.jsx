@@ -160,9 +160,25 @@ export default function Login() {
             fontSize: '11px',
             color: 'var(--mist)',
             textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
           }}
         >
-          Protected by Elvane Wear Atelier Security Protocols
+          <span>Protected by Elvane Wear Atelier Security Protocols</span>
+          <Link
+            to="/admin/login"
+            style={{
+              color: 'var(--ash)',
+              textDecoration: 'none',
+              fontSize: '11px',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--champagne)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ash)')}
+          >
+            Staff & Executive Portal Access →
+          </Link>
         </div>
       </motion.div>
     </div>
