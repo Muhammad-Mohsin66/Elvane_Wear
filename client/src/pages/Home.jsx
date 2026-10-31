@@ -8,19 +8,24 @@ import api, { formatPKR } from '../utils/api';
 
 const HERO_SLIDES = [
   {
-    image: '/images/hero/hero-1.jpg',
-    badge: 'Atelier Cashmere Edition • 01',
-    edition: 'Pure Mongolian Cashmere • 380 GSM',
+    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486450/elvena_wear/hero/hero-1.jpg',
+    badge: 'Mineral Deep Teal • Atelier 01',
+    edition: 'Double-Knit Archival Pique • 380 GSM',
   },
   {
-    image: '/images/hero/hero-2.jpg',
-    badge: 'Architectural Charcoal & Slate • 02',
-    edition: 'Tailored Zip Hoodie Set • Double-Faced Cotton',
+    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486451/elvena_wear/hero/hero-2.jpg',
+    badge: 'Almond Champagne • Atelier 02',
+    edition: 'Plush Micro-Velour Lounge • 410 GSM',
   },
   {
-    image: '/images/hero/hero-3.jpg',
-    badge: 'Sandstone Camel Merino • 03',
-    edition: 'Quiet Luxury Drape • 100% Merino Wool',
+    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486452/elvena_wear/hero/hero-3.jpg',
+    badge: 'Obsidian Midnight • Atelier 03',
+    edition: 'Loopback Heavyweight French Terry • 420 GSM',
+  },
+  {
+    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486453/elvena_wear/hero/hero-4.jpg',
+    badge: 'Taupe Sandstone • Atelier 04',
+    edition: 'Noble Cashmere-Touch Fiber • 380 GSM',
   },
 ];
 
