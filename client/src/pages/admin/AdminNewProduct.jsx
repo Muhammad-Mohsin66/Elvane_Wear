@@ -231,7 +231,7 @@ export default function AdminNewProduct() {
 
       <div style={{ marginBottom: '32px' }}>
         <span className="eyebrow" style={{ color: 'var(--champagne)' }}>
-          Atelier Creation
+          Product Management
         </span>
         <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '36px', color: 'var(--graphite)', marginTop: '4px' }}>
           Add New Tracksuit Set
@@ -267,7 +267,7 @@ export default function AdminNewProduct() {
             <input
               type="text"
               required
-              placeholder="e.g. The Atelier Cashmere-Blend Tracksuit"
+              placeholder="e.g. Luxury Cashmere-Blend Tracksuit"
               value={title}
               onChange={handleTitleChange}
             />
@@ -279,7 +279,7 @@ export default function AdminNewProduct() {
               <input
                 type="text"
                 required
-                placeholder="the-atelier-cashmere"
+                placeholder="luxury-cashmere-tracksuit"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
               />
@@ -739,7 +739,7 @@ export default function AdminNewProduct() {
             disabled={submitting}
             style={{ width: '100%', justifyContent: 'center' }}
           >
-            {submitting ? 'Publishing Tracksuit Set...' : 'Publish Tracksuit to Atelier'}
+            {submitting ? 'Publishing Tracksuit Set...' : 'Publish Tracksuit to Store'}
           </Button3D>
         </div>
       </form>

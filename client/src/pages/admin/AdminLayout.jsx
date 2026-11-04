@@ -33,7 +33,7 @@ export default function AdminLayout() {
                 }}
               />
               <span className="eyebrow" style={{ color: 'var(--champagne)', fontSize: '10px' }}>
-                Elvane Wear Atelier
+                Elvane Wear Store
               </span>
             </div>
             <h2

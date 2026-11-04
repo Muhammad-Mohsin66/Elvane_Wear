@@ -21,7 +21,7 @@ export default function ProtectedRoute({ children, allowedRoles = [], requireVer
           color: 'var(--ash)',
         }}
       >
-        Loading Atelier...
+        Loading...
       </div>
     );
   }

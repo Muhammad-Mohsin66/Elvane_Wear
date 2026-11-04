@@ -102,7 +102,7 @@ export default function Checkout() {
               marginTop: '6px',
             }}
           >
-            Finalize Your <em style={{ fontStyle: 'italic' }}>Atelier Order</em>
+            Complete Your <em style={{ fontStyle: 'italic' }}>Order</em>
           </h1>
         </div>
 
@@ -304,7 +304,7 @@ export default function Checkout() {
                         <Sparkles size={14} color="var(--champagne)" /> Parcel Handover at Doorstep
                       </span>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                        <Truck size={14} color="var(--champagne)" /> Express 2-4 Day Nationwide Delivery
+                        <Truck size={14} color="var(--champagne)" /> Express 2-4 Day Delivery Across Pakistan
                       </span>
                     </div>
                   </div>
@@ -351,7 +351,7 @@ export default function Checkout() {
                   <span>{formatPKR(subtotal)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: 'var(--ash)' }}>
-                  <span>White-Glove Shipping</span>
+                  <span>Standard Shipping</span>
                   <span style={{ color: 'var(--success)', fontWeight: 600 }}>Free (Pakistan)</span>
                 </div>
                 <div
@@ -379,12 +379,12 @@ export default function Checkout() {
                   disabled={submitting}
                   style={{ width: '100%', justifyContent: 'center' }}
                 >
-                  {submitting ? 'Transmitting Order...' : 'Confirm Atelier Order'}
+                  {submitting ? 'Placing Order...' : 'Confirm Order (Cash on Delivery)'}
                 </Button3D>
               </div>
 
               <p style={{ fontSize: '11px', color: 'var(--mist)', textAlign: 'center', marginTop: '16px' }}>
-                By placing this order, you agree to the Elvane Wear atelier terms & exchange policy.
+                By placing this order, you agree to Elvane Wear terms & return policy.
               </p>
             </div>
           </div>

@@ -59,7 +59,7 @@ export default function Register() {
       >
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <span className="eyebrow" style={{ color: 'var(--champagne)' }}>
-            Join the Atelier
+            Welcome to Elvane Wear
           </span>
           <h1
             style={{

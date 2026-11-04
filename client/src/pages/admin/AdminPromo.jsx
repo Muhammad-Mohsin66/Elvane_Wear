@@ -122,7 +122,7 @@ export default function AdminPromo() {
           <input
             type="text"
             required
-            placeholder="e.g. WINTER ATELIER DROP: 15% DISCOUNT ON ALL ORDERS — APPLIED ON BILL"
+            placeholder="e.g. WINTER SALE: 15% DISCOUNT ON ALL ORDERS — APPLIED ON BILL"
             value={text}
             onChange={(e) => setText(e.target.value)}
           />

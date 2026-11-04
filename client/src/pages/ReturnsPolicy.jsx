@@ -160,7 +160,7 @@ export default function ReturnsPolicy() {
             <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
               <CheckCircle2 size={18} color="var(--success)" style={{ flexShrink: 0, marginTop: '4px' }} />
               <div>
-                <strong style={{ color: 'var(--graphite)' }}>Original Atelier Condition:</strong> The tracksuit set must be unworn, unwashed, unaltered, and free of fragrances, lint, or pet hair, with all original Elvane Wear security tags and packaging intact.
+                <strong style={{ color: 'var(--graphite)' }}>Original Condition:</strong> The tracksuit set must be unworn, unwashed, unaltered, and free of fragrances, lint, or pet hair, with all original Elvane Wear tags and packaging intact.
               </div>
             </div>
 
@@ -277,14 +277,14 @@ export default function ReturnsPolicy() {
             Need Help With Sizing or Exchange?
           </h3>
           <p style={{ fontSize: '14px', color: 'var(--ash)', maxWidth: '460px', margin: '0 auto 24px', lineHeight: 1.6 }}>
-            Our dedicated Atelier Client Advisors are available Monday through Saturday (10 AM – 8 PM PKT).
+            Our Customer Support Team is available Monday through Saturday (10 AM – 8 PM PKT).
           </p>
           <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button3D variant="primary" size="md" onClick={() => navigate('/contact')} icon={MessageSquare}>
-              Contact Concierge
+              Contact Support
             </Button3D>
             <Button3D variant="outline" size="md" onClick={() => navigate('/shop')}>
-              Explore Atelier Collection
+              Explore Collection
             </Button3D>
           </div>
         </div>

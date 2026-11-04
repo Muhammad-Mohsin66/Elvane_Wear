@@ -93,7 +93,7 @@ export default function ProductDetail() {
   if (loading) {
     return (
       <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ash)' }}>
-        Loading Atelier Piece...
+        Loading Product Details...
       </div>
     );
   }
@@ -148,7 +148,7 @@ export default function ProductDetail() {
                 )}
                 {product.isBestseller && (
                   <span style={{ background: 'var(--glacier-glass)', border: '1px solid var(--champagne)', padding: '6px 14px', borderRadius: '999px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600 }}>
-                    Atelier Bestseller
+                    Bestseller
                   </span>
                 )}
               </div>
@@ -570,7 +570,7 @@ export default function ProductDetail() {
                     color: 'var(--graphite)',
                   }}
                 >
-                  <span>Materials & Atelier Care</span>
+                  <span>Fabric Details & Care Instructions</span>
                   <ChevronDown
                     size={16}
                     style={{
@@ -643,9 +643,9 @@ export default function ProductDetail() {
         <section style={{ marginTop: '120px', borderTop: '1px solid var(--hairline)', paddingTop: '64px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
             <div>
-              <span className="eyebrow">Client Perspectives</span>
+              <span className="eyebrow">Customer Reviews</span>
               <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '36px', color: 'var(--graphite)', marginTop: '8px' }}>
-                Atelier Reviews ({product.reviews?.length || 0})
+                Reviews ({product.reviews?.length || 0})
               </h2>
             </div>
             {product.averageRating > 0 && (
@@ -669,7 +669,7 @@ export default function ProductDetail() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '60px' }}>
             {product.reviews?.length === 0 ? (
               <p style={{ color: 'var(--ash)', fontSize: '14px', gridColumn: 'span 2' }}>
-                No reviews yet for this set. Be the first to share your atelier experience.
+                No reviews yet for this tracksuit set. Be the first to share your experience.
               </p>
             ) : (
               product.reviews?.map((rev, idx) => (
@@ -699,7 +699,7 @@ export default function ProductDetail() {
           {/* Add Review Form */}
           <div style={{ maxWidth: '600px', background: 'var(--cloud)', padding: '32px', borderRadius: '20px', border: '1px solid var(--hairline)' }}>
             <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '24px', marginBottom: '16px' }}>
-              Leave an Atelier Review
+              Write a Review
             </h3>
 
             {reviewSuccess ? (
@@ -781,7 +781,7 @@ export default function ProductDetail() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '26px' }}>Atelier Tracksuit Size Guide</h3>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '26px' }}>Tracksuit Size Guide</h3>
                 <button onClick={() => setShowSizeGuide(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ash)' }}>
                   ✕
                 </button>

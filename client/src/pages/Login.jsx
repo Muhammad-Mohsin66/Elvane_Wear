@@ -165,7 +165,7 @@ export default function Login() {
             gap: '8px',
           }}
         >
-          <span>Protected by Elvane Wear Atelier Security Protocols</span>
+          <span>Protected by Elvane Wear Security</span>
           <Link
             to="/admin/login"
             style={{

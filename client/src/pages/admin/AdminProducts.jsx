@@ -149,7 +149,7 @@ export default function AdminProducts() {
             Catalog Governance
           </span>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(28px, 4vw, 36px)', color: 'var(--graphite)', marginTop: '4px' }}>
-            Atelier Tracksuits ({products.length})
+            Store Tracksuits ({products.length})
           </h1>
           <p style={{ fontSize: '13px', color: 'var(--ash)', marginTop: '4px' }}>
             Toggle active colors & sizes for customer visibility, adjust backend stock counts, and manage catalog.

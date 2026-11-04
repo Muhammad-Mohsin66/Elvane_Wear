@@ -496,7 +496,7 @@ export default function SuperAdminDashboard() {
             <div style={{ background: 'var(--snow)', borderRadius: '20px', border: '1px solid var(--hairline)', padding: '32px', boxShadow: '0 4px 18px rgba(26,26,26,0.03)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <div>
-                  <span className="eyebrow" style={{ color: 'var(--champagne)' }}>Atelier Performance</span>
+                  <span className="eyebrow" style={{ color: 'var(--champagne)' }}>Store Performance</span>
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '24px' }}>
                     Top Selling Products
                   </h3>
@@ -756,7 +756,7 @@ export default function SuperAdminDashboard() {
                         </div>
                       </div>
                       <Button3D variant="outline" size="sm" icon={Eye} onClick={(e) => { e.stopPropagation(); setSelectedOrder(order); }}>
-                        Inspect Dossier
+                        View Order Details
                       </Button3D>
                     </div>
                   </div>
@@ -772,7 +772,7 @@ export default function SuperAdminDashboard() {
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
             <div>
-              <span className="eyebrow" style={{ color: 'var(--champagne)' }}>Atelier Personnel</span>
+              <span className="eyebrow" style={{ color: 'var(--champagne)' }}>Store Managers & Admins</span>
               <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', color: 'var(--graphite)' }}>
                 Store Admins Directory
               </h2>
@@ -1036,7 +1036,7 @@ export default function SuperAdminDashboard() {
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <Package size={20} color="var(--champagne)" />
-                    <span className="eyebrow" style={{ color: 'var(--champagne)' }}>Order Dossier</span>
+                    <span className="eyebrow" style={{ color: 'var(--champagne)' }}>Order Details</span>
                   </div>
                   <h3 style={{ fontFamily: 'monospace', fontSize: '20px', fontWeight: 700, color: 'var(--graphite)', marginTop: '4px' }}>
                     {selectedOrder.orderNumber}
@@ -1268,7 +1268,7 @@ export default function SuperAdminDashboard() {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Atelier Store Manager"
+                    placeholder="e.g. Store Manager"
                     value={newAdminName}
                     onChange={(e) => setNewAdminName(e.target.value)}
                     style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid var(--hairline)', background: 'var(--snow)' }}

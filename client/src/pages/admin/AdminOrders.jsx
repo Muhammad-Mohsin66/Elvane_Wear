@@ -134,10 +134,10 @@ export default function AdminOrders() {
             Fulfillment Management
           </span>
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(28px, 4vw, 36px)', color: 'var(--graphite)', marginTop: '4px' }}>
-            Atelier Orders
+            Store Orders
           </h1>
           <p style={{ fontSize: '13px', color: 'var(--ash)', marginTop: '4px' }}>
-            Manage client orders, dispatch COD parcels nationwide, and view complete customer dossiers.
+            Manage client orders, dispatch COD parcels nationwide, and view customer order details.
           </p>
         </div>
 
@@ -320,7 +320,7 @@ export default function AdminOrders() {
                       }}
                     >
                       <Eye size={13} />
-                      <span>Order Dossier</span>
+                      <span>Order Details</span>
                     </button>
                   </div>
                 </div>
@@ -489,7 +489,7 @@ export default function AdminOrders() {
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
                       <span className="eyebrow" style={{ color: 'var(--champagne)', fontSize: '10px' }}>
-                        ORDER FULFILLMENT DOSSIER
+                        CUSTOMER ORDER DETAILS
                       </span>
                       <span
                         style={{

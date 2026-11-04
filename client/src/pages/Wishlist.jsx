@@ -31,7 +31,7 @@ export default function Wishlist() {
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px', paddingTop: '20px' }}>
           <span className="eyebrow" style={{ color: 'var(--champagne)' }}>
-            Curated Privileges
+            Saved Items
           </span>
           <h1
             style={{
@@ -45,7 +45,7 @@ export default function Wishlist() {
             Your Private <em style={{ fontStyle: 'italic' }}>Wishlist</em>
           </h1>
           <p style={{ fontSize: '14px', color: 'var(--ash)', marginTop: '8px' }}>
-            Archived tracksuit sets saved for future atelier acquisitions.
+            Your favorite tracksuit sets saved for later.
           </p>
         </div>
 

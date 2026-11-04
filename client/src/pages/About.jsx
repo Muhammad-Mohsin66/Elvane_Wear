@@ -11,7 +11,7 @@ export default function About() {
         {/* Editorial Header */}
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
           <span className="eyebrow" style={{ color: 'var(--champagne)' }}>
-            The Atelier Manifesto
+            About Our Brand
           </span>
           <h1
             style={{
@@ -72,7 +72,7 @@ export default function About() {
         {/* CTA */}
         <div style={{ textAlign: 'center', marginTop: '80px' }}>
           <Button3D variant="primary" size="lg" onClick={() => navigate('/shop')}>
-            Explore the 10 Atelier Sets
+            Explore All Tracksuits
           </Button3D>
         </div>
       </div>

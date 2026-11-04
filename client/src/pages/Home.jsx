@@ -9,22 +9,22 @@ import api, { formatPKR } from '../utils/api';
 const HERO_SLIDES = [
   {
     image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486450/elvena_wear/hero/hero-1.jpg',
-    badge: 'Mineral Deep Teal • Atelier 01',
+    badge: 'Mineral Deep Teal • Edition 01',
     edition: 'Double-Knit Archival Pique • 380 GSM',
   },
   {
     image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486451/elvena_wear/hero/hero-2.jpg',
-    badge: 'Almond Champagne • Atelier 02',
+    badge: 'Almond Champagne • Edition 02',
     edition: 'Plush Micro-Velour Lounge • 410 GSM',
   },
   {
     image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486452/elvena_wear/hero/hero-3.jpg',
-    badge: 'Obsidian Midnight • Atelier 03',
+    badge: 'Obsidian Midnight • Edition 03',
     edition: 'Loopback Heavyweight French Terry • 420 GSM',
   },
   {
     image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486453/elvena_wear/hero/hero-4.jpg',
-    badge: 'Taupe Sandstone • Atelier 04',
+    badge: 'Taupe Sandstone • Edition 04',
     edition: 'Noble Cashmere-Touch Fiber • 380 GSM',
   },
 ];
@@ -256,7 +256,7 @@ export default function Home() {
                 e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
               }}
             >
-              The Atelier Story
+              Our Story
             </button>
           </motion.div>
 
@@ -356,17 +356,17 @@ export default function Home() {
               marginBottom: '16px',
             }}
           >
-            Signature <em style={{ fontStyle: 'italic' }}>Atelier</em> Sets
+            Signature <em style={{ fontStyle: 'italic' }}>Tracksuit</em> Sets
           </h2>
           <p style={{ fontSize: '15px', color: 'var(--ash)', maxWidth: '560px' }}>
-            Sold exclusively as complete two-piece tracksuit sets. Every piece is tailored to harmonize silhouette, drape, and tactile comfort.
+            Sold exclusively as complete two-piece tracksuit sets. Every piece is designed for perfect fit, durability, and all-day comfort.
           </p>
         </div>
 
         {/* 4-Column 3D Grid with Full Space Utilization */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: '60px', color: 'var(--ash)' }}>
-            Curating Atelier Sets...
+            Loading Tracksuits...
           </div>
         ) : (
           <div className="atelier-product-grid">
@@ -383,7 +383,7 @@ export default function Home() {
             onClick={() => navigate('/shop')}
             icon={ArrowUpRight}
           >
-            Explore All Atelier Sets
+            Explore All Tracksuits
           </Button3D>
         </div>
       </section>
@@ -577,7 +577,7 @@ export default function Home() {
       {/* EDITORIAL QUOTE & NEWSLETTER */}
       <section style={{ maxWidth: '900px', margin: '0 auto', padding: '120px 32px', textAlign: 'center' }}>
         <span className="eyebrow" style={{ color: 'var(--champagne)', marginBottom: '16px', display: 'block' }}>
-          Atelier Newsletter
+          Elvane Newsletter
         </span>
         <h2
           style={{
@@ -587,10 +587,10 @@ export default function Home() {
             marginBottom: '16px',
           }}
         >
-          Privileged access to limited seasonal <em style={{ fontStyle: 'italic' }}>releases</em>.
+          Get early access to new arrivals and seasonal <em style={{ fontStyle: 'italic' }}>discounts</em>.
         </h2>
         <p style={{ fontSize: '15px', color: 'var(--ash)', marginBottom: '36px', maxWidth: '480px', margin: '0 auto 36px' }}>
-          Be the first to know when archive editions drop and when seasonal privileges are applied.
+          Be the first to know when new tracksuit sets drop and special discounts are announced.
         </p>
 
         {newsletterSuccess ? (
@@ -608,7 +608,7 @@ export default function Home() {
             }}
           >
             <CheckCircle size={16} />
-            <span>Thank you. Your address has been added to our private register.</span>
+            <span>Thank you! You are now subscribed to our newsletter.</span>
           </div>
         ) : (
           <form

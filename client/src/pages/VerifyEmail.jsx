@@ -108,7 +108,7 @@ export default function VerifyEmail() {
           Verify Your <em style={{ fontStyle: 'italic' }}>Email</em>
         </h1>
         <p style={{ fontSize: '13px', color: 'var(--ash)', lineHeight: 1.6, marginBottom: '28px' }}>
-          We sent a 6-digit atelier code to <strong>{user?.email || 'your email'}</strong>. (Check terminal/console logs if SMTP is offline).
+          We sent a 6-digit verification code to <strong>{user?.email || 'your email'}</strong>. (Check terminal/console logs if SMTP is offline).
         </p>
 
         {errorMsg && (
@@ -146,7 +146,7 @@ export default function VerifyEmail() {
         <form onSubmit={handleVerify} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <div>
             <label className="eyebrow" style={{ display: 'block', marginBottom: '10px' }}>
-              6-Digit Atelier Code
+              6-Digit Verification Code
             </label>
             <input
               type="text"
@@ -176,7 +176,7 @@ export default function VerifyEmail() {
             style={{ width: '100%', justifyContent: 'center' }}
             icon={CheckCircle2}
           >
-            {submitting ? 'Verifying...' : 'Activate Atelier Account'}
+            {submitting ? 'Verifying...' : 'Verify Email & Continue'}
           </Button3D>
         </form>
 

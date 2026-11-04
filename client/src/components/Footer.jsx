@@ -41,8 +41,8 @@ export default function Footer() {
               <Truck size={18} color="var(--champagne)" />
             </div>
             <div>
-              <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>Nationwide Delivery</p>
-              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Karachi, Lahore, Islamabad & beyond</p>
+              <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>Delivery Across Pakistan</p>
+              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Karachi, Lahore, Islamabad & all cities</p>
             </div>
           </div>
 
@@ -62,8 +62,8 @@ export default function Footer() {
               <ShieldCheck size={18} color="var(--champagne)" />
             </div>
             <div>
-              <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>Atelier Guarantee</p>
-              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>100% Complete 2-Piece Sets</p>
+              <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>100% Quality Guarantee</p>
+              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Complete 2-Piece Tracksuit Sets</p>
             </div>
           </div>
 
@@ -84,7 +84,7 @@ export default function Footer() {
             </div>
             <div>
               <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>Cash on Delivery (COD)</p>
-              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Pay upon doorstep arrival</p>
+              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Pay with cash at your doorstep</p>
             </div>
           </div>
 
@@ -104,8 +104,8 @@ export default function Footer() {
               <Sparkles size={18} color="var(--champagne)" />
             </div>
             <div>
-              <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>Curated Fabrics</p>
-              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Cashmere, Merino & Pima Cotton</p>
+              <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--graphite)' }}>Premium Quality Fabric</p>
+              <p style={{ fontSize: '11px', color: 'var(--ash)' }}>Soft, durable & comfortable material</p>
             </div>
           </div>
         </div>
@@ -158,7 +158,7 @@ export default function Footer() {
                 lineHeight: 1.6,
               }}
             >
-              A high-fashion luxury atelier dedicated exclusively to complete, minimalist tracksuit sets crafted from the finest natural fibers.
+              A luxury clothing brand dedicated exclusively to complete, high-quality tracksuit sets crafted for comfort, style, and everyday elegance.
             </p>
           </div>
 
@@ -212,12 +212,12 @@ export default function Footer() {
                 letterSpacing: '0.18em',
               }}
             >
-              Concierge
+              Help & Support
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <li>
                 <Link to="/about" className="link-underline" style={{ fontSize: '13px', color: 'var(--ash)' }}>
-                  Brand Atelier Story
+                  Our Brand Story
                 </Link>
               </li>
               <li>

@@ -66,9 +66,9 @@ export default function Account() {
           >
             <CheckCircle2 size={24} />
             <div>
-              <p style={{ fontWeight: 600, fontSize: '15px' }}>Atelier Order Confirmed!</p>
+              <p style={{ fontWeight: 600, fontSize: '15px' }}>Order Placed Successfully!</p>
               <p style={{ fontSize: '13px', marginTop: '2px' }}>
-                Your order reference is <strong>{orderSuccessNumber}</strong>. We are preparing your tailored tracksuit set for packaging.
+                Your order reference is <strong>{orderSuccessNumber}</strong>. We are preparing your tracksuit set for dispatch.
               </p>
             </div>
           </motion.div>
@@ -128,7 +128,7 @@ export default function Account() {
                 cursor: 'pointer',
               }}
             >
-              {tab === 'orders' ? `Orders (${orders.length})` : 'Atelier Profile'}
+              {tab === 'orders' ? `Orders (${orders.length})` : 'My Profile'}
             </button>
           ))}
         </div>
@@ -138,7 +138,7 @@ export default function Account() {
           <div>
             {loadingOrders ? (
               <div style={{ textAlign: 'center', padding: '60px', color: 'var(--ash)' }}>
-                Retrieving your atelier records...
+                Loading your orders...
               </div>
             ) : orders.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '80px 20px', background: 'var(--cloud)', borderRadius: '20px' }}>
@@ -245,11 +245,11 @@ export default function Account() {
                       <div style={{ borderTop: '1px solid var(--hairline)', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                         <div>
                           <p style={{ fontSize: '12px', color: 'var(--ash)' }}>
-                            Payment: {order.paymentMethod} • Shipping: White-Glove
+                            Payment: {order.paymentMethod} • Delivery: Express Shipping
                           </p>
                           {order.discountAmount > 0 && (
                             <p style={{ fontSize: '12px', color: 'var(--success)', fontWeight: 600, marginTop: '2px' }}>
-                              Atelier Discount Applied: -{formatPKR(order.discountAmount)} ({order.discountPercent}%)
+                              Special Discount Applied: -{formatPKR(order.discountAmount)} ({order.discountPercent}%)
                             </p>
                           )}
                         </div>
@@ -272,7 +272,7 @@ export default function Account() {
         {activeTab === 'profile' && (
           <div style={{ background: 'var(--snow)', border: '1px solid var(--hairline)', borderRadius: '20px', padding: '36px' }}>
             <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '26px', marginBottom: '20px' }}>
-              Atelier Profile Details
+              Profile Details
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '500px' }}>
               <div>

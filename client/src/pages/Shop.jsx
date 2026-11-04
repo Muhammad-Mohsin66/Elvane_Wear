@@ -78,10 +78,10 @@ export default function Shop() {
               marginBottom: '16px',
             }}
           >
-            The Atelier <em style={{ fontStyle: 'italic' }}>Collection</em>
+            Our Tracksuit <em style={{ fontStyle: 'italic' }}>Collection</em>
           </h1>
           <p style={{ fontSize: '15px', color: 'var(--ash)', maxWidth: '540px', margin: '0 auto' }}>
-            Complete 2-piece tracksuit sets engineered in limited editions. Hand-selected fibers, precision ribbing, and balanced monochrome palettes.
+            Complete 2-piece luxury tracksuit sets. Premium quality fabrics, precision tailoring, and comfortable modern fit.
           </p>
         </div>
 

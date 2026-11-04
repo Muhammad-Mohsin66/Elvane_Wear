@@ -148,7 +148,7 @@ export default function AdminLogin() {
               marginBottom: '6px',
             }}
           >
-            Atelier Back-Office
+            Store Admin Portal
           </h1>
           <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)', lineHeight: 1.5 }}>
             Restricted administrative portal for Elvane Wear management and operations.

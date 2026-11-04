@@ -78,7 +78,7 @@ export default function CartDrawer() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <ShoppingBag size={20} strokeWidth={1.5} color="var(--champagne)" />
                 <h3 style={{ fontSize: '20px', fontFamily: "'Cormorant Garamond', serif", fontWeight: 600 }}>
-                  Your Atelier Bag ({getItemCount()})
+                  Your Shopping Bag ({getItemCount()})
                 </h3>
               </div>
               <button
