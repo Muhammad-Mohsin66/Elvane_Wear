@@ -151,25 +151,43 @@ router.post('/', protect, authorize('admin', 'superadmin'), upload.array('images
   }
 });
 
-// Admin: Update product
-router.put('/:id', protect, authorize('admin', 'superadmin'), upload.array('images', 6), async (req, res) => {
+// Admin: Update product (A to Z Edit: title, price, category, description, fabric, care, colors, sizes, images, stock, badges)
+router.put('/:id', protect, authorize('admin', 'superadmin'), upload.array('images', 10), async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
 
-    const before = { title: product.title, price: product.price, inventoryCount: product.inventoryCount };
-    const { title, description, price, category, fabric, care, colors, sizes, inventoryCount, isFeatured, isNewArrival, isBestseller } = req.body;
+    const before = {
+      title: product.title,
+      price: product.price,
+      category: product.category,
+      inventoryCount: product.inventoryCount,
+      colorsCount: product.colors?.length || 0,
+      sizesCount: product.sizes?.length || 0,
+    };
 
-    if (title) product.title = title;
-    if (description) product.description = description;
-    if (price) product.price = Number(price);
+    const {
+      title, slug, description, price, category, fabric, care,
+      colors, sizes, inventoryCount, isFeatured, isNewArrival, isBestseller,
+      existingImages
+    } = req.body;
+
+    if (title) product.title = title.trim();
+    if (slug) product.slug = slug.trim().toLowerCase();
+    if (description !== undefined) product.description = description;
+    if (price !== undefined) product.price = Number(price);
     if (category) product.category = category;
     if (fabric !== undefined) product.fabric = fabric;
     if (care !== undefined) product.care = care;
-    if (sizes) product.sizes = JSON.parse(sizes);
+
+    if (sizes) {
+      const parsedSizes = typeof sizes === 'string' ? JSON.parse(sizes) : sizes;
+      product.sizes = parsedSizes;
+    }
+
     if (colors) {
-      const parsed = JSON.parse(colors);
-      product.colors = parsed.map(c => ({
+      const parsedColors = typeof colors === 'string' ? JSON.parse(colors) : colors;
+      product.colors = parsedColors.map(c => ({
         name: c.name,
         hex: c.hex,
         active: c.active !== false,
@@ -178,12 +196,15 @@ router.put('/:id', protect, authorize('admin', 'superadmin'), upload.array('imag
         imageUrl: c.imageUrl || c.modelImage || c.articleImage || '',
       }));
     }
+
     if (inventoryCount !== undefined) product.inventoryCount = Number(inventoryCount);
     if (isFeatured !== undefined) product.isFeatured = isFeatured === 'true' || isFeatured === true;
     if (isNewArrival !== undefined) product.isNewArrival = isNewArrival === 'true' || isNewArrival === true;
     if (isBestseller !== undefined) product.isBestseller = isBestseller === 'true' || isBestseller === true;
+
+    // Handle Image uploads and gallery array updates
+    let uploadedCloudImages = [];
     if (req.files && req.files.length > 0) {
-      const uploadedCloudImages = [];
       for (const f of req.files) {
         try {
           const cloudUrl = await uploadFileToCloudinary(f.path, 'elvena_wear/products');
@@ -192,21 +213,36 @@ router.put('/:id', protect, authorize('admin', 'superadmin'), upload.array('imag
           uploadedCloudImages.push(`/uploads/${f.filename}`);
         }
       }
+    }
+
+    if (existingImages !== undefined) {
+      const parsedExisting = typeof existingImages === 'string' ? JSON.parse(existingImages) : existingImages;
+      product.images = [...parsedExisting, ...uploadedCloudImages];
+    } else if (req.body.images !== undefined) {
+      const parsedImgs = typeof req.body.images === 'string' ? JSON.parse(req.body.images) : req.body.images;
+      product.images = [...parsedImgs, ...uploadedCloudImages];
+    } else if (uploadedCloudImages.length > 0) {
       product.images = [...product.images, ...uploadedCloudImages];
     }
 
     await product.save();
 
-    const actionType = inventoryCount !== undefined && Number(inventoryCount) !== before.inventoryCount ? 'INVENTORY_UPDATED' : 'PRODUCT_UPDATED';
     await createAuditLog({
       admin: req.user,
-      actionType,
+      actionType: 'PRODUCT_UPDATED',
       targetType: 'Product',
       targetId: product._id,
       targetName: product.title,
       before,
-      after: { title: product.title, price: product.price, inventoryCount: product.inventoryCount },
-      description: `Updated product: ${product.title}`
+      after: {
+        title: product.title,
+        price: product.price,
+        category: product.category,
+        inventoryCount: product.inventoryCount,
+        colorsCount: product.colors?.length || 0,
+        sizesCount: product.sizes?.length || 0,
+      },
+      description: `Admin updated product details: "${product.title}" (Price: Rs. ${product.price}, Stock: ${product.inventoryCount})`
     });
 
     res.json(product);
