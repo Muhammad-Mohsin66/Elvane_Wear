@@ -19,6 +19,7 @@ export default function AdminLogin() {
   const navigate = useNavigate();
 
   const handleQuickFill = (role) => {
+    if (!import.meta.env.DEV) return;
     if (role === 'admin') {
       setEmail('admin@elvanewear.com');
       setPassword('Admin@123');
@@ -155,73 +156,75 @@ export default function AdminLogin() {
           </p>
         </div>
 
-        {/* Quick Role Fill Pills */}
-        <div style={{ marginBottom: '22px' }}>
-          <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)', display: 'block', marginBottom: '8px' }}>
-            Quick fill credentials:
-          </span>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-            <button
-              type="button"
-              onClick={() => handleQuickFill('admin')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                padding: '8px 12px',
-                borderRadius: '8px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                color: '#E0E0E0',
-                fontSize: '11px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.borderColor = 'rgba(212, 167, 106, 0.5)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-              }}
-            >
-              <KeyRound size={12} color="#D4A76A" />
-              <span>Admin</span>
-            </button>
+        {/* Quick Role Fill Pills (Development Only) */}
+        {import.meta.env.DEV && (
+          <div style={{ marginBottom: '22px' }}>
+            <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)', display: 'block', marginBottom: '8px' }}>
+              [DEV ONLY] Quick fill credentials:
+            </span>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={() => handleQuickFill('admin')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  color: '#E0E0E0',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(212, 167, 106, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                }}
+              >
+                <KeyRound size={12} color="#D4A76A" />
+                <span>Admin</span>
+              </button>
 
-            <button
-              type="button"
-              onClick={() => handleQuickFill('superadmin')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                padding: '8px 12px',
-                borderRadius: '8px',
-                background: 'rgba(212, 167, 106, 0.08)',
-                border: '1px solid rgba(212, 167, 106, 0.3)',
-                color: '#D4A76A',
-                fontSize: '11px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(212, 167, 106, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(212, 167, 106, 0.08)';
-              }}
-            >
-              <Shield size={12} color="#D4A76A" />
-              <span>Super Admin</span>
-            </button>
+              <button
+                type="button"
+                onClick={() => handleQuickFill('superadmin')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  background: 'rgba(212, 167, 106, 0.08)',
+                  border: '1px solid rgba(212, 167, 106, 0.3)',
+                  color: '#D4A76A',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(212, 167, 106, 0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(212, 167, 106, 0.08)';
+                }}
+              >
+                <Shield size={12} color="#D4A76A" />
+                <span>Super Admin</span>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Error Alert */}
         {localError && (

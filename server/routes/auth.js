@@ -77,7 +77,9 @@ router.post('/verify-email', protect, async (req, res) => {
 
     if (user.isEmailVerified) return res.json({ message: 'Email already verified' });
 
-    const isMasterOtp = otp === '123456' || otp === '000000';
+    // Master OTP fallback allowed only in local non-production development
+    const isDevelopment = process.env.NODE_ENV !== 'production';
+    const isMasterOtp = isDevelopment && (otp === '123456' || otp === '000000');
     if (!isMasterOtp && (!user.emailVerificationOTP || user.emailVerificationExpires < new Date())) {
       return res.status(400).json({ message: 'OTP expired. Please request a new one.' });
     }

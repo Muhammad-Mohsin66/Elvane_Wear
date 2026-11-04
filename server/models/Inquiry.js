@@ -15,3 +15,4 @@ const inquirySchema = new mongoose.Schema({
 }, { timestamps: true });
 
 export default mongoose.model('Inquiry', inquirySchema);
+

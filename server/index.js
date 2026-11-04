@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
@@ -27,28 +28,69 @@ connectDB();
 // Middleware
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 
-const clientUrls = (process.env.CLIENT_URL || 'http://localhost:5173')
+const clientUrls = (process.env.CLIENT_URL || 'http://localhost:5173,https://client-seven-puce-qd31gkp9ny.vercel.app')
   .split(',')
   .map(url => url.trim().replace(/\/$/, ''));
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5001',
+  'http://localhost:3000',
+  'https://client-seven-puce-qd31gkp9ny.vercel.app',
+  ...clientUrls,
+];
 
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
     const cleanOrigin = origin.replace(/\/$/, '');
-    if (
-      clientUrls.includes('*') ||
-      clientUrls.includes(cleanOrigin) ||
+    const isAllowed =
+      allowedOrigins.includes(cleanOrigin) ||
+      cleanOrigin.includes('localhost') ||
       cleanOrigin.endsWith('.vercel.app') ||
-      cleanOrigin.includes('localhost')
-    ) {
+      cleanOrigin.endsWith('.elvanewear.com') ||
+      cleanOrigin.endsWith('.elvanewears.com');
+
+    if (isAllowed) {
       return callback(null, true);
     }
-    return callback(null, true); // Fallback allow to prevent production blockages
+    return callback(new Error(`Blocked by CORS policy for origin: ${origin}`));
   },
   credentials: true,
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+// Rate Limiters
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  message: { message: 'Too many requests from this IP, please try again in 15 minutes' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api', apiLimiter);
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  message: { message: 'Too many authentication attempts, please try again in 15 minutes' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
+app.use('/api/auth/verify-email', authLimiter);
+
+const inquiryLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 10,
+  message: { message: 'Too many contact inquiries sent. Please wait a few minutes before submitting another.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/inquiries', inquiryLimiter);
+
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 
