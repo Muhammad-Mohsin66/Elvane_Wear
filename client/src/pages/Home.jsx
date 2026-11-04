@@ -8,22 +8,22 @@ import api, { formatPKR } from '../utils/api';
 
 const HERO_SLIDES = [
   {
-    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486450/elvena_wear/hero/hero-1.jpg',
+    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793827559/elvena_wear/hero/a6ldjggzj2ebxxb15cp0.jpg',
     badge: 'Mineral Deep Teal • Edition 01',
     edition: 'Double-Knit Archival Pique • 380 GSM',
   },
   {
-    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486451/elvena_wear/hero/hero-2.jpg',
+    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793827561/elvena_wear/hero/ds4fweoax63krjaezkkw.jpg',
     badge: 'Almond Champagne • Edition 02',
     edition: 'Plush Micro-Velour Lounge • 410 GSM',
   },
   {
-    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486452/elvena_wear/hero/hero-3.jpg',
+    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793827562/elvena_wear/hero/ayemxjy641lhv2nur7xv.jpg',
     badge: 'Obsidian Midnight • Edition 03',
     edition: 'Loopback Heavyweight French Terry • 420 GSM',
   },
   {
-    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793486453/elvena_wear/hero/hero-4.jpg',
+    image: 'https://res.cloudinary.com/up56alno/image/upload/v1793827564/elvena_wear/hero/y9fziaca3ahegkquic59.jpg',
     badge: 'Taupe Sandstone • Edition 04',
     edition: 'Noble Cashmere-Touch Fiber • 380 GSM',
   },
