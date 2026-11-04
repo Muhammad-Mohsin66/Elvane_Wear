@@ -42,6 +42,45 @@ function ScrollToTop() {
   return null;
 }
 
+function SmoothScrollManager() {
+  const location = useLocation();
+  const isAdmin =
+    location.pathname.startsWith('/admin') ||
+    location.pathname.startsWith('/super-admin') ||
+    location.pathname.startsWith('/superadmin');
+
+  useEffect(() => {
+    // Disable smooth inertial Lenis on administrative back-office portals to prevent modal scroll hijacking
+    if (isAdmin) {
+      document.documentElement.classList.remove('lenis');
+      return;
+    }
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+    });
+
+    let rafId;
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, [isAdmin]);
+
+  return null;
+}
+
 function Layout({ children }) {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin') || location.pathname.startsWith('/super-admin') || location.pathname.startsWith('/superadmin');
@@ -64,30 +103,11 @@ export default function App() {
 
   useEffect(() => {
     fetchMe();
-
-    // Initialize smooth inertial scrolling with Lenis
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
   }, [fetchMe]);
 
   return (
     <Router>
+      <SmoothScrollManager />
       <Layout>
         <Routes>
           {/* Public Routes */}

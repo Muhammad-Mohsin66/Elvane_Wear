@@ -47,6 +47,18 @@ export default function AdminOrders() {
     fetchOrders();
   }, []);
 
+  // Lock body scroll when modal is active
+  useEffect(() => {
+    if (selectedDetailOrder || discountModalOrder || selectedScreenshot) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedDetailOrder, discountModalOrder, selectedScreenshot]);
+
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       await api.put(`/orders/${orderId}/status`, { orderStatus: newStatus });
@@ -453,6 +465,8 @@ export default function AdminOrders() {
             />
 
             <div
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
               style={{
                 position: 'fixed',
                 inset: 0,
@@ -465,6 +479,8 @@ export default function AdminOrders() {
               }}
             >
               <motion.div
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, scale: 0.94, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.94, y: 16 }}
@@ -477,6 +493,7 @@ export default function AdminOrders() {
                   width: '100%',
                   maxHeight: '92vh',
                   overflowY: 'auto',
+                  overscrollBehavior: 'contain',
                   boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.08)',
                   padding: 'clamp(24px, 4vw, 36px)',
                   display: 'flex',

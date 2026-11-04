@@ -85,6 +85,18 @@ export default function AdminProducts() {
     fetchProducts();
   }, []);
 
+  // Prevent background scrolling when edit or color modal is open
+  useEffect(() => {
+    if (editProduct || colorModalProduct) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [editProduct, colorModalProduct]);
+
   // Quick Color Toggle in table
   const handleToggleColor = async (product, colorName) => {
     const updatedColors = product.colors.map((c) =>
@@ -573,6 +585,8 @@ export default function AdminProducts() {
       <AnimatePresence>
         {editProduct && (
           <div
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
             style={{
               position: 'fixed',
               inset: 0,
@@ -597,11 +611,13 @@ export default function AdminProducts() {
             />
 
             <motion.div
+              data-lenis-prevent="true"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
               style={{
                 position: 'relative',
                 background: 'var(--snow)',
@@ -610,8 +626,9 @@ export default function AdminProducts() {
                 padding: 'clamp(20px, 3.5vw, 36px)',
                 width: '100%',
                 maxWidth: '840px',
-                maxHeight: '92vh',
+                maxHeight: '90vh',
                 overflowY: 'auto',
+                overscrollBehavior: 'contain',
                 boxShadow: '0 25px 60px rgba(0, 0, 0, 0.25)',
                 zIndex: 1,
               }}
@@ -1181,6 +1198,8 @@ export default function AdminProducts() {
       {/* ---------------------------------------------------- */}
       {colorModalProduct && (
         <div
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
           style={{
             position: 'fixed',
             inset: 0,
@@ -1195,6 +1214,8 @@ export default function AdminProducts() {
           onClick={() => setColorModalProduct(null)}
         >
           <div
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
             style={{
               background: 'var(--snow)',
               borderRadius: '24px',
@@ -1203,6 +1224,7 @@ export default function AdminProducts() {
               maxWidth: '720px',
               maxHeight: '85vh',
               overflowY: 'auto',
+              overscrollBehavior: 'contain',
               padding: '32px',
               boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
             }}

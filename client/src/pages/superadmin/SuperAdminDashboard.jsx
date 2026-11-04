@@ -62,6 +62,17 @@ export default function SuperAdminDashboard() {
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  // Lock body scroll when any modal is open
+  useEffect(() => {
+    if (selectedOrder || showAddAdminModal || selectedAdminForPassword) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow || '';
+      };
+    }
+  }, [selectedOrder, showAddAdminModal, selectedAdminForPassword]);
+
   const loadData = async () => {
     setLoading(true);
     try {
@@ -1017,6 +1028,8 @@ export default function SuperAdminDashboard() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
               style={{
                 position: 'relative',
                 background: 'var(--snow)',
@@ -1027,6 +1040,8 @@ export default function SuperAdminDashboard() {
                 maxWidth: '680px',
                 maxHeight: '90vh',
                 overflowY: 'auto',
+                overscrollBehavior: 'contain',
+                WebkitOverflowScrolling: 'touch',
                 boxShadow: '0 25px 60px rgba(0, 0, 0, 0.25)',
                 zIndex: 1,
               }}
@@ -1219,6 +1234,8 @@ export default function SuperAdminDashboard() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
               style={{
                 position: 'relative',
                 background: 'var(--snow)',
@@ -1227,6 +1244,10 @@ export default function SuperAdminDashboard() {
                 padding: 'clamp(20px, 3.5vw, 36px)',
                 width: '100%',
                 maxWidth: '480px',
+                maxHeight: '90vh',
+                overflowY: 'auto',
+                overscrollBehavior: 'contain',
+                WebkitOverflowScrolling: 'touch',
                 boxShadow: '0 25px 60px rgba(0, 0, 0, 0.25)',
                 zIndex: 1,
               }}
@@ -1347,6 +1368,8 @@ export default function SuperAdminDashboard() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
               style={{
                 position: 'relative',
                 background: 'var(--snow)',
@@ -1355,6 +1378,10 @@ export default function SuperAdminDashboard() {
                 padding: 'clamp(20px, 3.5vw, 36px)',
                 width: '100%',
                 maxWidth: '460px',
+                maxHeight: '90vh',
+                overflowY: 'auto',
+                overscrollBehavior: 'contain',
+                WebkitOverflowScrolling: 'touch',
                 boxShadow: '0 25px 60px rgba(0, 0, 0, 0.25)',
                 zIndex: 1,
               }}
