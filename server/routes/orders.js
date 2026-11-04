@@ -21,22 +21,26 @@ router.post('/', protect, requireVerifiedEmail, upload.single('jazzCashScreensho
     let subtotal = 0;
     const orderItems = [];
     for (const item of parsedItems) {
+      const qty = Math.floor(Number(item.quantity));
+      if (!qty || qty < 1 || isNaN(qty)) {
+        return res.status(400).json({ message: 'Each item quantity must be at least 1' });
+      }
       const product = await Product.findById(item.product);
       if (!product) return res.status(404).json({ message: `Product not found: ${item.product}` });
-      if (product.inventoryCount < item.quantity) {
+      if (product.inventoryCount < qty) {
         return res.status(400).json({ message: `Insufficient stock for ${product.title}` });
       }
       orderItems.push({
         product: product._id,
         title: product.title,
         image: product.images[0] || '',
-        color: item.color,
-        size: item.size,
-        quantity: item.quantity,
+        color: String(item.color || ''),
+        size: String(item.size || ''),
+        quantity: qty,
         price: product.price,
       });
-      subtotal += product.price * item.quantity;
-      product.inventoryCount -= item.quantity;
+      subtotal += product.price * qty;
+      product.inventoryCount -= qty;
       await product.save();
     }
 

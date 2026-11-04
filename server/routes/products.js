@@ -13,7 +13,11 @@ router.get('/', async (req, res) => {
     const { category, sort, search, featured } = req.query;
     let filter = {};
     if (category && category !== 'All Sets') filter.category = category;
-    if (search) filter.title = { $regex: search, $options: 'i' };
+    if (search) {
+      // Escape special regex characters to prevent ReDoS injection attacks
+      const safeSearch = String(search).trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      filter.title = { $regex: safeSearch, $options: 'i' };
+    }
     if (featured === 'true') filter.isFeatured = true;
 
     let query = Product.find(filter);
@@ -278,13 +282,19 @@ router.delete('/:id', protect, authorize('admin', 'superadmin'), async (req, res
 router.post('/:id/reviews', protect, async (req, res) => {
   try {
     const { rating, comment } = req.body;
+    const numRating = Number(rating);
+    if (!numRating || numRating < 1 || numRating > 5 || !Number.isInteger(numRating)) {
+      return res.status(400).json({ message: 'Rating must be an integer between 1 and 5' });
+    }
+
+    const cleanComment = String(comment || '').trim().slice(0, 500);
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
 
     const alreadyReviewed = product.reviews.find(r => r.user.toString() === req.user._id.toString());
     if (alreadyReviewed) return res.status(400).json({ message: 'You have already reviewed this product' });
 
-    product.reviews.push({ user: req.user._id, name: req.user.name, rating: Number(rating), comment });
+    product.reviews.push({ user: req.user._id, name: req.user.name, rating: numRating, comment: cleanComment });
     product.calculateAverageRating();
     await product.save();
     res.status(201).json({ message: 'Review added' });
