@@ -102,20 +102,20 @@ export default function AdminLogin() {
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <div
             style={{
-              width: '60px',
-              height: '60px',
+              width: '64px',
+              height: '64px',
               borderRadius: '16px',
-              background: 'linear-gradient(135deg, rgba(212, 167, 106, 0.2) 0%, rgba(212, 167, 106, 0.05) 100%)',
+              background: '#FFFFFF',
               border: '1px solid rgba(212, 167, 106, 0.4)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto 16px',
-              color: '#D4A76A',
-              boxShadow: '0 8px 24px rgba(212, 167, 106, 0.15)',
+              padding: '10px',
+              boxShadow: '0 8px 24px rgba(212, 167, 106, 0.2)',
             }}
           >
-            <Shield size={28} />
+            <img src="/logo-icon.png" alt="Elvane" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
 
           <div

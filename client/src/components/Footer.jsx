@@ -127,7 +127,7 @@ export default function Footer() {
                 src="/logo.png"
                 alt="Elvane Wear"
                 style={{
-                  height: '46px',
+                  height: '62px',
                   width: 'auto',
                   objectFit: 'contain',
                   display: 'block',

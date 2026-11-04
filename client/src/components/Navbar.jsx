@@ -97,7 +97,7 @@ export default function Navbar() {
               src="/logo.png"
               alt="Elvane Wear"
               style={{
-                height: 'clamp(28px, 3.5vw, 36px)',
+                height: 'clamp(36px, 4.5vw, 46px)',
                 width: 'auto',
                 objectFit: 'contain',
               }}
