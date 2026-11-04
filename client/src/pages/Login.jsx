@@ -166,19 +166,6 @@ export default function Login() {
           }}
         >
           <span>Protected by Elvane Wear Security</span>
-          <Link
-            to="/admin/login"
-            style={{
-              color: 'var(--ash)',
-              textDecoration: 'none',
-              fontSize: '11px',
-              transition: 'color 0.2s',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--champagne)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ash)')}
-          >
-            Staff & Executive Portal Access →
-          </Link>
         </div>
       </motion.div>
     </div>

@@ -230,45 +230,7 @@ export default function Footer() {
                   Returns & Exchanges
                 </Link>
               </li>
-              <li>
-                <Link to="/account" className="link-underline" style={{ fontSize: '13px', color: 'var(--ash)' }}>
-                  Client Portal & Orders
-                </Link>
-              </li>
-              <li>
-                <Link to="/login" className="link-underline" style={{ fontSize: '13px', color: 'var(--ash)' }}>
-                  Member Login
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Portals */}
-          <div>
-            <h4
-              className="eyebrow"
-              style={{
-                marginBottom: '16px',
-                color: 'var(--graphite)',
-                fontWeight: 700,
-                fontSize: '12px',
-                letterSpacing: '0.18em',
-              }}
-            >
-              Governance
-            </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <li>
-                <Link to="/admin" className="link-underline" style={{ fontSize: '13px', color: 'var(--ash)' }}>
-                  Admin Portal
-                </Link>
-              </li>
-              <li>
-                <Link to="/super-admin" className="link-underline" style={{ fontSize: '13px', color: 'var(--ash)' }}>
-                  Super Admin Executive
-                </Link>
-              </li>
-              <li style={{ marginTop: '12px' }}>
+              <li style={{ marginTop: '8px' }}>
                 <span
                   style={{
                     display: 'inline-block',
