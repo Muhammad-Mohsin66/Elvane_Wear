@@ -295,4 +295,38 @@ export const sendOrderStatusUpdateEmail = async (order, userEmail, newStatus) =>
   });
 };
 
+/**
+ * 3. Email: Account Verification OTP (Sent upon registration or resend OTP)
+ */
+export const sendVerificationOTPEmail = async (email, name, otp) => {
+  const customerName = name || 'Valued Member';
+  const content = `
+    <div style="text-align: center; margin-bottom: 24px;">
+      <span style="display: inline-block; padding: 4px 14px; background: rgba(212, 167, 106, 0.15); color: #B8860B; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;">
+        Account Verification
+      </span>
+      <h2 style="margin: 12px 0 6px; font-size: 24px; color: #1A1A1A;">Verify Your Email Address</h2>
+      <p style="margin: 0; color: #6B6862; font-size: 14px; line-height: 1.6;">
+        Welcome to Elvane Wear, ${customerName}. Please use the verification code below to activate your account.
+      </p>
+    </div>
+
+    <div style="background: #FAFAFA; border: 1px solid #E8E5DF; border-radius: 12px; padding: 24px 20px; text-align: center; margin-bottom: 24px;">
+      <span style="font-size: 11px; letter-spacing: 0.15em; color: #8F8B82; text-transform: uppercase; display: block; margin-bottom: 8px;">6-Digit Security Code</span>
+      <div style="font-size: 38px; font-weight: 700; letter-spacing: 10px; color: #D4A76A; font-family: monospace;">
+        ${otp}
+      </div>
+      <p style="margin: 8px 0 0; font-size: 12px; color: #8F8B82;">
+        Valid for 10 minutes. Do not share this code with anyone.
+      </p>
+    </div>
+  `;
+
+  return sendEmail({
+    to: email,
+    subject: `${otp} is your Elvane Wear verification code`,
+    html: getLuxuryEmailWrapper(content),
+  });
+};
+
 export default sendEmail;

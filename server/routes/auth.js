@@ -1,10 +1,20 @@
 import express from 'express';
 import User from '../models/User.js';
 import { generateToken, generateOTP } from '../utils/token.js';
-import sendEmail from '../utils/email.js';
+import sendEmail, { sendVerificationOTPEmail } from '../utils/email.js';
 import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
+
+// Helper to check whether an email dispatch service (Resend or SMTP) is active
+const isEmailConfigured = () =>
+  Boolean(
+    (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.startsWith('re_')) ||
+    (process.env.SMTP_USER &&
+      !process.env.SMTP_USER.includes('your_email') &&
+      process.env.SMTP_PASS &&
+      !process.env.SMTP_PASS.includes('your_app_password'))
+  );
 
 // Register
 router.post('/register', async (req, res) => {
@@ -19,19 +29,16 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Email already registered. Please sign in.' });
     }
 
-    const isSmtpConfigured = process.env.SMTP_USER &&
-      !process.env.SMTP_USER.includes('your_email') &&
-      process.env.SMTP_PASS &&
-      !process.env.SMTP_PASS.includes('your_app_password');
-
+    const emailServiceActive = isEmailConfigured();
     const otp = generateOTP();
     let user;
+
     if (existingUser && !existingUser.isEmailVerified) {
       existingUser.name = name;
       existingUser.password = password;
       existingUser.emailVerificationOTP = otp;
       existingUser.emailVerificationExpires = new Date(Date.now() + 10 * 60 * 1000);
-      existingUser.isEmailVerified = !isSmtpConfigured;
+      existingUser.isEmailVerified = !emailServiceActive;
       user = await existingUser.save();
     } else {
       user = await User.create({
@@ -40,29 +47,27 @@ router.post('/register', async (req, res) => {
         password,
         emailVerificationOTP: otp,
         emailVerificationExpires: new Date(Date.now() + 10 * 60 * 1000),
-        isEmailVerified: !isSmtpConfigured,
+        isEmailVerified: !emailServiceActive,
       });
     }
 
     console.log(`\n🔑 EMAIL VERIFICATION OTP for ${cleanEmail}: ${otp}\n`);
 
-    if (isSmtpConfigured) {
-      sendEmail({
-        to: cleanEmail,
-        subject: 'Elvane Wear — Verify Your Email',
-        html: `<div style="font-family:sans-serif;padding:40px;background:#FAFAFA;">
-          <h2 style="color:#1A1A1A;">Welcome to Elvane Wear</h2>
-          <p style="color:#2D2D2D;">Your verification code is:</p>
-          <h1 style="color:#D4A76A;letter-spacing:8px;font-size:36px;">${otp}</h1>
-          <p style="color:#6E6E6E;">This code expires in 10 minutes.</p>
-        </div>`
-      }).catch(err => console.log('Background email error:', err.message));
+    if (emailServiceActive) {
+      sendVerificationOTPEmail(cleanEmail, name, otp).catch((err) =>
+        console.warn('Background verification email error:', err.message)
+      );
     }
 
     const token = generateToken(user._id);
     res.status(201).json({
       token,
       user: { _id: user._id, name: user.name, email: user.email, role: user.role, isEmailVerified: user.isEmailVerified }
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -108,15 +113,7 @@ router.post('/resend-otp', protect, async (req, res) => {
     await user.save();
 
     console.log(`\n🔑 RESENT OTP for ${user.email}: ${otp}\n`);
-    await sendEmail({
-      to: user.email,
-      subject: 'Elvane Wear — New Verification Code',
-      html: `<div style="font-family:sans-serif;padding:40px;background:#FAFAFA;">
-        <h2 style="color:#1A1A1A;">New Verification Code</h2>
-        <h1 style="color:#D4A76A;letter-spacing:8px;font-size:36px;">${otp}</h1>
-        <p style="color:#6E6E6E;">Expires in 10 minutes.</p>
-      </div>`
-    });
+    await sendVerificationOTPEmail(user.email, user.name, otp);
 
     res.json({ message: 'New OTP sent' });
   } catch (error) {
