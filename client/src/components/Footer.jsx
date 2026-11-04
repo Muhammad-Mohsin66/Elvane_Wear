@@ -230,6 +230,11 @@ export default function Footer() {
                   Returns & Exchanges
                 </Link>
               </li>
+              <li>
+                <Link to="/track" className="link-underline" style={{ fontSize: '13px', color: 'var(--champagne)', fontWeight: 600 }}>
+                  Track Your Order →
+                </Link>
+              </li>
               <li style={{ marginTop: '8px' }}>
                 <span
                   style={{

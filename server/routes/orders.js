@@ -4,6 +4,7 @@ import Product from '../models/Product.js';
 import { protect, authorize, requireVerifiedEmail } from '../middleware/auth.js';
 import { upload } from '../middleware/upload.js';
 import { createAuditLog } from '../utils/auditLog.js';
+import { sendOrderPlacedEmail, sendOrderStatusUpdateEmail } from '../utils/email.js';
 
 const router = express.Router();
 
@@ -48,6 +49,11 @@ router.post('/', protect, requireVerifiedEmail, upload.single('jazzCashScreensho
       paymentStatus: 'Pending',
       subtotal,
       total: subtotal,
+    });
+
+    // Trigger instant Order Placed email notification
+    sendOrderPlacedEmail(order, req.user?.email, req.user?.name).catch((err) => {
+      console.warn('Order placed email notification error:', err.message);
     });
 
     res.status(201).json(order);
@@ -103,6 +109,15 @@ router.put('/:id/status', protect, authorize('admin', 'superadmin'), async (req,
     order.orderStatus = req.body.orderStatus;
     if (req.body.adminNotes) order.adminNotes = req.body.adminNotes;
     await order.save();
+    await order.populate('user', 'name email');
+
+    // Trigger status update email (Confirmed, Dispatched, Delivered, Cancelled)
+    const recipientEmail = order.user?.email || order.shippingAddress?.email;
+    if (recipientEmail) {
+      sendOrderStatusUpdateEmail(order, recipientEmail, order.orderStatus).catch((err) => {
+        console.warn('Status update email error:', err.message);
+      });
+    }
 
     await createAuditLog({
       admin: req.user,
@@ -116,6 +131,40 @@ router.put('/:id/status', protect, authorize('admin', 'superadmin'), async (req,
     });
 
     res.json(order);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Public: Track order by orderNumber (no login required)
+router.get('/track/:orderNumber', async (req, res) => {
+  try {
+    const rawRef = req.params.orderNumber.toUpperCase().trim();
+    const order = await Order.findOne({ orderNumber: rawRef });
+    if (!order) {
+      return res.status(404).json({ message: `No active order found with reference: ${rawRef}` });
+    }
+
+    res.json({
+      orderNumber: order.orderNumber,
+      orderStatus: order.orderStatus,
+      createdAt: order.createdAt,
+      updatedAt: order.updatedAt,
+      itemsCount: order.items?.length,
+      items: order.items.map((it) => ({
+        title: it.title,
+        color: it.color,
+        size: it.size,
+        quantity: it.quantity,
+        image: it.image,
+        price: it.price,
+      })),
+      city: order.shippingAddress?.city,
+      recipientName: order.shippingAddress?.fullName,
+      total: order.total,
+      paymentMethod: order.paymentMethod,
+      adminNotes: order.adminNotes || '',
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

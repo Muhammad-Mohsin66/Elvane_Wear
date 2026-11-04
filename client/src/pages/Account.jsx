@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Package, Clock, ShieldCheck, CheckCircle2, AlertCircle, Heart, User, LogOut } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import Button3D from '../components/Button3D';
+import OrderTimelineTracker from '../components/OrderTimelineTracker';
 import api, { formatPKR } from '../utils/api';
 
 export default function Account() {
@@ -223,6 +224,13 @@ export default function Account() {
                           )}
                         </div>
                       </div>
+
+                      {/* Visual Order Fulfillment Timeline */}
+                      <OrderTimelineTracker
+                        status={order.orderStatus}
+                        createdAt={order.createdAt}
+                        updatedAt={order.updatedAt}
+                      />
 
                       {/* Items */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}>
