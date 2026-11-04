@@ -12,6 +12,7 @@ import productRoutes from './routes/products.js';
 import orderRoutes from './routes/orders.js';
 import announcementRoutes from './routes/announcements.js';
 import superAdminRoutes from './routes/superAdmin.js';
+import inquiryRoutes from './routes/inquiries.js';
 
 dotenv.config();
 
@@ -61,6 +62,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/super-admin', superAdminRoutes);
+app.use('/api/inquiries', inquiryRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));

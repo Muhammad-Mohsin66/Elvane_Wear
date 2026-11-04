@@ -4,19 +4,24 @@ import nodemailer from 'nodemailer';
 /**
  * Universal Email Sender with Resend & SMTP Support
  */
-export const sendEmail = async ({ to, subject, html }) => {
+export const sendEmail = async ({ to, subject, html, replyTo }) => {
   // 1. Try Resend if RESEND_API_KEY is available
   if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.startsWith('re_')) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const fromAddress = process.env.RESEND_FROM || process.env.FROM_EMAIL || 'Elvane Wear <onboarding@resend.dev>';
       
-      const { data, error } = await resend.emails.send({
+      const emailPayload = {
         from: fromAddress,
         to: [to],
         subject,
         html,
-      });
+      };
+      if (replyTo) {
+        emailPayload.reply_to = replyTo;
+      }
+
+      const { data, error } = await resend.emails.send(emailPayload);
 
       if (error) {
         console.error('❌ Resend email error:', error);
@@ -51,12 +56,17 @@ export const sendEmail = async ({ to, subject, html }) => {
         socketTimeout: 5000,
       });
 
-      await transporter.sendMail({
-        from: `"Elvane Wear" <${process.env.FROM_EMAIL || 'noreply@elvanewear.com'}>`,
+      const mailOptions = {
+        from: `"Elvane Wear" <${process.env.FROM_EMAIL || 'elvane.wears@gmail.com'}>`,
         to,
         subject,
         html,
-      });
+      };
+      if (replyTo) {
+        mailOptions.replyTo = replyTo;
+      }
+
+      await transporter.sendMail(mailOptions);
       console.log(`📧 [SMTP] Email sent to ${to}`);
       return true;
     } catch (error) {
@@ -108,7 +118,7 @@ const getLuxuryEmailWrapper = (contentHtml) => `
           <tr>
             <td align="center" style="padding: 24px 32px; background-color: #FAFAFA; border-top: 1px solid #F0EEE9; font-size: 12px; color: #8F8B82; line-height: 1.6;">
               <p style="margin: 0 0 8px;"><strong>Elvane Wear Pakistan</strong> • 100% Cash on Delivery</p>
-              <p style="margin: 0;">For inquiries or sizing assistance, contact us at <a href="mailto:support@elvanewears.com" style="color: #D4A76A; text-decoration: none;">support@elvanewears.com</a></p>
+              <p style="margin: 0;">For inquiries or sizing assistance, contact us at <a href="mailto:elvane.wears@gmail.com" style="color: #D4A76A; text-decoration: none;">elvane.wears@gmail.com</a></p>
             </td>
           </tr>
         </table>
@@ -325,6 +335,107 @@ export const sendVerificationOTPEmail = async (email, name, otp) => {
   return sendEmail({
     to: email,
     subject: `${otp} is your Elvane Wear verification code`,
+    html: getLuxuryEmailWrapper(content),
+  });
+};
+
+/**
+ * 4. Email: New Customer Inquiry (Delivered directly to official store email)
+ */
+export const sendInquiryEmailToAdmin = async (inquiry) => {
+  const adminTargetEmail = process.env.STORE_CONTACT_EMAIL || 'elvane.wears@gmail.com';
+  const content = `
+    <div style="text-align: center; margin-bottom: 24px;">
+      <span style="display: inline-block; padding: 4px 14px; background: rgba(212, 167, 106, 0.15); color: #B8860B; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;">
+        New Client Inquiry / Support Ticket
+      </span>
+      <h2 style="margin: 12px 0 6px; font-size: 22px; color: #1A1A1A;">New Message Received</h2>
+      <p style="margin: 0; color: #6B6862; font-size: 14px; line-height: 1.5;">
+        A customer has submitted a message via the Storefront Contact Concierge.
+      </p>
+    </div>
+
+    <div style="background: #FAFAFA; border: 1px solid #E8E5DF; border-radius: 12px; padding: 20px; margin-bottom: 24px; font-size: 13px;">
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="color: #8F8B82; padding: 6px 0; width: 120px;">Customer Name:</td>
+          <td style="font-weight: 600; color: #1A1A1A; padding: 6px 0;">${inquiry.name}</td>
+        </tr>
+        <tr>
+          <td style="color: #8F8B82; padding: 6px 0;">Customer Email:</td>
+          <td style="font-weight: 600; color: #1A1A1A; padding: 6px 0;">
+            <a href="mailto:${inquiry.email}" style="color: #B8860B; text-decoration: none;">${inquiry.email}</a>
+          </td>
+        </tr>
+        ${inquiry.phone ? `
+        <tr>
+          <td style="color: #8F8B82; padding: 6px 0;">Phone:</td>
+          <td style="color: #1A1A1A; padding: 6px 0;">${inquiry.phone}</td>
+        </tr>
+        ` : ''}
+        <tr>
+          <td style="color: #8F8B82; padding: 6px 0;">Subject:</td>
+          <td style="font-weight: 600; color: #1A1A1A; padding: 6px 0;">${inquiry.subject}</td>
+        </tr>
+        <tr>
+          <td style="color: #8F8B82; padding: 6px 0;">Received At:</td>
+          <td style="color: #1A1A1A; padding: 6px 0;">${new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi', dateStyle: 'medium', timeStyle: 'short' })}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #E8E5DF; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+      <strong style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #8F8B82; margin-bottom: 8px;">Customer Inquiry Message:</strong>
+      <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #1A1A1A; white-space: pre-line;">
+        ${inquiry.message}
+      </p>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+      <a href="mailto:${inquiry.email}?subject=Re: ${encodeURIComponent(inquiry.subject)} — Elvane Wear" style="display: inline-block; background-color: #1A1A1A; color: #FFFFFF; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 13px; font-weight: 600;">
+        Reply Directly to Client (${inquiry.email}) →
+      </a>
+    </div>
+  `;
+
+  return sendEmail({
+    to: adminTargetEmail,
+    replyTo: inquiry.email,
+    subject: `[Customer Inquiry] ${inquiry.subject} — from ${inquiry.name}`,
+    html: getLuxuryEmailWrapper(content),
+  });
+};
+
+/**
+ * 5. Email: Customer Inquiry Receipt Confirmation
+ */
+export const sendInquiryReceiptToCustomer = async (inquiry) => {
+  const content = `
+    <div style="text-align: center; margin-bottom: 24px;">
+      <span style="display: inline-block; padding: 4px 14px; background: rgba(212, 167, 106, 0.15); color: #B8860B; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;">
+        Concierge Inquiries
+      </span>
+      <h2 style="margin: 12px 0 6px; font-size: 24px; color: #1A1A1A;">Message Received, ${inquiry.name}!</h2>
+      <p style="margin: 0; color: #6B6862; font-size: 14px; line-height: 1.6;">
+        Thank you for contacting Elvane Wear. Our customer care atelier has logged your inquiry regarding <strong>"${inquiry.subject}"</strong>.
+      </p>
+    </div>
+
+    <div style="background: #FAFAFA; border: 1px solid #E8E5DF; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+      <p style="margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #8F8B82;">Summary of your message:</p>
+      <p style="margin: 0; font-size: 13px; color: #333; line-height: 1.6; font-style: italic;">
+        "${inquiry.message}"
+      </p>
+    </div>
+
+    <p style="text-align: center; font-size: 13px; color: #8F8B82; margin: 0;">
+      Our typical response time is within 12 business hours. You can also reach our direct concierge inbox at <a href="mailto:elvane.wears@gmail.com" style="color: #D4A76A; font-weight: 600; text-decoration: none;">elvane.wears@gmail.com</a>.
+    </p>
+  `;
+
+  return sendEmail({
+    to: inquiry.email,
+    subject: `We have received your message: "${inquiry.subject}" — Elvane Wear`,
     html: getLuxuryEmailWrapper(content),
   });
 };

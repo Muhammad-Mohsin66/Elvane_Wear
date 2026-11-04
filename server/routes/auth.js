@@ -68,11 +68,6 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 
 // Verify Email OTP
 router.post('/verify-email', protect, async (req, res) => {

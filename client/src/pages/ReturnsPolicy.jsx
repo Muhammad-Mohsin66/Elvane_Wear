@@ -226,7 +226,7 @@ export default function ReturnsPolicy() {
                 Reach Out to Concierge
               </h4>
               <p style={{ fontSize: '12.5px', color: 'var(--ash)', lineHeight: 1.6 }}>
-                Contact us via WhatsApp or our Contact portal with your Order ID (e.g. #ELV-1024) and the new size or color desired.
+                Contact us via email (<a href="mailto:elvane.wears@gmail.com" style={{ color: 'var(--champagne)', fontWeight: 600 }}>elvane.wears@gmail.com</a>) or our Contact portal with your Order ID (e.g. #ELV-1024) and the new size or color desired.
               </p>
             </div>
 

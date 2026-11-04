@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Package, PlusCircle, Megaphone, TrendingUp, LogOut, ArrowLeft, Shield, Menu, X } from 'lucide-react';
+import { ShoppingBag, Package, PlusCircle, Megaphone, TrendingUp, MessageSquare, LogOut, ArrowLeft, Shield, Menu, X } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,6 +15,7 @@ export default function AdminLayout() {
     { label: '+ New Product', path: '/admin/new-product', icon: PlusCircle },
     { label: 'Promo Banner', path: '/admin/promo', icon: Megaphone },
     { label: 'Revenue', path: '/admin/revenue', icon: TrendingUp },
+    { label: 'Support Inquiries', path: '/admin/inquiries', icon: MessageSquare },
   ];
 
   const sidebarContent = (

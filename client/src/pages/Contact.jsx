@@ -1,14 +1,45 @@
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, Phone, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
 import Button3D from '../components/Button3D';
+import api from '../utils/api';
+import { useAuthStore } from '../store/authStore';
 
 export default function Contact() {
+  const { user } = useAuthStore();
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: prev.name || user.name || '',
+        email: prev.email || user.email || '',
+        phone: prev.phone || user.phone || '',
+      }));
+    }
+  }, [user]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setErrorMsg('');
+    setSubmitting(true);
+    try {
+      await api.post('/inquiries', formData);
+      setSubmitted(true);
+    } catch (err) {
+      setErrorMsg(err.response?.data?.message || 'Failed to send inquiry. Please try again or email us directly.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -57,8 +88,10 @@ export default function Contact() {
                 <Phone size={20} color="var(--champagne)" style={{ flexShrink: 0, marginTop: '4px' }} />
                 <div>
                   <p className="eyebrow" style={{ marginBottom: '4px' }}>Customer Care</p>
-                  <p style={{ fontSize: '14px', color: 'var(--charcoal)' }}>+92 300 1234567</p>
-                  <p style={{ fontSize: '12px', color: 'var(--ash)' }}>Mon – Sat, 10:00 – 19:00 PKT</p>
+                  <a href="tel:+923001234567" style={{ fontSize: '14px', color: 'var(--charcoal)', textDecoration: 'none', fontWeight: 500 }}>
+                    +92 300 1234567
+                  </a>
+                  <p style={{ fontSize: '12px', color: 'var(--ash)', marginTop: '2px' }}>Mon – Sat, 10:00 – 19:00 PKT</p>
                 </div>
               </div>
 
@@ -66,7 +99,13 @@ export default function Contact() {
                 <Mail size={20} color="var(--champagne)" style={{ flexShrink: 0, marginTop: '4px' }} />
                 <div>
                   <p className="eyebrow" style={{ marginBottom: '4px' }}>Electronic Correspondence</p>
-                  <p style={{ fontSize: '14px', color: 'var(--charcoal)' }}>concierge@elvanewear.com</p>
+                  <a
+                    href="mailto:elvane.wears@gmail.com"
+                    style={{ fontSize: '14px', color: 'var(--charcoal)', textDecoration: 'none', fontWeight: 600 }}
+                  >
+                    elvane.wears@gmail.com
+                  </a>
+                  <p style={{ fontSize: '12px', color: 'var(--ash)', marginTop: '2px' }}>Direct Store Concierge</p>
                 </div>
               </div>
             </div>
@@ -78,12 +117,32 @@ export default function Contact() {
               <div style={{ textAlign: 'center', padding: '40px 0' }}>
                 <CheckCircle2 size={48} color="var(--success)" style={{ margin: '0 auto 16px' }} />
                 <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px' }}>Message Received</h3>
-                <p style={{ fontSize: '14px', color: 'var(--ash)', marginTop: '8px' }}>
-                  Thank you! Our customer support team will be in touch shortly.
+                <p style={{ fontSize: '14px', color: 'var(--ash)', marginTop: '8px', lineHeight: 1.6 }}>
+                  Thank you, <strong>{formData.name}</strong>! Your inquiry regarding <em>"{formData.subject}"</em> has been dispatched to our team at <strong>elvane.wears@gmail.com</strong>.
                 </p>
+                <div style={{ marginTop: '24px' }}>
+                  <Button3D
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({ name: user?.name || '', email: user?.email || '', phone: user?.phone || '', subject: '', message: '' });
+                    }}
+                  >
+                    Send Another Inquiry
+                  </Button3D>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                {errorMsg && (
+                  <div style={{ padding: '12px 14px', borderRadius: '10px', background: 'rgba(220, 38, 38, 0.08)', border: '1px solid rgba(220, 38, 38, 0.2)', color: 'var(--danger)', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <AlertCircle size={16} />
+                    <span>{errorMsg}</span>
+                  </div>
+                )}
+
                 <div>
                   <label className="eyebrow" style={{ display: 'block', marginBottom: '6px' }}>Name</label>
                   <input
@@ -95,15 +154,26 @@ export default function Contact() {
                   />
                 </div>
 
-                <div>
-                  <label className="eyebrow" style={{ display: 'block', marginBottom: '6px' }}>Email</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="name@domain.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  />
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+                  <div>
+                    <label className="eyebrow" style={{ display: 'block', marginBottom: '6px' }}>Email</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="name@domain.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label className="eyebrow" style={{ display: 'block', marginBottom: '6px' }}>Phone (Optional)</label>
+                    <input
+                      type="tel"
+                      placeholder="0300 1234567"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    />
+                  </div>
                 </div>
 
                 <div>
@@ -111,7 +181,7 @@ export default function Contact() {
                   <input
                     type="text"
                     required
-                    placeholder="Sizing, Order Status, Delivery"
+                    placeholder="Sizing, Order Status, Delivery, or Complaint"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   />
@@ -122,15 +192,21 @@ export default function Contact() {
                   <textarea
                     rows={4}
                     required
-                    placeholder="How can we help you?"
+                    placeholder="How can we assist you?"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   />
                 </div>
 
                 <div style={{ marginTop: '8px' }}>
-                  <Button3D type="submit" variant="primary" size="md" style={{ width: '100%', justifyContent: 'center' }}>
-                    Send Inquiry
+                  <Button3D
+                    type="submit"
+                    variant="primary"
+                    size="md"
+                    disabled={submitting}
+                    style={{ width: '100%', justifyContent: 'center' }}
+                  >
+                    {submitting ? 'Sending Inquiry...' : 'Send Inquiry'}
                   </Button3D>
                 </div>
               </form>

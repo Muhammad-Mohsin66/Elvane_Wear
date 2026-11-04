@@ -30,6 +30,7 @@ import AdminProducts from './pages/admin/AdminProducts';
 import AdminNewProduct from './pages/admin/AdminNewProduct';
 import AdminPromo from './pages/admin/AdminPromo';
 import AdminRevenue from './pages/admin/AdminRevenue';
+import AdminInquiries from './pages/admin/AdminInquiries';
 
 // Super Admin Page
 import SuperAdminDashboard from './pages/superadmin/SuperAdminDashboard';
@@ -169,6 +170,7 @@ export default function App() {
             <Route path="new-product" element={<AdminNewProduct />} />
             <Route path="promo" element={<AdminPromo />} />
             <Route path="revenue" element={<AdminRevenue />} />
+            <Route path="inquiries" element={<AdminInquiries />} />
           </Route>
 
           {/* Protected Super Admin Route */}

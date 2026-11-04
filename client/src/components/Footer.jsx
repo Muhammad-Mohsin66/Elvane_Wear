@@ -226,6 +226,15 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <a
+                  href="mailto:elvane.wears@gmail.com"
+                  className="link-underline"
+                  style={{ fontSize: '12px', color: 'var(--charcoal)', display: 'inline-block' }}
+                >
+                  ✉ elvane.wears@gmail.com
+                </a>
+              </li>
+              <li>
                 <Link to="/returns" className="link-underline" style={{ fontSize: '13px', color: 'var(--ash)' }}>
                   Returns & Exchanges
                 </Link>
